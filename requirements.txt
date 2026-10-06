@@ -1,0 +1,6 @@
+pygeoapi==0.24.0
+tinydb>=4.8
+gunicorn>=23.0
+flask-cors>=5.0
+requests>=2.32
+pytest>=8.0

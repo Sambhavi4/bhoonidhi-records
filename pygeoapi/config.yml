@@ -1,0 +1,111 @@
+# pygeoapi - OGC API - Records over Bhoonidhi's collection catalogue.
+#
+# Bhoonidhi's own catalogue requires a JWT for every call, so its holdings
+# cannot be browsed anonymously, crawled or harvested, and there is no CSW or
+# OGC API - Records endpoint. This serves the same holdings as a conformant,
+# open, queryable catalogue: full-text search, queryables, bbox, datetime,
+# sorting and stable record ids.
+
+server:
+  bind:
+    host: 0.0.0.0
+    port: 5003
+  url: ${PYGEOAPI_SERVER_URL:-http://localhost:5003}
+  mimetype: application/json; charset=UTF-8
+  encoding: utf-8
+  gzip: true
+  language: en-US
+  cors: true
+  pretty_print: true
+  limits:
+    default_items: 10
+    max_items: 100
+
+logging:
+  level: INFO
+
+metadata:
+  identification:
+    title:
+      en: Bhoonidhi Catalogue (OGC API - Records)
+    description:
+      en: >-
+        OGC API - Records catalogue for ISRO Bhoonidhi's earth observation
+        collections. Built to fill a verified gap: Bhoonidhi's entire API is
+        /auth/token, /data/collections, /data/search and /download, and every
+        catalogue call requires a JWT. There is no anonymous discovery, no CSW
+        and no OGC API - Records endpoint, so Bhoonidhi's holdings cannot be
+        browsed, crawled or harvested into any standard catalogue client. This
+        service exposes 59 collections as conformant, openly queryable records
+        with full-text search, queryables, bbox, datetime and sorting. The
+        records are metadata about the collections, not the data itself;
+        downloading the data still requires a Bhoonidhi account.
+    keywords:
+      en: [OGC API, Records, catalogue, CSW, metadata, discovery, STAC,
+           Bhoonidhi, ISRO, NRSC, earth observation, India, harvesting]
+    keywords_type: theme
+    terms_of_service: >-
+      Academic demonstration for a CyberGIS course assignment. Metadata
+      compiled from Bhoonidhi's published collection list; the underlying data
+      is ISRO/NRSC's and is subject to Bhoonidhi's terms.
+    url: https://bhoonidhi.nrsc.gov.in/bhoonidhi-api/
+
+  license:
+    name: Metadata compiled for academic discovery; source data under NRSC terms
+    url: https://bhoonidhi.nrsc.gov.in/
+
+  provider:
+    name: Bhoonidhi Records - CyberGIS course project
+    url: https://bhoonidhi.nrsc.gov.in/
+
+  contact:
+    name: Service administrator
+    position: Maintainer
+    city: Bengaluru
+    stateorprovince: Karnataka
+    country: India
+    email: noreply@example.org
+    role: pointOfContact
+
+resources:
+
+  bhoonidhi:
+    type: collection
+    title:
+      en: Bhoonidhi earth observation collections
+    description:
+      en: >-
+        Discovery metadata for every collection Bhoonidhi publishes - 59 records
+        spanning Cartosat-1, ResourceSat-2 and 2A, EOS-04 (RISAT-1A), EOS-06
+        (Oceansat-3), Sentinel-1A, NovaSAR-1 and NISAR. Searchable by free text,
+        platform, instrument, instrument domain, product, resolution and time.
+        Spatial extents and temporal starts are labelled indicative in each
+        record, because Bhoonidhi does not publish them without a token.
+    keywords:
+      en: [catalogue, metadata, discovery, collections, Bhoonidhi, ISRO, India]
+    links:
+      - type: text/html
+        rel: canonical
+        title: Bhoonidhi portal
+        href: https://bhoonidhi.nrsc.gov.in/
+        hreflang: en-US
+      - type: text/html
+        rel: related
+        title: Bhoonidhi Open Data Access API specification (source of this metadata)
+        href: https://bhoonidhi.nrsc.gov.in/bhoonidhi-api/
+        hreflang: en-US
+    extents:
+      spatial:
+        bbox: [-180, -90, 180, 90]
+        crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+      temporal:
+        # Earliest mission launch among the catalogued collections (Cartosat-1).
+        begin: 2005-05-05T00:00:00Z
+        end: null
+    providers:
+      - type: record
+        name: TinyDBCatalogue
+        data: data/bhoonidhi-records.tinydb
+        id_field: id
+        time_field: temporal_start
+        title_field: title

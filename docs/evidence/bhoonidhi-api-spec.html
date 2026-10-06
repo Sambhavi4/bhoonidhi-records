@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--<meta https-equiv="X-UA-Compatible" content="IE=edge">-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bhoonidhi API Specification</title>
+        <link rel="stylesheet" href="all.min.css"/>
+        <link rel="stylesheet" href="lineicons.css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <link rel="stylesheet" href="bootstrap.min.css"/>
+        <link rel="stylesheet" href="style.css"/>
+        <style>
+
+
+            .exampless h6{
+                color : black;
+                padding-bottom:10px;
+            }
+            .exampless p, ul {
+                margin-bottom: 20px;
+            }
+            .exampless code, pre {
+                color : black;
+                padding: 2px 4px;
+                border-radius: 3px;
+                text-wrap: balance;
+            }
+            .exampless pre {
+                background-color: #f9f9f9;
+                border: 1px solid #ccc;
+                padding: 10px;
+                text-wrap: balance;
+                /*overflow-x: auto;*/
+            }
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+                width: 100%;
+            }
+
+            th, td {
+                text-align: left;
+                padding: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <header id="header" class="fixed-top">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <a href="#">
+                        <img class="logo_img" src="images/emblemWhite.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img class="logo_img" src="images/isroLogo.png" alt="">
+                    </a>
+                    <img class="logo_img" src="images/bhooimg.JPG" alt="">
+                    <h4 class="mb-0" style="color: #adc7de;">API&nbsp;&nbsp;&nbsp;&nbsp;</h4> 
+                </div>
+                <nav class="nav-menu" id="menuList">
+                    <ul class="d-flex mb-0">
+                        <li class="active"><h4 class="mb-0" style="color: lightseagreen; font-size: 26px; padding-top: 8px; font-weight: bold;">भूनिधि</h4></li>
+                        <li><a href="https://bhoonidhi.nrsc.gov.in" target="_blank">Home</a></li>
+                        <li><img src="images/nrscLogo.png" alt=""></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div class="wrapper">
+            <aside id="sidebar" class="expand">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item">
+                        <a href="#introduction" class="sidebar-link" title="Introduction">
+                            <div class="fs-6 mb-2">
+                                <img src="icons/info-square.svg" alt="">
+                                &nbsp;<span>Introduction</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#auth" class="sidebar-link">
+                            <div class="fs-6 mb-2">
+                                <img src="icons/person-check.svg" alt="">
+                                &nbsp;<span>Authentication</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#collections" class="sidebar-link">
+                            <div class="fs-6 mb-2">
+                                <img src="icons/collection.svg" alt="">
+                                &nbsp;<span>Collections</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#search" class="sidebar-link">
+                            <div class="fs-6 mb-2">
+                                <img src="icons/search.svg" alt="">
+                                &nbsp;<span>Search</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#download" class="sidebar-link">
+                            <div class="fs-6 mb-2">
+                                <img src="icons/caret-down-square.svg" alt="">
+                                &nbsp;<span>Download</span>
+                            </div>
+                        </a>
+                    </li>
+                    <!--<li class="sidebar-item">
+                        <a href="#access" class="sidebar-link">
+                            <div class="fs-6 mb-2">
+                                <img src="icons/hand-index.svg" alt="">
+                                &nbsp;<span>API Access</span>
+                            </div>
+                        </a>
+		    </li>-->
+                    <li class="sidebar-item">
+                        <a href="#rate" class="sidebar-link">
+                            <div class="fs-6 mb-2">
+                                <img src="icons/speedometer2.svg" alt="">
+                                &nbsp;<span>Rate Limiting</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#errors" class="sidebar-link">
+                            <div class="fs-6 mb-2">
+                                <img src="icons/exclamation-triangle.svg" alt="">
+                                &nbsp;<span>Errors</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+
+
+
+            <div class="main-content">
+                <div id="introduction" class="api-content">
+
+                    <section id="intro-section" class="content-section">
+                        <h1><a href="#introduction">Introduction</a></h1>
+                        <p>Bhoonidhi Data Access Software Interface Specification (SIS) outlines the protocol for accessing the data product catalog and facilitating data downloads from Bhoonidhi. It includes details on the access methods and the range of data products available for download. Bhoonidhi facilitates the dissemination of open satellite data via a user-friendly web application equipped with robust search functionalities for identifying target areas and downloading data. </p>
+                        <p>The Bhoonidhi API allows developers and researchers to programmatically access and retrieve a diverse range of earth observation satellite data.</p>
+                        <p><b>Key Features</b></p>
+                        <ul>
+                            <li>Data Access: Detailed documentation on accessing the Bhoonidhi data product catalog and initiating downloads.</li>
+                            <li>Search Capabilities: Bhoonidhi Search API works on STAC catalogue and  follows the STAC specifications, leveraging advanced search options to identify and select satellite data products.</li>
+                            <li>Integration Guidelines: Guidance for integrating Bhoonidhi APIs into applications for automated data retrieval and processing.</li>
+                            <li>Use Cases: Examples illustrating how to effectively utilize Bhoonidhi API’s capabilities in various research and operational scenarios.</li>
+                        </ul>
+                        <p><b>Getting Started</b></p>
+                        <p>Whether you are a developer integrating satellite data into applications or a researcher exploring remote sensing data, this API specification provides all the necessary details to access Bhoonidhi API effectively.</p>
+                        <p>The input is to be submitted as a request having JSON payload in the body of a POST request to the endpoint. The output response contains the same standard fields. The "errorCode" and "description" fields are populated in case of an API exception.</p>
+                        <ul>
+                            <li>Authenticate yourself using the userId and password: /auth/token</li>
+                            <li>Prepare the filter parameters</li>
+                            <li>Search for your data by providing the filter inputs: /data</li>
+                            <li>Download the product: /download</li>
+                        </ul>
+                        <p><b>Prerequisites</b></p>
+                        <ul>
+                            <li>Python - minimum version supported is Python 3</li>
+                        </ul>
+                    </section>
+
+                    <div class="code-consoles">
+                    </div>
+                </div>
+                <hr>
+
+                <div id="auth" class="api-content">
+                    <section id="auth-section" class="content-section">
+                        <h1><a href="#auth">Authentication</a></h1>
+                        <p>To access the APIs at Bhoonidhi, users must authenticate themselves with user id and password. Once the user is authenticated, access token is generated which is used to search and download data products. The access tokens are used for authenticating all catalogue access API requests within the validity period. Tokens are JSON Web Tokens (JWT). Do not fetch a new token for each API request you make. </p>
+                        <!--<p>Authentication in our API utilizes the OAuth 2.0 protocol, employing access tokens and refresh tokens to secure access and manage user sessions effectively.</p>-->
+                        <p>Authentication in our API employs access tokens and refresh tokens to secure access and manage user sessions effectively.</p>
+                        <h6><strong>Access Token</strong></h6>
+                        <p>Access token is used to grant permission to access specific resources on behalf of the user. Validity of these tokens is short-lived and the token must be included in the 'Authorization' header of API requests (Bearer &lt;access_token&gt;).</p>
+                        <ul>
+                            <li><strong>Endpoint: </strong>/auth/token</li>
+                            <li><strong>URL: </strong><a target="_blank" href="https://bhoonidhi-api.nrsc.gov.in/auth/token">https://bhoonidhi-api.nrsc.gov.in/auth/token</a></li>
+                        </ul>
+                        <h6><strong>Refresh Token</strong></h6>
+                        <p>Refresh tokens are used to obtain a new access token once the current one expires. The validity of refresh token is longer-lived, designed to persist between sessions. Send this refresh token to the token endpoint to request a new access token when the current one expires.</p>
+                        <ul>
+                            <li><strong>Endpoint: </strong>/auth/token</li>
+                            <li><strong>URL: </strong><a target="_blank" href="https://bhoonidhi-api.nrsc.gov.in/auth/token">https://bhoonidhi-api.nrsc.gov.in/auth/token</a></li>
+                        </ul>
+                        <h6><strong>Logout</strong></h6>
+                        <p>Logout functionality in our API allows users to securely terminate their session and revoke access to their resources. To logout a user from our system, clients should send a POST request to the token revocation endpoint (/auth/logout) with the refresh_token included in the Authorization header of API requests (Bearer &lt;refresh_token&gt;).</p>
+                        <ul>
+                            <li><strong>Endpoint: </strong>/auth/logout</li>
+                            <li><strong>URL: </strong><a target="_blank" href="https://bhoonidhi-api.nrsc.gov.in/auth/token">https://bhoonidhi-api.nrsc.gov.in/auth/logout</a></li>
+                        </ul>
+                        <h6><strong>Authentication Flow</strong></h6>
+                        <ol>
+                            <li><p>Obtain Access Token: Client requests an access token from the authorization server by presenting credentials (e.g., username/password or client credentials).</p></li>
+                            <li><p>Use Access Token: Include the access token in API requests to authenticate and authorize actions.</p></li>
+                            <li><p>Refresh Access Token: When the access token expires, use the refresh token to obtain a new access token without requiring re-authorization.</p></li>
+                        </ol>
+                        <h6><strong>Usage and Validity</strong></h6>
+                        <p>These tokens have finite lifetimes for various reasons, but you can obtain new ones or request them from the Bhoonidhi API auth server using the token endpoint provided below. Although tokens are not permanent, they remain valid for a reasonable duration, ensuring they can be effectively reused. Avoid requesting a new token for every API call. Token retrieval is subject to rate limiting; therefore, receiving an HTTP 429 error indicates excessive token requests.</p>
+                        <h6><strong>Response Code</strong></h6>
+                        <table>
+                            <tr>
+                                <th>Code</th>
+                                <th>Description</th>
+                                <th>Scenario</th>
+                                <th>Handling</th>
+                            </tr>
+                            <tr>
+                                <td>200</td>
+                                <td>Success</td>
+                                <td>The inputs given are proper and the request was processed.</td>
+                                <td>NA</td>
+                            </tr>
+                            <tr>
+                                <td>400</td>
+                                <td>Bad Request</td>
+                                <td>Incorrect keys given in the request</td>
+                                <td>Verify the inputs given</td>
+                            </tr>
+                            <tr>
+                                <td>401</td>
+                                <td>Unauthorized</td>
+                                <td>Incorrect password</td>
+                                <td>Enter correct userId and password</td>
+                            </tr>
+                            <tr>
+                                <td>403</td>
+                                <td>Forbidden</td>
+                                <td>Max sessions already active</td>
+                                <td>Logout of active sessions or re-use active sessions</td>
+                            </tr>
+                            <tr>
+                                <td>500</td>
+                                <td>Internal Server Error</td>
+                                <td>Issue occurred at server while trying to process the request</td>
+                                <td>Try again after sometime. If the issue still persists, inform API administrator</td>
+                            </tr>
+                        </table>
+                    </section>
+                    <div class="code-consoles">
+                        <h6 style="color: black; text-decoration: underline;"><strong>Access Token</strong></h6>
+                        <div class="code-console" id="code-console-25">
+                            <div class="console-header">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#example-response-25" onclick="showTab(25, 'example')">Input JSON Object Format</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#response-schema-25" onclick="showTab(25, 'schema')">Output JSON Object Format</a>
+                                    </li>
+                                </ul>
+                                <button id="copy-button-25" onclick="copyResponseCode(25)">
+                                    <span class="material-symbols-outlined">content_copy</span>
+                                </button>
+                            </div>
+                            <div class="tab-content">
+                                <div id="example-response-25" class="tab-pane fade show active">
+
+                                    <pre class="code-block">
+                        <code>
+{
+    "userId": &lt;userId&gt;,
+    "password": &lt;password&gt;,
+    "grant_type": "password"
+}
+                        </code>
+                                    </pre>
+                                </div>
+                                <div id="response-schema-25" class="tab-pane fade">
+                                    <pre class="code-block">
+                        <code>
+{
+    "userId": &lt;user_id&gt;,
+    "access_token": &lt;access_token&gt;,
+    "token_type": "Bearer",
+    "expires_in": &lt;access_token-expiry-time-in-seconds&gt;,
+    "refresh_token": &lt;refresh_token&gt;
+}
+                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                        <h6 style="color: black; text-decoration: underline;"><strong>Refresh Token</strong></h6>
+                        <div class="code-console" id="code-console-250">
+                            <div class="console-header">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#example-response-250" onclick="showTab(250, 'example')">Input JSON Object Format</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#response-schema-250" onclick="showTab(250, 'schema')">Output JSON Object Format</a>
+                                    </li>
+                                </ul>
+                                <button id="copy-button-250" onclick="copyResponseCode(250)">
+                                    <span class="material-symbols-outlined">content_copy</span>
+                                </button>
+                            </div>
+                            <div class="tab-content">
+                                <div id="example-response-250" class="tab-pane fade show active">
+
+                                    <pre class="code-block">
+                        <code>
+{
+    "userId": &lt;userId&gt;,
+    "refresh_token": &lt;refresh_token&gt;,
+    "grant_type": "refresh_token"
+}
+                        </code>
+                                    </pre>
+                                </div>
+                                <div id="response-schema-250" class="tab-pane fade">
+                                    <pre class="code-block">
+                        <code>
+{
+    "userId": &lt;user_id&gt;,
+    "access_token": &lt;access_token&gt;,
+    "token_type": "Bearer",
+    "expires_in": &lt;access_token-expiry-time-in-seconds&gt;,
+    "refresh_token": &lt;refresh_token&gt;
+}
+                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="exampless">
+                            <h6><b>Example Input JSON Object for Access Token:</b></h6>
+                            <pre><code>{
+"userId" : "bhoonidhiuser",
+"password" : "password@123",
+"grant_type" : "password"
+}</code></pre>
+
+                            <h6><b>Example Output JSON Object for Access Token:</b></h6>
+                            <pre><code>{
+"userId": "bhoonidhiuser",
+"access_token": "eyJhbGcidfgdUzdgisvJ9.eyJ0aW1lc3RhbXAiOjE3MjEwNDQxMzIzMDksInN112345k9OTF9hYmNwcXIiLCJpYXQiOjE3MjEwNDQxMzIsImV4cCI6MTcyMTA0NTMzMn0.S13PlY0mCKgbpSTO-BmySigpLZa2ibKnU1Bw-owWBU9vpH2my0MHxGnOLLGazV10JKleGurhm-9Zy20KEskA0w",
+"token_type": "Bearer",
+"expires_in": 1200,
+"refresh_token": "eyJhbGcidfgdUzUxMiJ9.eyJzdWIiOiJPTkxfYWJjcHFyIiwiaWF0IjoxNzIxMDQ0MTMyLC09876iOjE3MjEwNjIxMzJ9.31eyXxroTEXGIUEwEzttO7JGe4WpcZXeKJ_BZ6jsP3iWOqAl_F7n6BHsxlIWadF_tfRmxq4uF4StS8yN1DqA7Q"
+}</code></pre>
+
+                            <h6><b>Example Input JSON Object for Refresh Token:</b></h6>
+                            <pre><code>{
+"userId" : "bhoonidhiuser",
+"refresh_token" : "eyJhbGciOiJIUzUxMgfhgfhiJ9.eyJzdWIiOiJPTkxfbmFzZWViIiwiaWF0IjoxNzfyhhghIwNjk2NTMwLCJleHAiOjE3MjA3MTQ1MzB9.c-rukaI-9N9uLzqRQsKffghgfhS1GZI7fgAPZ0hAa-Clb3u47Q6kIw7LNkpyeGpusa7wkpk2-swFPK0Efr_CX1f-DmlA",
+"grant_type" : "refresh_token"
+}</code></pre>
+
+                            <h6><b>Example Output JSON Object for Refresh Token:</b></h6>
+                            <pre><code>{
+"userId": "bhoonidhiuser",
+"access_token": "eyJhbGciOighgfJIUzUxMiJ9.eyJ0aW1lc3RhbXAiOjE3MjEwNDQyNjI3NzEsInN1YiI6Ifghk9OTF9hYmNwcXIiLCJpYXQiOjE3MjEwNDQyNjIsImV4cCI6MTcyMTA0NTQ2Mn0.6OeHy4Xf0r_jguOQiLeu9wd6B7P_P3O-L4f9GudcNC9-cxpI3LUmWd6jepxcZ5nZNhQcclSvvyS_cRCUffpN5w",
+"token_type": "Bearer",
+"expires_in": 1200,
+"refresh_token": "eyJhbGciOiJIUfghgzUxMiJ9.eyJzdWIiOiJPTkxfYWJjcHFyIiwiaWF0IfghgfjoxNzIxMDQ0MjYyLCJleHAiOjE3MjEwNjIyNjJ9.DUbVoZXRoSLXu8GjhICuUgqLWXwikvN9al-M2sqT1DKeeypNZcyRJtFpfqqtXzY6rX8Hej3Y8D2SGVmkaJFing"
+}</code></pre>
+                        </div>
+                    </div>
+                </div> 
+                <hr>
+                <div id="collections" class="api-content">
+                    <section id="collection-section" class="content-section">
+                        <h1><a href="#collections">Collections</a></h1>
+                        <p>Bhoonidhi STAC Collection groups geospatial data assets that share common satellite, sensor and product type. It provides a high-level structure to describe and organize multiple STAC Items, enabling easier discovery and access to spatial data.</p>
+                        <h6><strong>Available Collections</strong></h6>
+                        <div class="row">
+                            <div class="col-md-3" style="width: max-content;">
+                                <table style="font-size: 12px;">
+                                    <tbody>
+                                        <tr><td>ResourceSat-2_AWIFS_L2</td></tr>
+                                        <tr><td>ResourceSat-2_AWIFS_BOA</td></tr>
+                                        <tr><td>ResourceSat-2_LISS3_L2</td></tr>
+                                        <tr><td>ResourceSat-2_LISS3_BOA</td></tr>
+                                        <tr><td>ResourceSat-2_LISS4-MX70_L2</td></tr>
+                                        <tr><td>ResourceSat-2A_AWIFS_L2</td></tr>
+                                        <tr><td>ResourceSat-2A_AWIFS_BOA</tr>
+                                        <tr><td>ResourceSat-2A_LISS3_L2</tr>
+                                        <tr><td>ResourceSat-2A_LISS3_BOA</td></tr>
+                                        <tr><td>ResourceSat-2A_LISS4-MX70_L2</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-3" style="width: max-content;">
+                                <table style="font-size: 12px;">
+                                    <tbody>
+                                        <tr><td>EOS-04_SAR-MRS_L2A</td></tr>
+                                        <tr><td>EOS-04_SAR-MRS_L2B</td></tr>
+                                        <tr><td>EOS-04_SAR-MRS_SM</td></tr>
+                                        <tr><td>EOS-04_SAR-CRS_L2A</tr>
+                                        <tr><td>EOS-04_SAR-CRS_L2B</td></tr>
+                                        <tr><td>EOS-04_SAR-FRS1_L2A</td></tr>
+                                        <tr><td>EOS-04_SAR-FRS2_L2A</td></tr>
+                                        <tr><td>EOS-04_SAR-MRS_1deg-mosaic</td></tr>
+                                        <tr><td>EOS-04_SAR-MRS_WS-1deg-mosaic</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-3" style="width: max-content;">
+                                <table style="font-size: 12px;">
+                                    <tbody>
+                                        <tr><td>EOS-06_OCM-LAC_L1C</td></tr>
+                                        <tr><td>EOS-06_OCM-LAC_L2C-AOD</td></tr>
+                                        <tr><td>EOS-06_OCM-LAC_L2C-CHL</td></tr>
+                                        <tr><td>EOS-06_OCM-LAC_L2C-DA</td></tr>
+                                        <tr><td>EOS-06_OCM-LAC_L2C-NDVI</td></tr>
+                                        <tr><td>EOS-06_OCM-LAC_L2C-RRS</td></tr>
+                                        <tr><td>EOS-06_OCM-LAC_L2C-TSM</td></tr>
+                                        <tr><td>EOS-06_OCM-LAC_NDVI_8day_360m</td></tr>
+                                        <tr><td>EOS-06_OCM-LAC_AOD_8day_500m</td></tr>
+                                        <tr><td>EOS-06_OCM-LAC_TSM_8day_500m</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-3" style="width: max-content;">
+                                <table style="font-size: 12px;">
+                                    <tbody>
+                                        <tr><td>EOS-06_OCM-GAC_L1C</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_L2C-AOD</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_L2C-CHL</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_L2C-DA</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_L2C-NDVI</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_L2C-RRS</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_L2C-TSM</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_L2C-VF</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_NDVI_8day_1km</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_AOD_8day_4km</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_Chlorophyll_8day_4km</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_DA_8day_4km</td></tr>
+                                        <tr><td>EOS-06_OCM-GAC_TSM_8day_4km</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-3" style="width: max-content;">
+                                <table style="font-size: 12px;">
+                                    <tbody>
+                                        <tr><td>EOS-06_SCAT_1B</td></tr>
+                                        <tr><td>EOS-06_SCAT_2B</td></tr>
+                                        <tr><td>EOS-06_SCAT_3SH</td></tr>
+                                        <tr><td>EOS-06_SCAT_3SV</td></tr>
+                                        <tr><td>EOS-06_SCAT_3WW</td></tr>
+                                        <tr><td></td></tr>
+                                        <tr><td>Sentinel-1A_SAR-IW_SLC</td></tr>
+                                        <tr><td>Sentinel-1A_SAR-IW_GRD</td></tr>
+                                        <tr><td></td></tr>
+                                        <tr><td>Novasar-1_AIS</td></tr>
+					<tr><td></td></tr>
+                                        <tr><td>CartoSat-1_PAN_CartoDEM_30m</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-3" style="width: max-content;">
+                                <table style="font-size: 12px;color: #05cb01;">
+                                    <tbody>
+                                        <tr><td>NISAR_SSAR_RSLC</td></tr>
+                                        <tr><td>NISAR_SSAR_GSLC</td></tr>
+                                        <tr><td>NISAR_SSAR_GCOV</td></tr>
+					<tr><td>NISAR_SSAR_RUNW</td></tr>
+                                        <tr><td>NISAR_SSAR_GUNW</td></tr>
+                                        <tr><td>NISAR_SSAR_RIFG</td></tr>
+					<tr><td>NISAR_SSAR_ROFF</td></tr>
+                                        <tr><td>NISAR_SSAR_GOFF</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <p>Note: Include the <code>access_token</code> in the 'Authorization' header of API requests (Bearer <code>access_token</code>)</p>
+
+                        <p><strong>1. Get all collections: </strong> <a target="_blank" href = "https://bhoonidhi-api.nrsc.gov.in/data/collections"><br>https://bhoonidhi-api.nrsc.gov.in/data/collections</a></p>
+                        <p><strong>2. Get collection details: </strong> <a target="_blank" href = "https://bhoonidhi-api.nrsc.gov.in/data/collections/{collection_id}"><br>https://bhoonidhi-api.nrsc.gov.in/data/collections/ {collection_id}</a></p>
+                        <p><strong>3. Get all items in a collection: </strong> <a target="_blank" href = "https://bhoonidhi-api.nrsc.gov.in/data/collections/{collection_id}/items"><br>https://bhoonidhi-api.nrsc.gov.in/data/collections/ {collection_id}/items</a></p>
+                        <p><strong>4. Get details of an item (id): </strong> <a target="_blank" href = "https://bhoonidhi-api.nrsc.gov.in/data/collections/{collection_id}/items/{item_id}"><br>https://bhoonidhi-api.nrsc.gov.in/data/collections/ {collection_id}/items/{item_id}</a></p>
+                    </section>
+
+                    <div class="code-consoles">
+                    </div>
+                </div>
+                <hr>
+                <div id="search" class="api-content">
+                    <section id="search-section" class="content-section">
+                        <h1><a href="#search">Search Data</a></h1>
+                        <p>Search for satellite data products from Bhoonidhi STAC catalogue</p>
+                        <ul>
+                            <li><strong>Endpoint: </strong>/search</li>
+                            <li><strong>URL: </strong><a target="_blank" href="https://bhoonidhi-api.nrsc.gov.in/data/search">https://bhoonidhi-api.nrsc.gov.in/data/search</a></li>
+                        </ul>
+
+                        <h6><strong>Search Methods</strong></h6>
+                        <ul>
+                            <li>GET request using query parameters</li>
+                            <li>POST request with query parameters as request body</li>
+                        </ul>
+
+                        <h6><strong>Requesting for Data</strong></h6>
+                        <p>Note: Include the <code>access_token</code> in the 'Authorization' header of API requests (Bearer <code>access_token</code>)</p>
+
+                        <h6 style="color: black; text-decoration: underline;">Query Parameters</h6>
+                        <div class="table-container" style="overflow-x:auto;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Format</th>
+                                        <th>Values</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>1</th>
+                                        <td>collections</td>
+                                        <td>Array of one or more Collection IDs</td>
+                                        <td>["col_id1", "col_id2"]</td>
+                                        <td>Above mentioned available collections</td>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <td>datetime</td>
+                                        <td>Date range</td>
+                                        <td>Single date+time, or a range ('Z' separator), formatted to <a href="https://datatracker.ietf.org/doc/html/rfc3339" target="_blank">RFC 3339, section 5.6</a></td>
+                                        <td>'2023-11-02T00:00:00Z/2023-11-03T23:59:59Z'</td>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <td>filter</td>
+                                        <td>Conditions to filter the data-sets</td>
+                                        <td>'args': [ {'property': 'property_name'}, 'property_value' ], 'op': 'condition'</td>
+                                        <td>'args': [ {'property': 'Polarization'}, 'DH' ], 'op': 'eq' 
+                                            Can be used to filter products available for direct download 
+                                            <code>see Examples (filter_by_online_status)</code></td>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <td>filter-lang</td>
+                                        <td>Language of filter being used</td>
+                                        <td>'cql2-json'</td>
+                                        <td>'cql2-json' (fixed)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>5</th>
+                                        <td>intersects</td>
+                                        <td>Searches items by performing intersection between their geometry and provided GeoJSON geometry.</td>
+                                        <td>GeoJSON geometry</td>
+                                        <td>"intersects": {"type": "geometry_type", "coordinates": [coordinate_array] }</td>
+                                    </tr>
+                                    <tr>
+                                        <th>6</th>
+                                        <td>limit</td>
+                                        <td>The maximum number of results to return</td>
+                                        <td>Integer value, max fixed to 500</td>
+                                        <td>10</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">Default (when empty JSON is given): A set of 10 items from STAC catalogue are returned.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <h6><strong>GET request</strong></h6>
+                        <p>Search by Query Parameters – date, ID, bbox, etc</p>
+                        <div style="color: black; text-decoration: underline;"><p >Examples:</p></div>
+                        <ul>
+                            <li>?datetime=2024-10-01T00:59:31.293Z/</li>
+                            <li>?bbox=-80.673805 ,-0.52849 ,-78.060341 ,1.689651</li>
+                            <li>?datetime=2021-12-31T09:59:31.293Z/2023-12-31T09:59:31.293Z</li>
+                            <li>?bbox=-80.673805,-0.52849,-78.060341,1.689651&datetime=2014-10-13T23:28:54.650Z</li>
+                            <li>?limit=10</li>
+                            <li>STAC item properties as attributes for filtering; see <code>query_by_filters</code></li>
+                        </ul>
+
+                        <h6><strong>POST request</strong></h6>
+                        <p>Input json format</p>
+                        <pre>{
+  "collections": ["string"],
+  "ids": ["string"],
+  "bbox": ["string","string","string","string"],
+  "intersects": {
+    "type": "Point", //Other options - MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon
+    "coordinates": ["string","string"],
+    "bbox": ["string","string","string","string"]
+  },
+  "datetime": "string",
+  "limit": 10,
+  "sortby": [
+    {
+      "field": "string",
+      "direction": "asc"
+    }
+  ],
+  "fields": {
+    "include": [],
+    "exclude": []
+  },
+  "token": "string",
+  "filter": {},
+  "filter-crs": "string",
+  "filter-lang": "cql2-json"
+  }</pre>
+
+                        <h6><strong>Pagination</strong></h6>
+                        <p>For GET and POST requests, a link with <code>"rel": "next"</code> is provided in the response. This link will contain the URL to get the next page of results. For more details, please refer <a target="_blank" href = "https://github.com/radiantearth/stac-api-spec/tree/release/v1.0.0/item-search#pagination">this</a></p>
+                        <br>
+                        <h6><strong>Responses</strong></h6>
+                        <table>
+                            <tr>
+                                <th>Code</th>
+                                <th>Description</th>
+                                <th>Scenario</th>
+                                <th>Handling</th>
+                            </tr>
+                            <tr>
+                                <td>200</td>
+                                <td>Success</td>
+                                <td>The inputs given are proper and the request was processed.</td>
+                                <td>In case no items are returned (indicated by <code>context -> returned -> 0 </code>), the search criteria are to be modified.</td>
+                            </tr>
+                            <tr>
+                                <td>401</td>
+                                <td>Unauthorized</td>
+                                <td>Session expired</td>
+                                <td>Invalid session detected. Please login again</td>
+                            </tr>
+                            <tr>
+                                <td>500</td>
+                                <td>Internal Server Error</td>
+                                <td>Issue occurred at server while trying to process the request</td>
+                                <td>Recheck the search given. If everything is correct, try again after some time or intimate the API provider</td>
+                            </tr>
+                            <tr>
+                                <td>503</td>
+                                <td>Service Unavailable</td>
+                                <td>STAC connection failed</td>
+                                <td>Try again after some time or intimate the API provider</td>
+                            </tr>
+                            <tr>
+                                <td>nnn</td>
+                                <td>STAC search error forwarded as received</td>
+                                <td>STAC search failed</td>
+                                <td>nnn – HTTP error forwarded as received from STAC search</td>
+                            </tr>
+                        </table>
+                    </section>
+                    <div class="code-consoles">
+                        <div class="code-console" id="code-console-2">
+                            <div class="console-header">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a>Search Response Format (STAC)</a>
+                                    </li>
+                                </ul>
+                                <button id="copy-button-2" onclick="copyResponseCode(2)">
+                                    <span class="material-symbols-outlined">content_copy</span>
+                                </button>
+                            </div>
+                            <div class="tab-content">
+                                <div id="example-response-2" class="tab-pane fade show active">
+                                    <pre class="code-block">
+                        <code>
+{
+  "type": "FeatureCollection",
+  "context": {
+    "limit": number,
+    "returned": number
+  },
+  "features": array(<
+    {
+      "id": string,
+      "geometry": {
+        "type": string,
+        "coordinates": array
+      },
+      "collection": string,
+      "links": array
+    }
+  >),
+  "links": array(<
+    {
+      "rel": string,
+      "type": string,
+      "href": string
+    }
+  >)
+}
+                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="exampless" style="text-align: left;">
+                            <h6><b>Example Input JSON Object for query_by_date:</b></h6>
+                            <pre><code>{
+"collections":["EOS-04_SAR-MRS_L2A","EOS-06_OCM-LAC_L1C"],
+"datetime": "2023-11-02T00:00:00Z/2023-11-03T23:59:59Z",
+"limit": 100
+}</code></pre>
+                            <h6><b>Example Input JSON Object for filter_by_online_status:</b></h6>
+                            <pre><code>{
+"collections": ["EOS-04_SAR-MRS_L2A"],
+"datetime":"2023-01-01T00:00:00Z/2023-01-31T23:59:59Z",
+"filter": {
+    "args": [{"property": "Online"}, "Y"],
+    "op":"eq"
+},
+"filter-lang": "cql2-json",
+"limit": 500
+}</code></pre>
+                            <h6><b>Example Input JSON Object for query_by_filters:</b></h6>
+                            <pre><code>{
+"collections": ["EOS-04_SAR-MRS_L2A"],
+"datetime":"2023-01-01T00:00:00Z/2024-01-31T23:59:59Z",
+"filter": { 
+    "args": [
+        {"op":"eq","args": [{"property": "Polarization"}, "DH"]},
+        {"op":"eq","args": [{"property": "Look_Direction"}, "RIGHT"]},
+        {"op":"eq","args": [{"property": "Node"}, "DESCENDING"]}
+    ],
+    "op":"and"
+}, 
+"filter-lang": "cql2-json",
+"limit": 100
+}</code></pre>
+                            <h6><b>Example Input JSON Object for query_by_id:</b></h6>
+                            <pre><code>{
+"collections":["EOS-04_SAR-MRS_L2A"],
+"datetime":"2023-01-01T00:00:00Z/2023-12-31T23:59:59Z",
+"filter": {
+    "args":[{"property":"id"}, "E04_SAR_MRS_28DEC2023_362001201630_10311_STUC00ZTD_13022_22_DH_D_R_N06308_E084544"],
+    "op":"eq"
+},
+"filter-lang":"cql2-json",
+"limit": 100
+}</code></pre>
+                            <h6><b>Example Input JSON Object for aoi_single_polygon:</b></h6>
+                            <pre><code>{
+"collections": ["EOS-04_SAR-MRS_L2A"],
+"datetime":"2023-01-01T00:00:00Z/2023-01-31T23:59:59Z",
+"intersects": {
+    "type": "Polygon",
+    "coordinates": [
+        [[-15.706019901023444, 17.50409862311953], 
+        [-15.204430443106522, 18.10105932077886], 
+        [68.43561166453935, 21.63831711003979], 
+        [68.93720112245624, 20.937274866185614], 
+        [-15.706019901023444, 17.50409862311953]]]
+    },
+"filter": {
+    "args": [{"property": "Online"}, "Y"],
+    "op":"eq"
+},
+"filter-lang": "cql2-json",
+"limit": 500
+}</code></pre>
+                            <h6><b>Example Input JSON Object for aoi_multi_point:</b></h6>
+                            <pre><code>{
+"collections": [ "EOS-04_SAR-MRS_L2A"],
+"datetime": "2023-01-01T00:00:00Z/2024-01-31T23:59:59Z",
+"intersects": {
+    "type": "MultiPoint",
+    "coordinates": [ 
+        [ 77.066075753508841, 28.663926440611249 ],
+        [ 78.161399358956317, 22.477376446880136 ],
+        [ 73.212159363971438, 27.933710703646266 ],
+        [ 72.583362479362691, 23.065605790546371 ],
+        [ 80.250627717495021, 16.169123830321524 ]]    
+    } 
+}
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <hr>
+                <br>
+
+                <div id="download" class="api-content">
+                    <section id="download-section" class="content-section">
+                        <h1><a href="#download">Data Product Download</a></h1>
+                        <p>The product download endpoints facilitate seamless access to the data products from ISRO's earth observation satellites. Developers can integrate these endpoints into their applications to automate the download of products and this specification details the endpoints, parameters, authentication requirements, expected responses, and error handling procedures necessary to effectively utilize Bhoonidhi's comprehensive data repository of satellite data products.</p>                
+                        <ul>
+                            <li><strong>Endpoint: </strong>/download</li>
+                            <li><strong>URL: </strong><a target="_blank" href="https://bhoonidhi-api.nrsc.gov.in/download">https://bhoonidhi-api.nrsc.gov.in/download</a></li>
+                        </ul>
+                        <h6><b>GET request</b></h6>
+                        <ul>
+                            <li style="list-style: none;"><a target="_blank" href="https://bhoonidhi-api.nrsc.gov.in/download?id=dummy_id&collection=collection_name">https://bhoonidhi-api.nrsc.gov.in/download?id=&lt;id&gt;&collection=&lt;collection_name&gt;</a></li>
+                            <li style="list-style: none;"><b>Note:</b> Include the <code>access_token</code> in the 'Authorization' header of API requests (Bearer <code>access_token</code>)</li>
+                        </ul>
+
+                        <h6><b>Download Issues</b></h6>
+                        <ul>
+                            <li>Any issue at download is indicated by the response code returned in the response object. If the response code indicates an error, “wait” logic is to be implemented instead of immediate multiple retires. </li>
+                            <li>The users are requested to periodically check the Bhoonidhi notifications page at Bhoonidhi home URL about known system downtimes or dataset issues.</li>
+                            <li>We recommend using concurrent downloads as it is allowed at Bhoonidhi. If the request returns a Rate Limit error, decrease the concurrency.</li>
+                            <li>Download only the products with property 'Online' = 'Y' <code>see Search -> Examples (filter_by_online_status)</code>. Accessing downloads tagged as 'Online' = 'N' will cause data fetch delays. Download restrictions and throttling are active on the Bhoonidhi API. If you encounter slow download speeds, it's probably due to high data demand.</li>
+                        </ul>
+                        <h6><strong>Responses</strong></h6>
+                        <table>
+                            <tr>
+                                <th>Code</th>
+                                <th>Description</th>
+                                <th>Scenario</th>
+                                <th>Handling</th>
+                            </tr>
+                            <tr>
+                                <td>401</td>
+                                <td>Unauthorized</td>
+                                <td>Session expired</td>
+                                <td>Invalid session detected. Please login again</td>
+                            </tr>
+                            <tr>
+                                <td>404</td>
+                                <td>Product not found</td>
+                                <td>Product is not available on online storage</td>
+                                <td>Product cannot be downloaded as it is not available on online storage.</td>
+                            </tr>
+                            <tr>
+                                <td>412</td>
+                                <td>Precondition failed</td>
+                                <td>Concurrent downloads exceeded</td>
+                                <td>Wait till the currently running download is completed before initiating another download.</td>
+                            </tr>
+                            <tr>
+                                <td>500</td>
+                                <td>Internal Server Error</td>
+                                <td>Issue occurred at server while trying to process the request</td>
+                                <td>Recheck the input given. If everything is correct, try again after some time or intimate the API provider</td>
+                            </tr>
+                            <tr>
+                                <td>504</td>
+                                <td>Gateway Timeout</td>
+                                <td>Download gets interrupted</td>
+                                <td>Download interrupted. Download the product again</td>
+                            </tr>
+                        </table>
+                    </section>
+                    <div class="code-consoles">
+
+                    </div>
+                </div>
+
+                <br>                                                                           
+                <hr>
+                <br>
+
+                <!--<div id="access" class="api-content">
+                    <section id="access-section" class="content-section">
+                        <h1><a href="#access">Enable API Access</a></h1>
+                        <p>Please provide us the static public IPv4 address of the system from where you will be accessing Bhoonidhi API, so that we can whitelist the API access for you.</p>
+                        <p>We will let you know once the access is enabled for the IP provided. </p>
+                    </section>
+
+                    <div class="code-consoles">
+                    </div>
+                </div>
+		<hr>-->
+
+                <div id="rate" class="api-content">
+                    <section id="rate-section" class="content-section">
+                        <h1><a href="#rate">Rate Limiting</a></h1>
+                        <p>To enhance user experience and maintain system stability, Bhoonidhi implements rate limiting to prevent system overload. When the rate limit is exceeded, the Bhoonidhi API responds with an HTTP 429 response code. In such cases, we recommend increasing the time interval between retry attempts for failed requests to improve API interaction reliability.</p>
+                        <ul>
+                            <li><p>Authentication endpoint: 20 requests per hour per IP address</p></li>
+                            <li><p>Search endpoint: 3 requests per second per IP address</p></li>
+                            <li><p>Download endpoint:</p>
+                                <ul>
+                                    <li><p>5 concurrent downloads per user & IP address. If this limit is exceeded, an HTTP 412 response code is returned.</p></li>
+                                    <li><p>Once the daily download limit is reached, only 1 concurrent download per user & IP address is allowed, and the bandwidth will be throttled.</p></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <h6><strong>Please Note:</strong></h6>
+                        <ul>
+                            <li><p>Delayed download products (Online: N) can only be downloaded by using Bhoonidhi Browse&Order. Downloading these products through Bhoonidhi API is not available.</p></li>
+                            <li><p>To preserve system stability, technical restrictions might be implemented.</p></li>
+                        </ul>
+                    </section>
+                    <div class="code-consoles">
+                    </div>
+                </div>
+
+                <hr>
+                <br>
+
+                <div id="errors" class="api-content">
+                    <section id="errors-section" class="content-section">
+                        <h1><a href="#errors">Errors</a></h1>
+                        <p>Whenever an error occurs, whether it be the fault of the user or an internal system, an error object will be returned. HTTP response codes of <code>4xx</code> suggest a bad request. If you receive a <code>4xx</code> response, we recommend reviewing the API docs for more context to help you troubleshoot. <code>5xx</code> errors suggest a problem on Bhoonidhi API's end, so if you receive a <code>5xx</code> error, please contact support.</p>
+                        <pre>
+  {
+    "ErrorCode": &lt;error_code&gt;,
+    "Description": &lt;description&gt;,
+    "Action": &lt;action&gt;
+  }
+                        </pre>
+                        <p>In case of any issues while accessing Bhoonidhi API, please contact us at bhoonidhi[at]nrsc[dot]gov[dot]in. The mail to have following details:</p>
+                        <pre>
+Subject: Bhoonidhi API access - UserId, IP address, End point
+Contents: Contents of the request and response, error snapshot and any other information that may help us in debugging and provide resolution to the issues. 
+                        </pre>
+                        <h6><b>HTTP Status Code Summary</b></h6>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Response Code</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><code>400</code></td><td>Bad Request</td></tr>
+                                        <tr><td><code>401</code></td><td>Unauthorized</td></tr>
+                                        <tr><td><code>402</code></td><td>Payment Required</td></tr>
+                                        <tr><td><code>403</code></td><td>Forbidden</td></tr>
+                                        <tr><td><code>404</code></td><td>Not Found</td></tr>
+                                        <tr><td><code>405</code></td><td>Method Not Allowed</td></tr>
+                                        <tr><td><code>406</code></td><td>Not Acceptable</td></tr>
+                                        <tr><td><code>407</code></td><td>Proxy Authentication Required</td></tr>
+                                        <tr><td><code>408</code></td><td>Request Timeout</td></tr>
+                                        <tr><td><code>409</code></td><td>Conflict</td></tr>
+                                        <tr><td><code>410</code></td><td>Gone</td></tr>
+                                        <tr><td><code>411</code></td><td>Length Required</td></tr>
+                                        <tr><td><code>412</code></td><td>Precondition Failed</td></tr>
+                                        <tr><td><code>413</code></td><td>Payload Too Large</td></tr>
+                                        <tr><td><code>414</code></td><td>Request-URI Too Long</td></tr>
+                                        <tr><td><code>415</code></td><td>Unsupported Media Type</td></tr>
+                                        <tr><td><code>416</code></td><td>Requested Range Not Satisfiable</td></tr>
+                                        <tr><td><code>417</code></td><td>Expectation Failed</td></tr>
+                                        <tr><td><code>418</code></td><td>I’m a teapot</td></tr>
+                                        <tr><td><code>421</code></td><td>Misdirected Request</td></tr>
+                                        <tr><td><code>422</code></td><td>Unprocessable Entity</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Response Code</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><code>423</code></td><td>Locked</td></tr>
+                                        <tr><td><code>424</code></td><td>Failed Dependency</td></tr>
+                                        <tr><td><code>426</code></td><td>Upgrade Required</td></tr>
+                                        <tr><td><code>428</code></td><td>Precondition Required</td></tr>
+                                        <tr><td><code>429</code></td><td>Too Many Requests</td></tr>
+                                        <tr><td><code>431</code></td><td>Request Header Fields Too Large</td></tr>
+                                        <tr><td><code>444</code></td><td>Connection Closed Without Response</td></tr>
+                                        <tr><td><code>451</code></td><td>Unavailable for Legal Reasons</td></tr>
+                                        <tr><td><code>499</code></td><td>Client Closed Request</td></tr>
+                                        <tr><td><code>500</code></td><td>Internal Server Error</td></tr>
+                                        <tr><td><code>501</code></td><td>Not Implemented</td></tr>
+                                        <tr><td><code>502</code></td><td>Bad Gateway</td></tr>
+                                        <tr><td><code>503</code></td><td>Service Unavailable</td></tr>
+                                        <tr><td><code>504</code></td><td>Gateway Timeout</td></tr>
+                                        <tr><td><code>505</code></td><td>HTTP Version Not Supported</td></tr>
+                                        <tr><td><code>506</code></td><td>Variant Also Negotiates</td></tr>
+                                        <tr><td><code>507</code></td><td>Insufficient Storage</td></tr>
+                                        <tr><td><code>508</code></td><td>Loop Detected</td></tr>
+                                        <tr><td><code>510</code></td><td>Not Extended</td></tr>
+                                        <tr><td><code>511</code></td><td>Network Authentication Required</td></tr>
+                                        <tr><td><code>598</code></td><td>Network Read Timeout Error</td></tr>
+                                        <tr><td><code>599</code></td><td>Network Connect Timeout Error</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="code-consoles">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>

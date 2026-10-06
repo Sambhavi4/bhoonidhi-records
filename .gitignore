@@ -1,0 +1,14 @@
+data/*.tinydb
+/runtime/
+../runtime/
+*.pid
+*.log
+logs/
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+venv/
+.vscode/
+.idea/
+.DS_Store
