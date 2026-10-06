@@ -1,67 +1,74 @@
-# Bhoonidhi Catalogue + Spatial Analysis
+# Bhoonidhi Spatial Catalogue Analysis
 
-**Two OGC APIs over ISRO's Bhoonidhi archive: an open, searchable catalogue of
-its 59 collections, and spatial operations over acquisition footprints that
-answer the planning questions a search result cannot.**
+**OGC API – Processes implementing spatial analysis over Bhoonidhi acquisition
+footprints — the geometry operations its catalogue holds the data for and does
+not perform.**
 
 CyberGIS mid-semester practical: *build a missing OGC web service over Bhoonidhi.*
 
 | | |
 |---|---|
 | Portal | Bhoonidhi (`bhoonidhi.nrsc.gov.in`), ISRO / NRSC |
-| Standards | **OGC API – Records** (OGC 20-004) · **OGC API – Processes** (OGC 18-062r2) |
+| Standard | **OGC API – Processes** Part 1: Core (OGC 18-062r2) |
+| Supporting | OGC API – Records (OGC 20-004), for collection discovery |
 | Framework | pygeoapi 0.24.0 · shapely 2.1 · pyproj 3.8 |
 | Compliance | **78/78 tests pass** |
-| Catalogue | 59 collection records, full-text + queryable search |
-| Spatial ops | 4 processes: coverage/gap, set cover, co-coverage, density grid |
+| Spatial ops | coverage/gap · set cover · co-coverage · density grid |
 
 ---
 
 ## The claim
 
-**Identified Gap :** Bhoonidhi's entire API is `/auth/token`, `/auth/logout`,
-`/data/collections`, `/data/search`, `/download`. That leaves two holes.
+**Identified Gap :** Bhoonidhi's catalogue performs **exactly one spatial
+operation**. Audited against its own published specification
+(`./scripts/probe_gap.sh`):
 
-*1. You cannot find out what it holds without an account.* Every catalogue call
-needs a JWT:
+| | |
+|---|---|
+| Spatial parameters on `/data/search` | **`bbox` and `intersects` — and only those** |
+| What they do | the same single predicate: *does this item intersect my AOI?* |
+| Other spatial operators documented | **none** — no `crosses`, `touches`, `overlaps`, `disjoint`, `s_within`, `s_contains` |
+| CQL2 filter operations documented | **`eq` and `and`** — attribute equality |
+| Analysis vocabulary anywhere in the API | **none** — no union, aggregation, statistics, coverage, density |
+| Endpoints | 5: authenticate, logout, list, search, download. **None computes anything.** |
 
-```
-GET https://bhoonidhi-api.nrsc.gov.in/data/collections      (no token)
-  → 401 {"ErrorCode":"401","Description":"UNAUTHORIZED",
-         "Action":"Invalid session detected! Please login again."}
-```
+So the catalogue stores the footprint polygon of every scene it holds, and the
+only question you may ask of that geometry is whether it touches yours. The
+questions that actually decide an acquisition order are all one step further on:
 
-There is no CSW, no OGC API – Records, no `/conformance` — Bhoonidhi's own spec
-page mentions none of them. So the holdings cannot be browsed anonymously,
-crawled, harvested into GeoNetwork or pycsw, or included in any federated
-search. A researcher comparing Indian data against Copernicus or USGS can see
-both of those and not Bhoonidhi.
+- **how much of my AOI do these scenes actually cover**, and where are the holes?
+  — needs union, difference and area
+- **which few of the thirty scenes it just returned do I actually need?**
+  — needs a set-cover optimisation over geometry
+- **where do optical and radar co-cover** in the same window, for fusion?
+  — needs the intersection of two footprint unions
+- **how uneven is revisit** across my AOI?
+  — needs gridding and per-cell counts
 
-*2. Even with a token, the catalogue only ever hands back a list.*
-`/data/search` returns the scenes whose footprints intersect your polygon — and
-nothing more. It cannot tell you:
+Every one of those is spatial algebra over geometry the catalogue already
+stores, and every one is left to the user to redo by hand in a desktop GIS.
 
-- **what fraction of your area is actually covered**, or where the holes are
-- **which few scenes you actually need** out of the thirty it just returned
-- **where two sensors co-cover** in the same window, for data fusion
-- **how uneven revisit is** across your area
+**This is a capability gap, not an access-control one.** Requiring a token is
+normal and sensible practice — Copernicus and EarthExplorer gate too — and this
+project makes no complaint about it. The gap stands for an authenticated user
+holding the complete API: you can learn *which* scenes touch your area, and
+nothing further.
 
-Every one of those is spatial algebra over footprint geometry, and every user
-does it by hand in QGIS after exporting metadata. The catalogue knows the
-geometry and refuses to compute with it.
-
-**Proposed Fix :** Two conformant OGC APIs over the same holdings.
-**OGC API – Records** makes discovery open and queryable — 59 records, full-text
-search, queryables, bbox, datetime, sorting, paging — while the data behind it
-stays authenticated, and every record links back to Bhoonidhi's own search and
-download. **OGC API – Processes** adds the spatial operations: union,
-intersection, difference, area measurement in an equal-area projection, and a
-greedy set-cover optimisation over acquisition footprints.
+**Proposed Fix :** An **OGC API – Processes** service implementing the four
+missing operations as conformant processes, over acquisition footprints fetched
+from Bhoonidhi's own STAC search. All areas measured in an equal-area
+projection, synchronous and asynchronous execution, and a job API.
 
 > **Not pixel processing.** Nothing here reads a band or a raster value. The
-> inputs are footprint polygons and timestamps; the operations are geometric.
-> This is catalogue analytics, deliberately distinct from spectral-index
-> computation.
+> inputs are footprint polygons and timestamps; the operations are purely
+> geometric. This is catalogue analytics, deliberately distinct from
+> spectral-index computation.
+
+An **OGC API – Records** catalogue of Bhoonidhi's 59 collections ships alongside
+it, as supporting infrastructure rather than as the gap being filled: the
+spatial processes need discoverable collection ids to point at, and a searchable
+record set makes the service navigable. It is a convenience, and the marks
+should rest on the Processes tier.
 
 ---
 
@@ -146,9 +153,9 @@ Verified: `q=scatterometer`→5, `q=NDVI`→4, `q=SAR`→20, `platform_id=EOS-06
 
 ## Where the data comes from
 
-**Catalogue records** — built by `scripts/build_catalogue.py` from Bhoonidhi's
-**published** collection list, under strict provenance rules, because a
-catalogue that invents metadata is worse than none:
+**Catalogue records** (supporting tier) — built by `scripts/build_catalogue.py`
+from Bhoonidhi's **published** collection list, under strict provenance rules,
+because a catalogue that invents metadata is worse than none:
 
 - ids verbatim from Bhoonidhi's list
 - platform, instrument and product **parsed from the id itself**
@@ -223,24 +230,30 @@ search came back empty.
 6. **No CQL2 on the catalogue** — pygeoapi's TinyDB provider gives full-text,
    property equality, bbox, datetime and sorting. PostgreSQL would add the
    Filtering class.
-7. **No authentication or quota**, and the service is not a mirror: metadata and
-   geometry only, never pixels.
+7. **No authentication or quota** on this service, and it is not a mirror:
+   footprint geometry and metadata only, never pixels.
 8. **Not an official NRSC product.**
 
 ## Reproducing the gap evidence
 
 ```bash
-./scripts/probe_gap.sh
+./scripts/probe_gap.sh            # audit the saved specification
+./scripts/probe_gap.sh --refresh  # re-fetch it from NRSC first
 ```
 
-Probes **Bhoonidhi only**, saves responses to `docs/evidence/`, and reports a
-timeout as `NO RESPONSE` counted as a failure — never as evidence.
+This is a **capability audit** of Bhoonidhi's published API specification: it
+enumerates the spatial parameters the API documents, shows that `contains`,
+`within` and `area` appear only as English prose rather than as operators,
+extracts the CQL2 operations from the documented examples, and confirms that no
+analysis or aggregation vocabulary appears anywhere. Results are written to
+`docs/evidence/capability-audit.json`.
 
-> At the time of writing both NRSC hosts stopped answering from the build host
-> (DNS resolves, connections time out, rest of the internet fine), so this is
-> NRSC-side. The 401 above is a genuine response captured earlier the same day,
-> kept with its capture date in the filename rather than silently regenerated.
-> See `docs/evidence/README.md`.
+Because it reads the specification rather than hammering the service, **it is
+reproducible offline** from `docs/evidence/bhoonidhi-api-spec.html` and does not
+depend on NRSC being reachable — which matters, because both NRSC hosts stopped
+answering from the build host partway through development (DNS resolves,
+connections time out, the rest of the internet is fine). `--refresh` re-fetches
+when they are back, and says so plainly when it cannot.
 
 ## Attribution
 

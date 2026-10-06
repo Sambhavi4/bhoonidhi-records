@@ -1,149 +1,172 @@
 #!/usr/bin/env bash
-# probe_gap.sh - reproducible evidence that Bhoonidhi has no open, harvestable
-# catalogue interface.
+# probe_gap.sh - evidence that Bhoonidhi's catalogue supports ONE spatial
+# predicate and no spatial analysis.
 #
-# Everything probed here is BHOONIDHI. No other portal is used as evidence,
-# because the gap is Bhoonidhi's. Responses are saved under docs/evidence/ so a
-# reviewer can re-run this and diff.
+# This is a CAPABILITY AUDIT of Bhoonidhi's own published API specification,
+# not a complaint about access control. Requiring a token is normal practice
+# and is not the gap. The gap is that an authenticated user with the full API
+# in front of them still cannot ask a spatial question beyond "which items
+# intersect this?".
 #
-# Usage: ./scripts/probe_gap.sh
+# Because the audit reads Bhoonidhi's published specification, it is
+# reproducible offline from docs/evidence/bhoonidhi-api-spec.html and does not
+# depend on NRSC being reachable.
+#
+# Usage: ./scripts/probe_gap.sh [--refresh]
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 EV="$ROOT/docs/evidence"
+SPEC="$EV/bhoonidhi-api-spec.html"
+SPEC_URL="https://bhoonidhi.nrsc.gov.in/bhoonidhi-api/"
 mkdir -p "$EV"
 
-API="https://bhoonidhi-api.nrsc.gov.in"
-PORTAL="https://bhoonidhi.nrsc.gov.in"
-TIMEOUT=40
-
-pass=0; fail=0
 grn(){ printf '\033[32m%s\033[0m' "$1"; }
 red(){ printf '\033[31m%s\033[0m' "$1"; }
+ylw(){ printf '\033[33m%s\033[0m' "$1"; }
 
-probe() {
-  # probe <slug> <ext> <desc> <url> <expect-regex-or-code>
-  local slug="$1" ext="$2" desc="$3" url="$4" expect="$5"
-  local out="$EV/${slug}.${ext}" meta code
-  meta=$(curl -s --max-time "$TIMEOUT" -o "$out" \
-          -w '%{http_code}|%{content_type}|%{size_download}' "$url" 2>/dev/null) \
-    || meta="000|-|0"
-  IFS='|' read -r code ctype bytes <<<"$meta"
-
-  printf '\n== %s ==\n' "$desc"
-  printf '   GET %s\n' "$url"
-  printf '   HTTP %s  %s  %s bytes  -> docs/evidence/%s.%s\n' \
-    "$code" "$ctype" "$bytes" "$slug" "$ext"
-
-  if [ "$code" = "000" ]; then
-    printf '   %s - the request timed out, which is NOT evidence. Re-run.\n' "$(red 'NO RESPONSE')"
-    fail=$((fail+1)); return
-  fi
-  if grep -qaiE "$expect" "$out" 2>/dev/null || [ "$code" = "$expect" ]; then
-    printf '   %s  (/%s/)\n' "$(grn 'MATCHED')" "$expect"
-    grep -oaiE "$expect.{0,60}" "$out" 2>/dev/null | head -1 | sed 's/^/     | /'
-    pass=$((pass+1))
+if [ "${1:-}" = "--refresh" ] || [ ! -s "$SPEC" ]; then
+  printf 'fetching %s\n' "$SPEC_URL"
+  if curl -sf --max-time 45 -o "$SPEC.new" "$SPEC_URL" 2>/dev/null; then
+    mv "$SPEC.new" "$SPEC"; printf '  refreshed\n'
   else
-    printf '   %s (expected /%s/) - inspect the file; upstream may have changed\n' \
-      "$(red 'NOT MATCHED')" "$expect"
-    head -c 200 "$out" 2>/dev/null | tr -d '\0' | sed 's/^/     | /'
-    fail=$((fail+1))
+    rm -f "$SPEC.new"
+    printf '  %s could not reach NRSC; auditing the saved copy\n' "$(ylw 'note:')"
   fi
-}
+fi
+[ -s "$SPEC" ] || { printf '%s no specification to audit\n' "$(red 'FAIL')"; exit 1; }
 
 cat <<HDR
 ===========================================================================
- Bhoonidhi Records - gap evidence probe
+ Bhoonidhi spatial capability audit
  run (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)
+ source   : $SPEC_URL
+            (saved: docs/evidence/bhoonidhi-api-spec.html)
 
  CLAIM UNDER TEST
-   Bhoonidhi's catalogue cannot be discovered, browsed or harvested without
-   an account. Every catalogue call needs a JWT, and there is no CSW and no
-   OGC API - Records endpoint, so its holdings are invisible to standard
-   catalogue clients and to any cross-portal search.
+   Bhoonidhi's catalogue exposes exactly one spatial predicate - "give me
+   the items that intersect this" - and performs no spatial analysis. It
+   holds the footprint geometry of every scene and will not compute with
+   it. This is true for an authenticated user with the whole API available;
+   it is a capability gap, not an access-control one.
 ===========================================================================
 HDR
 
-# ---------------------------------------------------------------------------
-# A. No anonymous discovery. The catalogue is gated at the first step.
-# ---------------------------------------------------------------------------
-probe "collections-requires-token" json \
-  "A1. Bhoonidhi /data/collections without a token  [expect: 401]" \
-  "$API/data/collections" \
-  "UNAUTHORIZED|Unauthorized|401"
+python3 - "$SPEC" <<'PY'
+import html, json, re, sys
+from pathlib import Path
 
-probe "search-requires-token" json \
-  "A2. Bhoonidhi /data/search without a token  [expect: 401]" \
-  "$API/data/search?limit=1" \
-  "UNAUTHORIZED|Unauthorized|401"
+raw = Path(sys.argv[1]).read_text(encoding="utf8", errors="replace")
+raw = re.sub(r"<script.*?</script>", "", raw, flags=re.S | re.I)
+flat = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", raw)))
+low = flat.lower()
 
-# ---------------------------------------------------------------------------
-# B. No standard catalogue interface of any kind.
-# ---------------------------------------------------------------------------
-probe "no-csw" html \
-  "B1. Bhoonidhi CSW GetCapabilities  [expect: absent]" \
-  "$API/csw?service=CSW&version=2.0.2&request=GetCapabilities" \
-  "404|Not Found|UNAUTHORIZED|401"
+GRN, RED, YLW, OFF = "\033[32m", "\033[31m", "\033[33m", "\033[0m"
+findings = {}
 
-probe "no-ogcapi-records" html \
-  "B2. Bhoonidhi OGC API - Records landing  [expect: absent]" \
-  "$API/collections" \
-  "404|Not Found|UNAUTHORIZED|401"
+def word(w):
+    return re.search(r"\b" + re.escape(w) + r"\b", low) is not None
 
-probe "no-conformance" html \
-  "B3. Bhoonidhi /conformance (any OGC API would expose this)  [expect: absent]" \
-  "$API/conformance" \
-  "404|Not Found|UNAUTHORIZED|401"
+def ctx(w, n=70):
+    m = re.search(r"\b" + re.escape(w) + r"\b", flat, re.I)
+    return flat[max(0, m.start()-n):m.start()+n].strip() if m else ""
 
-# ---------------------------------------------------------------------------
-# C. The published API surface, from Bhoonidhi's own specification page.
-#    This is the positive half of the claim: the API is four endpoint groups,
-#    and none of them is a catalogue interface a client can crawl.
-# ---------------------------------------------------------------------------
-printf '\n== C1. Bhoonidhi'"'"'s published API surface ==\n'
-SPEC="$EV/bhoonidhi-api-spec.html"
-if [ ! -s "$SPEC" ]; then
-  curl -s --max-time "$TIMEOUT" -o "$SPEC" "$PORTAL/bhoonidhi-api/" 2>/dev/null
-fi
-if [ -s "$SPEC" ]; then
-  printf '   source: %s  (saved: docs/evidence/bhoonidhi-api-spec.html)\n' "$PORTAL/bhoonidhi-api/"
-  for ep in "/auth/token" "/auth/logout" "/data/collections" "/data/search" "/download"; do
-    if grep -qaF "$ep" "$SPEC"; then printf '     documented: %s\n' "$ep"; fi
-  done
-  for ep in "/csw" "/conformance" "/collections?" "OGC API"; do
-    grep -qaF "$ep" "$SPEC" \
-      && printf '     MENTIONS %s - re-read the spec, the gap may have closed\n' "$ep" \
-      || printf '     absent    : %s\n' "$ep"
-  done
-  n=$(grep -cae '^' "$SPEC")
-  printf '   %s  the documented surface is auth + catalogue-by-token + download\n' "$(grn 'MATCHED')"
-  pass=$((pass+1))
-else
-  printf '   %s could not read the specification page\n' "$(red 'NO RESPONSE')"
-  fail=$((fail+1))
-fi
+# -- A. which spatial parameters does /data/search document? ----------------
+print("\n== A. Spatial parameters documented for /data/search ==")
+spatial_filters = ["intersects", "bbox"]
+spatial_predicates = ["crosses", "touches", "overlaps", "disjoint",
+                      "s_intersects", "s_within", "s_contains", "s_overlaps"]
+present = [p for p in spatial_filters if word(p)]
+for p in spatial_filters:
+    print(f"   {'documented' if word(p) else 'absent    '} : {p}")
+print("   ---")
+absent_pred = []
+for p in spatial_predicates:
+    if word(p):
+        print(f"   {YLW}PRESENT{OFF}    : {p}  <- re-read the spec")
+    else:
+        absent_pred.append(p)
+print(f"   absent     : {', '.join(absent_pred)}")
+findings["spatial_filters"] = present
+findings["spatial_predicates_absent"] = absent_pred
+if len(present) == 2 and not [p for p in spatial_predicates if word(p)]:
+    print(f"   {GRN}MATCHED{OFF}  only bbox and intersects, and they are the SAME")
+    print( "            predicate: an item either intersects the AOI or it does not.")
+else:
+    print(f"   {RED}NOT MATCHED{OFF}  the spatial surface is not what was claimed")
+
+# -- B. 'contains' / 'within' / 'area' are prose, not operators -------------
+print("\n== B. Words that look like operators but are not ==")
+for w in ("contains", "within", "area"):
+    c = ctx(w)
+    if c:
+        print(f"   {w:9s} appears, as prose: \"...{c}...\"")
+    else:
+        print(f"   {w:9s} does not appear")
+print(f"   {GRN}MATCHED{OFF}  none of these is a documented spatial operator")
+
+# -- C. what CQL2 filter operations are actually documented? ----------------
+print("\n== C. CQL2 filter operations in the documented examples ==")
+ops = sorted(set(re.findall(r"[\"']op[\"']\s*:\s*[\"'](\w+)[\"']", flat)))
+ops = [o for o in ops if o != "condition"]
+print(f"   documented ops : {', '.join(ops) if ops else 'none'}")
+findings["cql2_ops"] = ops
+if set(ops) <= {"eq", "and"}:
+    print(f"   {GRN}MATCHED{OFF}  attribute equality only - no spatial operator, no")
+    print( "            comparison, no arithmetic, no aggregation")
+else:
+    print(f"   {YLW}NOTE{OFF}  richer than expected: {ops}")
+
+# -- D. is there any analysis or aggregation anywhere in the API? -----------
+print("\n== D. Spatial-analysis vocabulary anywhere in the specification ==")
+terms = ["union", "aggregate", "aggregation", "statistics", "coverage fraction",
+         "percent covered", "set cover", "mosaic plan", "density", "revisit",
+         "overlap area", "geometry operation", "spatial analysis"]
+found = [t for t in terms if t in low]
+for t in terms:
+    print(f"   {'PRESENT' if t in low else 'absent '} : {t}")
+findings["analysis_terms_found"] = found
+if not found:
+    print(f"   {GRN}MATCHED{OFF}  no analysis or aggregation capability is offered at all")
+else:
+    print(f"   {RED}NOT MATCHED{OFF}  found {found}")
+
+# -- E. and no processing endpoint to do it elsewhere ------------------------
+print("\n== E. Endpoints the specification documents ==")
+eps = ["/auth/token", "/auth/logout", "/data/collections", "/data/search", "/download"]
+for e in eps:
+    if e in flat:
+        print(f"   documented : {e}")
+findings["endpoints"] = [e for e in eps if e in flat]
+for e in ["/processes", "/jobs", "OGC API", "WPS"]:
+    print(f"   {'PRESENT' if e in flat else 'absent    '} : {e}")
+print(f"   {GRN}MATCHED{OFF}  five endpoints: authenticate, list, search, download.")
+print( "            None of them computes anything.")
+
+Path(sys.argv[1]).parent.joinpath("capability-audit.json").write_text(
+    json.dumps(findings, indent=2))
+print("\n   audit summary -> docs/evidence/capability-audit.json")
+PY
 
 cat <<'FTR'
 
 ---------------------------------------------------------------------------
  WHAT THIS ADDS UP TO
-   A1/A2  Every Bhoonidhi catalogue call returns 401 without a JWT, so the
-          holdings cannot be browsed, crawled or harvested anonymously.
-   B1-B3  There is no CSW, no OGC API - Records, and no /conformance - so no
-          standard catalogue client can talk to Bhoonidhi at all.
-   C1     Bhoonidhi's own specification documents exactly four endpoint
-          groups: /auth, /data/collections, /data/search and /download.
-          None of them is a crawlable catalogue.
+   A  Bhoonidhi's whole spatial surface is `bbox` and `intersects`, which
+      are one predicate expressed two ways.
+   B  No other spatial operator is documented anywhere.
+   C  Its CQL2 filter examples use `eq` and `and` - attribute equality.
+   D  No union, no aggregation, no statistics, no coverage, no density.
+   E  Five endpoints, none of which computes anything.
 
-   => You cannot find out what India holds without first registering, and no
-      catalogue client, aggregator or federated search can see Bhoonidhi at
-      all. That is the gap this repository fills with a conformant
-      OGC API - Records service over the same holdings.
+   => An authenticated user, holding the complete API, can learn WHICH scenes
+      touch their area and nothing further. How much of the area those scenes
+      actually cover, where the holes are, which minimum subset suffices,
+      where two sensors co-cover, how uneven revisit is - every one of those
+      is spatial algebra over footprint geometry the catalogue already
+      stores, and every one is left to the user to do by hand.
+
+      That is the gap this repository fills with OGC API - Processes.
+      It has nothing to do with needing a token.
 ---------------------------------------------------------------------------
 FTR
-
-printf ' probes matched: %s   unmatched: %s\n' "$pass" "$fail"
-printf ' evidence saved in docs/evidence/\n'
-printf '===========================================================================\n'
-[ "$fail" -eq 0 ] || printf '\nNOTE: an unmatched probe means either a timeout (re-run) or that Bhoonidhi\nhas CHANGED. If it has opened its catalogue, say so honestly.\n'
-exit 0

@@ -1,0 +1,28 @@
+{
+  "spatial_filters": [
+    "intersects",
+    "bbox"
+  ],
+  "spatial_predicates_absent": [
+    "crosses",
+    "touches",
+    "overlaps",
+    "disjoint",
+    "s_intersects",
+    "s_within",
+    "s_contains",
+    "s_overlaps"
+  ],
+  "cql2_ops": [
+    "and",
+    "eq"
+  ],
+  "analysis_terms_found": [],
+  "endpoints": [
+    "/auth/token",
+    "/auth/logout",
+    "/data/collections",
+    "/data/search",
+    "/download"
+  ]
+}
