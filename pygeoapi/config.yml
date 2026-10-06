@@ -20,6 +20,12 @@ server:
   limits:
     default_items: 10
     max_items: 100
+  # Jobs are persisted so async execution survives a restart and /jobs/{id}
+  # keeps working, which OGC API - Processes expects.
+  manager:
+    name: TinyDB
+    connection: /tmp/bhoonidhi-records-jobs.db
+    output_dir: /tmp/bhoonidhi-records-output
 
 logging:
   level: INFO
@@ -109,3 +115,30 @@ resources:
         id_field: id
         time_field: temporal_start
         title_field: title
+
+  # -------------------------------------------------------------------------
+  # OGC API - Processes: spatial analysis over acquisition footprints.
+  # These answer the planning questions a flat search result cannot:
+  # how much of my AOI is covered, where are the holes, which few scenes do I
+  # actually need, where do two sensors co-cover, and how uneven is revisit.
+  # -------------------------------------------------------------------------
+
+  aoi-coverage:
+    type: process
+    processor:
+      name: catalogue_spatial.AoiCoverageProcessor
+
+  minimal-scene-set:
+    type: process
+    processor:
+      name: catalogue_spatial.MinimalSceneSetProcessor
+
+  multi-sensor-overlap:
+    type: process
+    processor:
+      name: catalogue_spatial.MultiSensorOverlapProcessor
+
+  revisit-density:
+    type: process
+    processor:
+      name: catalogue_spatial.RevisitDensityProcessor

@@ -13,6 +13,8 @@ mkdir -p "$PIDS" "$LOGS"
 export PYGEOAPI_CONFIG="$ROOT/pygeoapi/config.yml"
 export PYGEOAPI_OPENAPI="$RUNTIME/records-openapi.yml"
 export PYGEOAPI_SERVER_URL="${PYGEOAPI_SERVER_URL:-http://localhost:$PORT}"
+# the spatial processes live here
+export PYTHONPATH="$ROOT/pygeoapi/processes${PYTHONPATH:+:$PYTHONPATH}"
 
 ok(){ printf '   \033[32mok\033[0m    %s\n' "$*"; }
 bad(){ printf '   \033[31mdown\033[0m  %s\n' "$*"; }
@@ -44,6 +46,7 @@ case "${1:-start}" in
   catalogue     http://localhost:$PORT/collections/bhoonidhi/items
   full-text     http://localhost:$PORT/collections/bhoonidhi/items?q=NDVI
   queryables    http://localhost:$PORT/collections/bhoonidhi/queryables
+  processes     http://localhost:$PORT/processes
 EOT
     ;;
   stop)

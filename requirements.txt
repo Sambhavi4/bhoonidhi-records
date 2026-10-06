@@ -4,3 +4,5 @@ gunicorn>=23.0
 flask-cors>=5.0
 requests>=2.32
 pytest>=8.0
+shapely>=2.0
+pyproj>=3.6

@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install data up down status test gap all clean
+.PHONY: help install data footprints up down status test demo gap all clean
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -11,6 +11,13 @@ install: ## Create the Python venv
 
 data: ## Build the Records catalogue from Bhoonidhi's collection list
 	./scripts/build_catalogue.py
+
+footprints: ## Harvest real acquisition footprints for the spatial processes
+	./scripts/fetch_footprints.py --source open --collection sentinel-2-l2a --limit 60
+	./scripts/fetch_footprints.py --source open --collection sentinel-1-grd --limit 60 --append
+
+demo: ## Run the live walkthrough
+	./scripts/demo.sh
 
 up: ## Start the OGC API - Records service
 	./scripts/serve_local.sh start
@@ -27,7 +34,7 @@ test: ## Run the OGC API - Records compliance suite
 gap: ## Re-prove the gap against live Bhoonidhi
 	./scripts/probe_gap.sh
 
-all: install data up test ## install -> data -> up -> test
+all: install data footprints up test ## install -> data -> footprints -> up -> test
 
 clean:
-	rm -f data/bhoonidhi-records.tinydb data/bhoonidhi-records.geojson
+	rm -f data/bhoonidhi-records.tinydb data/bhoonidhi-records.geojson data/footprints.geojson
