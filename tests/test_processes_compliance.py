@@ -22,7 +22,8 @@ OPTICAL = "sentinel-2-l2a"
 RADAR = "sentinel-1-grd"
 
 PROCESSES = {"aoi-coverage", "minimal-scene-set",
-             "multi-sensor-overlap", "revisit-density"}
+             "multi-sensor-overlap", "revisit-density",
+             "zonal-statistics", "scene-raster-profile"}
 
 
 def _run(base, pid, inputs, timeout=300):

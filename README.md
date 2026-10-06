@@ -1,8 +1,7 @@
 # Bhoonidhi Spatial Catalogue Analysis
 
-**OGC API – Processes implementing spatial analysis over Bhoonidhi acquisition
-footprints — the geometry operations its catalogue holds the data for and does
-not perform.**
+**OGC API – Processes implementing spatial analysis over Bhoonidhi data — both
+the footprint geometry the catalogue holds and the pixels inside it.**
 
 CyberGIS mid-semester practical: *build a missing OGC web service over Bhoonidhi.*
 
@@ -12,8 +11,9 @@ CyberGIS mid-semester practical: *build a missing OGC web service over Bhoonidhi
 | Standard | **OGC API – Processes** Part 1: Core (OGC 18-062r2) |
 | Supporting | OGC API – Records (OGC 20-004), for collection discovery |
 | Framework | pygeoapi 0.24.0 · shapely 2.1 · pyproj 3.8 |
-| Compliance | **78/78 tests pass** |
-| Spatial ops | coverage/gap · set cover · co-coverage · density grid |
+| Compliance | **100/100 tests pass** |
+| Vector ops | coverage/gap · set cover · co-coverage · density grid |
+| Raster ops | zonal statistics · scene raster profile |
 
 ---
 
@@ -59,10 +59,10 @@ missing operations as conformant processes, over acquisition footprints fetched
 from Bhoonidhi's own STAC search. All areas measured in an equal-area
 projection, synchronous and asynchronous execution, and a job API.
 
-> **Not pixel processing.** Nothing here reads a band or a raster value. The
-> inputs are footprint polygons and timestamps; the operations are purely
-> geometric. This is catalogue analytics, deliberately distinct from
-> spectral-index computation.
+> **Two layers, deliberately.** The footprint processes read only geometry —
+> which scenes are worth fetching. The raster processes read pixels — what is
+> actually inside them. `scene-raster-profile` joins the two. This is not
+> spectral-index computation: no band math, no derived imagery product.
 
 An **OGC API – Records** catalogue of Bhoonidhi's 59 collections ships alongside
 it, as supporting infrastructure rather than as the gap being filled: the
@@ -103,6 +103,31 @@ download, wasted quota and wasted time — and today nothing tells you that.
 ### `multi-sensor-overlap` — co-coverage for data fusion
 Intersects one collection's footprint union with another's over the same AOI and
 window. Optical ∩ radar in one call instead of two searches and a manual clip.
+
+### `zonal-statistics` — raster–vector overlay
+Masks the raster by a polygon and aggregates the **pixels inside it**: count,
+area, min, max, mean, median, standard deviation, percentiles and a histogram
+with the area in each value band.
+
+```
+518,400 pixels over 478.9 km²  ·  elevation 613.7–1439.1 m, mean 746.4, sd 112.6
+  613.7–778.8 m  →  356.6 km²  (74.5%)
+  778.8–943.8 m  →   94.0 km²  (19.6%)
+```
+
+### `scene-raster-profile` — the join
+For every scene footprint intersecting the AOI, clips the raster to that
+footprint and reports what is underneath, ranked by overlap. This is the
+operation that needs **both** halves of the service:
+
+```
+S2A_..._T43PER   1538.0 km²   elevation 584–1874 m, mean 752
+S2A_..._T43PEQ    801.3 km²   elevation 650–1890 m, mean 941
+```
+
+Two candidate scenes, genuinely different terrain underneath. Choosing between
+them on **what they actually contain** is impossible from a catalogue that only
+answers "does this intersect your box".
 
 ### `revisit-density` — acquisition density grid
 Lays a metric grid over the AOI and counts intersecting acquisitions per cell,

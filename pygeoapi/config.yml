@@ -142,3 +142,18 @@ resources:
     type: process
     processor:
       name: catalogue_spatial.RevisitDensityProcessor
+
+  # -------------------------------------------------------------------------
+  # Raster operations. These read PIXELS, where the processes above read only
+  # footprint geometry. scene-raster-profile joins the two.
+  # -------------------------------------------------------------------------
+
+  zonal-statistics:
+    type: process
+    processor:
+      name: raster_zonal.ZonalStatisticsProcessor
+
+  scene-raster-profile:
+    type: process
+    processor:
+      name: raster_zonal.SceneRasterProfileProcessor
