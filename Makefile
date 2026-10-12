@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install data footprints up down status test demo gap baseline redundancy report all clean
+.PHONY: help install data footprints raster up down status test demo gap baseline redundancy report all clean
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -15,6 +15,9 @@ data: ## Build the Records catalogue from Bhoonidhi's collection list
 footprints: ## Harvest real acquisition footprints for the spatial processes
 	./scripts/fetch_footprints.py --source open --collection sentinel-2-l2a --limit 60
 	./scripts/fetch_footprints.py --source open --collection sentinel-1-grd --limit 60 --append
+
+raster: ## Fetch the DEM the raster processes read (public Copernicus GLO-30)
+	./scripts/fetch_dem.sh
 
 demo: ## Run the live walkthrough
 	./scripts/demo.sh
@@ -43,7 +46,7 @@ redundancy: ## Measure what the missing tier costs (needs the service up)
 report: ## Build the LaTeX report -> docs/report/bhoonidhi-processes.pdf
 	$(MAKE) -C docs/report
 
-all: install data footprints up test ## install -> data -> footprints -> up -> test
+all: install data footprints raster up test ## install -> data -> footprints -> raster -> up -> test
 
 clean:
 	rm -f data/bhoonidhi-records.tinydb data/bhoonidhi-records.geojson data/footprints.geojson

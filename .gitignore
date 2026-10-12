@@ -25,3 +25,5 @@ docs/report/*.out
 docs/report/*.toc
 docs/report/*.synctex.gz
 docs/report/sections/*.aux
+data/raw/
+data/PROVENANCE.md

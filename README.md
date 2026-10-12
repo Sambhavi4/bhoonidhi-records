@@ -231,6 +231,7 @@ rather than fractions.
 make install       # Python venv
 make data          # build the 59 catalogue records
 make footprints    # harvest real acquisition footprints
+make raster        # fetch the DEM the raster processes read (~150 MB download)
 make up            # start the service on :5003
 make test          # 100 compliance tests
 make demo          # the whole walkthrough
