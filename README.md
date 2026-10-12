@@ -5,6 +5,11 @@ the footprint geometry the catalogue holds and the pixels inside it.**
 
 CyberGIS mid-semester practical: *build a missing OGC web service over Bhoonidhi.*
 
+**Sambhavi Singh** · Roll number **2024117010** · <https://github.com/sambhavi4/bhoonidhi-records>
+
+📄 **[Full technical report (PDF)](docs/report/bhoonidhi-processes.pdf)** —
+29 pages: gap analysis, design, implementation, compliance evidence.
+
 | | |
 |---|---|
 | Portal | Bhoonidhi (`bhoonidhi.nrsc.gov.in`), ISRO / NRSC |

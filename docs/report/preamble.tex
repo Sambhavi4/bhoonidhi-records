@@ -10,7 +10,7 @@
 \usepackage{textcomp}
 \usepackage{microtype}
 
-\usepackage[a4paper,margin=26mm,headheight=14pt]{geometry}
+\usepackage[a4paper,margin=26mm,headheight=14pt,footskip=16mm]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -28,6 +28,14 @@
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc,fit,backgrounds}
 \usepackage[hidelinks]{hyperref}
 
+% -- student details -------------------------------------------------------
+% Edit these three lines and rebuild; they feed the title page, the PDF
+% metadata and the page footer.
+\newcommand{\studentname}{Sambhavi Singh}
+\newcommand{\studentroll}{2024117010}
+\newcommand{\studentgh}{sambhavi4}
+\newcommand{\studentrepo}{https://github.com/\studentgh/bhoonidhi-records}
+
 % -- palette ---------------------------------------------------------------
 \definecolor{ink}{HTML}{1A1A1A}
 \definecolor{rule}{HTML}{C8CDD4}
@@ -41,6 +49,7 @@
 \hypersetup{
   colorlinks=true, linkcolor=accent, urlcolor=accent, citecolor=accent,
   pdftitle={Bhoonidhi Spatial Catalogue Analysis},
+  pdfauthor={\studentname\ (\studentroll)},
   pdfsubject={An OGC API - Processes service over ISRO's Bhoonidhi catalogue},
   pdfkeywords={OGC API Processes, Bhoonidhi, pygeoapi, set cover, STAC}
 }
@@ -55,6 +64,8 @@
 \fancyhf{}
 \fancyhead[L]{\small\color{comment}Bhoonidhi Spatial Catalogue Analysis}
 \fancyhead[R]{\small\color{comment}\thepage}
+\fancyfoot[L]{\small\color{comment}\studentname\ \textperiodcentered\ \studentroll}
+\fancyfoot[R]{\small\color{comment}\studentrepo}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{rule}\leaders\hrule height \headrulewidth\hfill}}
 
