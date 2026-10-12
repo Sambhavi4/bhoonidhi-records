@@ -87,16 +87,21 @@ def fetch_bhoonidhi(collection: str, bbox, start: str, end: str, limit: int):
 
     s = requests.Session()
     s.headers["User-Agent"] = UA
-    r = s.post(f"{BHOONIDHI_API}/auth/token",
-               json={"userId": user, "password": pw, "grant_type": "password"},
-               timeout=60)
-    if r.status_code == 401:
-        sys.exit("Bhoonidhi rejected the credentials (401).")
-    if r.status_code == 403:
-        sys.exit("Bhoonidhi: too many active sessions (403). Log out elsewhere.")
-    r.raise_for_status()
-    token = r.json()["access_token"]
-    print(f"  authenticated as {user}")
+
+    # Reuse the cached session rather than opening a new one per harvest.
+    # Bhoonidhi limits concurrent sessions, so logging in on every run
+    # eventually earns a 403 and locks you out until the old ones expire.
+    # bhoonidhi_login.py owns the token, its 0600 cache file and the error
+    # messages; this is just a consumer of it.
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from bhoonidhi_login import login as _login, verify as _verify
+    token = _login()
+    if not _verify(token):
+        print("  cached token rejected; re-authenticating")
+        token = _login(force=True)
+        if not _verify(token):
+            sys.exit("could not obtain a working Bhoonidhi token - "
+                     "run ./scripts/bhoonidhi_login.py for diagnostics")
 
     minx, miny, maxx, maxy = bbox
     payload = {

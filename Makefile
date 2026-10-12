@@ -6,7 +6,7 @@ SHELL := /bin/bash
 # though `make install` installed it. Invoke them through the venv explicitly.
 PY := ../runtime/venv/bin/python
 .DEFAULT_GOAL := help
-.PHONY: help install data footprints raster up down status verify test demo gap baseline redundancy report all clean
+.PHONY: help install data footprints raster login logout bhoonidhi up down status verify test demo gap baseline redundancy report all clean
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -21,6 +21,16 @@ data: ## Build the Records catalogue from Bhoonidhi's collection list
 footprints: ## Harvest real acquisition footprints for the spatial processes
 	$(PY) scripts/fetch_footprints.py --source open --collection sentinel-2-l2a --limit 60
 	$(PY) scripts/fetch_footprints.py --source open --collection sentinel-1-grd --limit 60 --append
+
+login: ## Log in to Bhoonidhi (needs .env) and cache the session
+	$(PY) scripts/bhoonidhi_login.py
+
+logout: ## Release the Bhoonidhi session
+	$(PY) scripts/bhoonidhi_login.py --logout
+
+bhoonidhi: login ## Log in, then harvest REAL Bhoonidhi footprints
+	$(PY) scripts/fetch_footprints.py --source bhoonidhi \
+	  --collection $${COLLECTION:-ResourceSat-2_LISS3_L2} --limit 60
 
 raster: ## Fetch the DEM the raster processes read (public Copernicus GLO-30)
 	./scripts/fetch_dem.sh

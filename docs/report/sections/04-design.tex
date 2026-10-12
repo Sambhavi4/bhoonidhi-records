@@ -126,6 +126,60 @@ whether the footprint store is Bhoonidhi's or a substitute
 disclaimer bolted on: a spatial analysis service whose inputs are unclear is
 worse than none, because its outputs look authoritative.
 
+\subsection{Authenticating against Bhoonidhi}
+
+Every Bhoonidhi data endpoint is session-gated, and hitting one without a
+token returns the error most users meet first:
+
+\begin{lstlisting}
+GET https://bhoonidhi-api.nrsc.gov.in/download
+{"ErrorCode":"401","Description":"UNAUTHORIZED",
+ "Action":"Invalid session detected! Please login again."}
+\end{lstlisting}
+
+That is correct behaviour, and Section~\ref{sec:gap} is explicit that the gap
+identified here is about computation rather than access. But it makes login
+the first thing that can fail, and probing the live API showed three problems
+worth fixing rather than documenting away:
+
+\begin{enumerate}[leftmargin=1.8em,itemsep=0.4ex]
+  \item \textbf{Session exhaustion.} Each harvest authenticated afresh.
+        Bhoonidhi limits concurrent sessions, so repeated runs eventually
+        return \code{HTTP 403} and lock the account out until the old sessions
+        expire --- a failure that appears only after the code has been working
+        for a while.
+  \item \textbf{Opaque failures.} Bhoonidhi returns bare status codes with the
+        genuinely useful text in the body's \code{Action} field, which the
+        client discarded.
+  \item \textbf{No way to test credentials} short of running a whole harvest.
+\end{enumerate}
+
+\code{scripts/bhoonidhi\_login.py} addresses all three: one login, a token
+cached \code{0600} under \code{runtime/} and reused by the harvester, a real
+\ep{/auth/logout} to release the session, and errors that quote Bhoonidhi's
+own message back to the user. It also \emph{verifies} the token against
+\ep{/data/collections} rather than trusting that a 200 on \ep{/auth/token}
+means anything.
+
+\begin{lstlisting}
+$ make login
+  fail  Bhoonidhi rejected the request: Bad Request - Improper inputs
+        specified. Please give correct inputs
+
+  BHOONIDHI_USER must be the user id chosen at registration,
+  which is not always your email address.
+\end{lstlisting}
+
+That last trap --- user id versus email --- produces an \code{ErrorCode 400}
+that reads like a client bug and is not. The password is read from the
+environment or \code{.env}, never from argv (world-readable in \code{/proc}),
+never printed, and sent only to \code{bhoonidhi-api.nrsc.gov.in} over HTTPS.
+
+\textbf{No account is needed to run or mark this project.} The shipped store
+uses a public STAC substitute; the service, all 135 tests and the whole
+demonstration work with no credentials. Credentials only swap the substitute
+for real Bhoonidhi data.
+
 \subsection{Defects found during development}
 \label{sec:defects}
 

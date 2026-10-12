@@ -53,11 +53,18 @@ quick tunnel and prints working public URLs, including the
 on every run and lives only while the script runs. To run the suite against it:
 \code{RECORDS\_BASE=https://<name>.trycloudflare.com ./scripts/run\_tests.sh}.
 
-\paragraph{Serving real Bhoonidhi footprints.} Put credentials in \code{.env},
-then \code{./scripts/fetch\_footprints.py --source bhoonidhi}. Nothing else
-changes; \code{is\_substitute\_for\_bhoonidhi} becomes \code{false} in every
-response, which is the single visible difference and the reason the flag
-exists.
+\paragraph{Serving real Bhoonidhi footprints.}
+
+\begin{lstlisting}
+cp .env.example .env     # BHOONIDHI_USER is the user id, not the email
+make login               # authenticate, verify, cache the session
+make bhoonidhi           # harvest real footprints
+make logout              # release the session
+\end{lstlisting}
+
+Nothing else changes; \code{is\_substitute\_for\_bhoonidhi} becomes
+\code{false} in every response, which is the single visible difference and the
+reason the flag exists. No account is required to run or mark the project.
 
 \paragraph{Where to look.}
 

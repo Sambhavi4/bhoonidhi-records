@@ -14,8 +14,9 @@ synthesised. This is labelled, not hidden: the store carries
 \code{is\_substitute\_for\_bhoonidhi: true} and that flag propagates into
 \emph{every process response}. Supplying credentials and re-running
 \code{fetch\_footprints.py --source bhoonidhi} changes nothing else --- same
-code path, same processes, same tests. \textbf{This is the one thing to fix if
-an account becomes available.} The raster is substituted the same way
+code path, same processes, same tests --- \code{make login \&\& make
+bhoonidhi} is the whole procedure (Section~\ref{sec:design}).
+\textbf{This is the one thing to fix if an account becomes available.} The raster is substituted the same way
 (Copernicus DEM GLO-30 standing in for CartoDEM).
 
 \item \textbf{Cloud cover is reported but not used.} \code{aoi-coverage} counts

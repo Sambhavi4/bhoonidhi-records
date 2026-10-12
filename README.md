@@ -276,6 +276,62 @@ not places.
 
 ---
 
+## Logging in to Bhoonidhi
+
+Every Bhoonidhi data endpoint is session-gated. Hit one without a token and
+you get the error most people meet first:
+
+```
+GET https://bhoonidhi-api.nrsc.gov.in/download
+{"ErrorCode":"401","Description":"UNAUTHORIZED",
+ "Action":"Invalid session detected! Please login again."}
+```
+
+**That is correct behaviour and this project does not complain about it** —
+the gap identified here is about *computation*, not access (see
+[`docs/GAP_ANALYSIS.md`](docs/GAP_ANALYSIS.md) §2). But it makes login the
+first thing that can go wrong, so it is handled properly rather than left to
+chance.
+
+```bash
+cp .env.example .env     # add BHOONIDHI_USER and BHOONIDHI_PASS
+make login               # authenticate once, verify, cache the session
+make bhoonidhi           # harvest REAL Bhoonidhi footprints
+make logout              # release the session when done
+```
+
+| | |
+|---|---|
+| `make login` | authenticates, **verifies the token against `/data/collections`** rather than trusting a 200, and caches it `0600` under `runtime/` |
+| `make logout` | calls `/auth/logout` to release the session, then clears the cache |
+| `./scripts/bhoonidhi_login.py --status` | what is cached, and whether the credentials are even set |
+
+**Three things this fixes**, all found by probing the live API:
+
+1. **Session exhaustion.** Every harvest used to log in afresh, and Bhoonidhi
+   limits concurrent sessions — so repeated runs eventually earn `HTTP 403`
+   and lock you out until the old sessions expire. The token is now cached and
+   reused, and `make logout` releases it.
+2. **Opaque failures.** Bhoonidhi returns bare HTTP codes with the useful text
+   in the body's `Action` field. Errors now quote it back:
+   `fail  Bhoonidhi rejected the request: Bad Request - Improper inputs
+   specified. Please give correct inputs`.
+3. **No way to test credentials** without running a whole harvest.
+
+A common trap: **`BHOONIDHI_USER` is the user id you chose at registration,
+not necessarily your email address.** That mismatch produces an
+`ErrorCode 400`, which reads like a bug in the client but is not.
+
+> **You do not need an account to run or mark this project.** The shipped
+> footprint store uses a public STAC substitute and the whole service, all 135
+> tests and the entire demo work with no credentials at all. Credentials only
+> replace the substitute with real Bhoonidhi data; nothing else changes.
+
+Secrets handling: the password is read from the environment or `.env`, never
+from the command line (argv is world-readable in `/proc`), never printed, and
+never sent anywhere except `bhoonidhi-api.nrsc.gov.in` over HTTPS. `.env` and
+the token cache are gitignored.
+
 ## Where the data comes from
 
 **Catalogue records** (supporting tier) — built by `scripts/build_catalogue.py`
