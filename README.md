@@ -16,7 +16,7 @@ CyberGIS mid-semester practical: *build a missing OGC web service over Bhoonidhi
 | Standard | **OGC API – Processes** Part 1: Core (OGC 18-062r2) |
 | Supporting | OGC API – Records (OGC 20-004), for collection discovery |
 | Framework | pygeoapi 0.24.0 · shapely 2.1 · pyproj 3.8 |
-| Compliance | **100/100 tests pass** |
+| Compliance | **126/126 tests pass** (incl. the HTML views a browser hits) |
 | Vector ops | coverage/gap · set cover · co-coverage · density grid |
 | Raster ops | zonal statistics · scene raster profile |
 | **Measured gap** | **92% of every scene the catalogue returns is redundant** — 208 scenes found, 16 needed, across 8 queries |
@@ -238,7 +238,7 @@ make data          # build the 59 catalogue records
 make footprints    # harvest real acquisition footprints
 make raster        # fetch the DEM the raster processes read (~150 MB download)
 make up            # start the service on :5003
-make test          # 100 compliance tests
+make test          # 126 compliance tests
 make demo          # the whole walkthrough
 ```
 
@@ -296,7 +296,7 @@ credentials.
 
 ```
 $ ./scripts/run_tests.sh
-============================= 100 passed in 5.64s ==============================
+============================= 126 passed in 5.81s ==============================
 ```
 
 | Group | Tests | Covers |

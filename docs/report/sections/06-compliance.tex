@@ -32,7 +32,7 @@ supporting tier.
 
 \begin{lstlisting}
 $ ./scripts/run_tests.sh
-============================= 100 passed in 5.02s ==============================
+============================= 126 passed in 5.81s ==============================
 \end{lstlisting}
 
 \begin{center}
@@ -47,8 +47,9 @@ Processes core          & 18 & Records querying        & 17 \\
 Input validation        &  6 & \code{scene-raster-profile} & 6 \\
 \code{revisit-density}  &  5 & Records core            &  5 \\
 Records catalogue       &  5 & \code{multi-sensor-overlap} & 4 \\
+\textbf{HTML views}     & \textbf{26} & & \\
 \midrule
-\multicolumn{3}{@{}r}{\textbf{Total}} & \textbf{100} \\
+\multicolumn{3}{@{}r}{\textbf{Total}} & \textbf{126} \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -92,6 +93,18 @@ masking genuinely restricts what is read
 Two of the three defects in Section~\ref{sec:defects} were found by these
 invariant tests rather than by inspection, which is the argument for writing
 them.
+
+\paragraph{The HTML views are tested the way a browser hits them.} Added after
+a defect the rest of the suite could not see: \code{conftest.py} sends
+\code{f=json} on every request, so the suite passed 100/100 while
+\ep{/collections/bhoonidhi} returned \textbf{HTTP 500 in a browser}.
+pygeoapi's collection templates dereference
+\code{config['server']['map']['url']} unconditionally, and with no
+\code{map:} block Jinja raised \code{UndefinedError} --- on the HTML path
+only. The brief is graded on \emph{``anyone can issue real HTTP requests to
+your endpoint''}, and the first thing anyone does is open the URL, so 26 tests
+now request every page with a real browser \code{Accept} header and assert it
+renders. Removing the fix fails 9 of them.
 
 \paragraph{What this evidence is not.} A self-written suite, not the OGC CITE
 certification suite. What can fairly be claimed: every mandatory resource is

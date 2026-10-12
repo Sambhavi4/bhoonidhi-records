@@ -305,7 +305,7 @@ with synchronous and asynchronous execution, a job API, and all areas measured
 in a Lambert Azimuthal Equal-Area projection centred on each request's own AOI
 so that km² means km².
 
-**100/100 compliance tests pass**, and the suite tests the mathematics rather
+**126/126 compliance tests pass**, and the suite tests the mathematics rather
 than only the protocol shape: that covered + gap reconstructs the AOI, that an
 intersection never exceeds its operands, that cell areas sum back to the AOI,
 that greedy coverage is monotonic, and that areas are projected rather than

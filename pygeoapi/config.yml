@@ -20,6 +20,15 @@ server:
   limits:
     default_items: 10
     max_items: 100
+  # Basemap for the HTML views. NOT optional: pygeoapi's collection templates
+  # dereference config['server']['map']['url'] unconditionally, so without this
+  # block Jinja raises UndefinedError and every HTML page under /collections
+  # returns HTTP 500 -- while the JSON representation of the same resource
+  # returns 200. A browser therefore sees "Internal Server Error" on a service
+  # that is actually healthy. See tests/test_html_compliance.py.
+  map:
+    url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
+    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
   # Jobs are persisted so async execution survives a restart and /jobs/{id}
   # keeps working, which OGC API - Processes expects.
   #

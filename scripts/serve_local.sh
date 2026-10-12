@@ -57,8 +57,31 @@ case "${1:-start}" in
 EOT
     ;;
   stop)
+    # Stop by pid file when we have one, but ALWAYS verify the port is
+    # actually free afterwards and escalate if it is not. The old version
+    # killed the pid and deleted the pid file without checking, so a failed
+    # kill left the service running with no pid file to retry from - and the
+    # next `start` then said "already running" and silently served the OLD
+    # config. That is how a config change can appear not to take effect.
     f="$PIDS/records.pid"
-    [ -f "$f" ] && { kill "$(cat "$f")" 2>/dev/null; rm -f "$f"; ok "stopped"; } || bad "no pid file"
+    if [ -f "$f" ]; then kill -TERM "$(cat "$f")" 2>/dev/null; fi
+    for _ in $(seq 1 15); do
+      curl -sf -o /dev/null --max-time 2 "http://localhost:$PORT/" 2>/dev/null || break
+      sleep 1
+    done
+    if curl -sf -o /dev/null --max-time 2 "http://localhost:$PORT/" 2>/dev/null; then
+      # Still up: fall back to matching the gunicorn master/workers, taking
+      # care never to signal this script itself.
+      for p in $(pgrep -f 'flask_app:APP' | grep -vx "$$"); do kill -TERM "$p" 2>/dev/null; done
+      sleep 3
+      for p in $(pgrep -f 'flask_app:APP' | grep -vx "$$"); do kill -KILL "$p" 2>/dev/null; done
+      sleep 1
+    fi
+    rm -f "$f"
+    if curl -sf -o /dev/null --max-time 2 "http://localhost:$PORT/" 2>/dev/null; then
+      bad "port $PORT is STILL serving - stop it by hand before restarting"; exit 1
+    fi
+    ok "stopped (port $PORT free)"
     ;;
   status)
     curl -sf -o /dev/null --max-time 5 "http://localhost:$PORT/" \
