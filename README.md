@@ -16,7 +16,7 @@ CyberGIS mid-semester practical: *build a missing OGC web service over Bhoonidhi
 | Standard | **OGC API – Processes** Part 1: Core (OGC 18-062r2) |
 | Supporting | OGC API – Records (OGC 20-004), for collection discovery |
 | Framework | pygeoapi 0.24.0 · shapely 2.1 · pyproj 3.8 |
-| Compliance | **126/126 tests pass** (incl. the HTML views a browser hits) |
+| Compliance | **135/135 tests pass** (incl. the HTML views a browser hits) |
 | Vector ops | coverage/gap · set cover · co-coverage · density grid |
 | Raster ops | zonal statistics · scene raster profile |
 | **Measured gap** | **92% of every scene the catalogue returns is redundant** — 208 scenes found, 16 needed, across 8 queries |
@@ -251,7 +251,7 @@ make data          # build the 59 catalogue records
 make footprints    # harvest real acquisition footprints
 make raster        # fetch the DEM the raster processes read (~150 MB download)
 make up            # start the service on :5003
-make test          # 126 compliance tests
+make test          # 135 compliance tests
 make demo          # the whole walkthrough
 ```
 
@@ -268,8 +268,11 @@ http://localhost:5003/collections/bhoonidhi/items/CartoSat-1_PAN_CartoDEM_30m
 http://localhost:5003/processes
 ```
 
-Verified: `q=scatterometer`→5, `q=NDVI`→4, `q=SAR`→20, `platform_id=EOS-06`→28,
-`domain=radar`→24, `instrument=AIS`→1, `datetime=2023-01-01/..`→8 of 59.
+Verified: `q=scatterometer`→5, `q=NDVI`→4, `q=SAR`→20, `q=India`→59, `q=ISRO`→59,
+`platform_id=EOS-06`→28, `domain=radar`→24, `instrument=AIS`→1,
+`datetime=2023-01-01/..`→8 of 59. A place name such as `q=Bhopal`→0 is correct:
+this catalogue is **collection-level**, so it describes platforms and products,
+not places.
 
 ---
 
@@ -309,7 +312,7 @@ credentials.
 
 ```
 $ ./scripts/run_tests.sh
-============================= 126 passed in 5.81s ==============================
+============================= 135 passed in 6.78s ==============================
 ```
 
 | Group | Tests | Covers |

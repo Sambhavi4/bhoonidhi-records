@@ -1,4 +1,10 @@
 SHELL := /bin/bash
+
+# The Python scripts need the project venv, not whatever `python3` resolves to
+# on PATH. Their shebangs say `/usr/bin/env python3`, so running them directly
+# picks up the system interpreter and fails with "tinydb is required" even
+# though `make install` installed it. Invoke them through the venv explicitly.
+PY := ../runtime/venv/bin/python
 .DEFAULT_GOAL := help
 .PHONY: help install data footprints raster up down status verify test demo gap baseline redundancy report all clean
 
@@ -10,11 +16,11 @@ install: ## Create the Python venv
 	./scripts/install.sh
 
 data: ## Build the Records catalogue from Bhoonidhi's collection list
-	./scripts/build_catalogue.py
+	$(PY) scripts/build_catalogue.py
 
 footprints: ## Harvest real acquisition footprints for the spatial processes
-	./scripts/fetch_footprints.py --source open --collection sentinel-2-l2a --limit 60
-	./scripts/fetch_footprints.py --source open --collection sentinel-1-grd --limit 60 --append
+	$(PY) scripts/fetch_footprints.py --source open --collection sentinel-2-l2a --limit 60
+	$(PY) scripts/fetch_footprints.py --source open --collection sentinel-1-grd --limit 60 --append
 
 raster: ## Fetch the DEM the raster processes read (public Copernicus GLO-30)
 	./scripts/fetch_dem.sh
@@ -44,7 +50,7 @@ baseline: ## Probe ISRO's stack and peer portals for a processing tier (live)
 	./scripts/probe_baseline.sh
 
 redundancy: ## Measure what the missing tier costs (needs the service up)
-	./scripts/measure_redundancy.py
+	$(PY) scripts/measure_redundancy.py
 
 report: ## Build the LaTeX report -> docs/report/bhoonidhi-processes.pdf
 	$(MAKE) -C docs/report

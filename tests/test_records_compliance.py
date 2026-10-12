@@ -261,3 +261,71 @@ class TestQuerying:
     def test_bad_bbox_is_rejected(self, get, collection):
         r = get(f"/collections/{collection}/items", {"bbox": "1,2,3"})
         assert r.status_code == 400, f"3-element bbox accepted (HTTP {r.status_code})"
+
+
+class TestFullTextIndexCoverage:
+    """`q=` must search the whole record, not just title and description.
+
+    Regression guard for a defect found by searching the live service by hand:
+    every record carries "India", "ISRO" and "NRSC" in its keywords, yet
+    q=India and q=ISRO both returned ZERO while q=ResourceSat returned 10.
+    The TinyDB provider serves q= out of _metadata-anytext, and the catalogue
+    builder was filling that field from title + description only, so the
+    controlled vocabulary and the parsed facets were invisible.
+
+    That is the worst kind of search bug: it does not error, it just quietly
+    reports that the catalogue holds nothing on the subject.
+    """
+
+    @pytest.mark.parametrize("term", ["India", "ISRO", "NRSC"])
+    def test_keywords_are_searchable(self, get, collection, term):
+        """Terms present in every record's keywords must match every record."""
+        r = get(f"/collections/{collection}/items", {"q": term, "limit": 1})
+        assert r.status_code == 200
+        n = r.json()["numberMatched"]
+        assert n == 59, (
+            f"q={term} matched {n} of 59 records. It is in the keywords of "
+            "every record, so the full-text index is not covering keywords."
+        )
+
+    @pytest.mark.parametrize("term,field", [
+        ("optical", "domain"), ("radar", "domain"),
+        ("AWiFS", "instrument"), ("ResourceSat-2", "platform"),
+    ])
+    def test_facet_values_are_searchable(self, get, collection, term, field):
+        """A value a user can filter on must also be findable by free text."""
+        q = get(f"/collections/{collection}/items", {"q": term, "limit": 1})
+        f = get(f"/collections/{collection}/items", {field: term, "limit": 1})
+        assert q.status_code == 200 and f.status_code == 200
+        nq, nf = q.json()["numberMatched"], f.json()["numberMatched"]
+        assert nq >= nf > 0, (
+            f"q={term} matched {nq} but {field}={term} matched {nf}; "
+            "free-text search should find at least what the facet filter does"
+        )
+
+    def test_absent_terms_still_return_nothing(self, get, collection):
+        """The fix must not make search match everything.
+
+        This catalogue is collection-level: it describes platforms and
+        products, not places. A place name genuinely is not in it, and an
+        empty result for one is correct behaviour rather than a bug.
+        """
+        for term in ["Bhopal", "Karnataka", "pizza"]:
+            r = get(f"/collections/{collection}/items", {"q": term, "limit": 1})
+            assert r.status_code == 200
+            assert r.json()["numberMatched"] == 0, \
+                f"q={term} should match nothing in a collection-level catalogue"
+
+    def test_empty_result_is_well_formed(self, get, collection):
+        """Zero hits must still be a valid, complete FeatureCollection.
+
+        A browser hitting ?q=Bhopal renders "No items" off this document, so
+        it has to be a proper empty result, not a truncated one.
+        """
+        r = get(f"/collections/{collection}/items", {"q": "Bhopal"})
+        assert r.status_code == 200
+        d = r.json()
+        assert d["type"] == "FeatureCollection"
+        assert d["features"] == []
+        assert d["numberMatched"] == 0 and d["numberReturned"] == 0
+        assert any(l.get("rel") == "self" for l in d.get("links", []))

@@ -53,8 +53,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "ResourceSat-2",
         "platform_id": "ResourceSat-2",
         "instrument": "AWiFS",
@@ -106,7 +106,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "ResourceSat-2 AWiFS - Level-2 Bhoonidhi collection 'ResourceSat-2_AWIFS_L2'. ResourceSat-2, Advanced Wide Field Sensor (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "ResourceSat-2 AWiFS - Level-2 Bhoonidhi collection 'ResourceSat-2_AWIFS_L2'. ResourceSat-2, Advanced Wide Field Sensor (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. ResourceSat-2 ResourceSat-2 AWiFS Level-2 optical ResourceSat-2_AWIFS_L2 AWiFS Bhoonidhi ISRO India Level-2 NRSC ResourceSat-2 earth observation optical"
       },
       "links": [
         {
@@ -187,8 +187,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "ResourceSat-2",
         "platform_id": "ResourceSat-2",
         "instrument": "AWiFS",
@@ -240,7 +240,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "ResourceSat-2 AWiFS - Bottom-of-Atmosphere reflectance Bhoonidhi collection 'ResourceSat-2_AWIFS_BOA'. ResourceSat-2, Advanced Wide Field Sensor (optical instrument). Product: Bottom-of-Atmosphere reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "ResourceSat-2 AWiFS - Bottom-of-Atmosphere reflectance Bhoonidhi collection 'ResourceSat-2_AWIFS_BOA'. ResourceSat-2, Advanced Wide Field Sensor (optical instrument). Product: Bottom-of-Atmosphere reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. ResourceSat-2 ResourceSat-2 AWiFS Bottom-of-Atmosphere reflectance optical ResourceSat-2_AWIFS_BOA AWiFS Bhoonidhi Bottom-of-Atmosphere reflectance ISRO India NRSC ResourceSat-2 earth observation optical"
       },
       "links": [
         {
@@ -321,8 +321,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "ResourceSat-2",
         "platform_id": "ResourceSat-2",
         "instrument": "LISS-III",
@@ -374,7 +374,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "ResourceSat-2 LISS-III - Level-2 Bhoonidhi collection 'ResourceSat-2_LISS3_L2'. ResourceSat-2, Linear Imaging Self Scanner III (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "ResourceSat-2 LISS-III - Level-2 Bhoonidhi collection 'ResourceSat-2_LISS3_L2'. ResourceSat-2, Linear Imaging Self Scanner III (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. ResourceSat-2 ResourceSat-2 LISS-III Level-2 optical ResourceSat-2_LISS3_L2 Bhoonidhi ISRO India LISS-III Level-2 NRSC ResourceSat-2 earth observation optical"
       },
       "links": [
         {
@@ -455,8 +455,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "ResourceSat-2",
         "platform_id": "ResourceSat-2",
         "instrument": "LISS-III",
@@ -508,7 +508,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "ResourceSat-2 LISS-III - Bottom-of-Atmosphere reflectance Bhoonidhi collection 'ResourceSat-2_LISS3_BOA'. ResourceSat-2, Linear Imaging Self Scanner III (optical instrument). Product: Bottom-of-Atmosphere reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "ResourceSat-2 LISS-III - Bottom-of-Atmosphere reflectance Bhoonidhi collection 'ResourceSat-2_LISS3_BOA'. ResourceSat-2, Linear Imaging Self Scanner III (optical instrument). Product: Bottom-of-Atmosphere reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. ResourceSat-2 ResourceSat-2 LISS-III Bottom-of-Atmosphere reflectance optical ResourceSat-2_LISS3_BOA Bhoonidhi Bottom-of-Atmosphere reflectance ISRO India LISS-III NRSC ResourceSat-2 earth observation optical"
       },
       "links": [
         {
@@ -589,8 +589,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "ResourceSat-2",
         "platform_id": "ResourceSat-2",
         "instrument": "LISS-IV MX",
@@ -642,7 +642,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "ResourceSat-2 LISS-IV MX - Level-2 Bhoonidhi collection 'ResourceSat-2_LISS4-MX70_L2'. ResourceSat-2, Linear Imaging Self Scanner IV, multispectral mode (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "ResourceSat-2 LISS-IV MX - Level-2 Bhoonidhi collection 'ResourceSat-2_LISS4-MX70_L2'. ResourceSat-2, Linear Imaging Self Scanner IV, multispectral mode (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. ResourceSat-2 ResourceSat-2 LISS-IV MX Level-2 optical ResourceSat-2_LISS4-MX70_L2 Bhoonidhi ISRO India LISS-IV MX Level-2 NRSC ResourceSat-2 earth observation optical"
       },
       "links": [
         {
@@ -723,8 +723,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "ResourceSat-2A",
         "platform_id": "ResourceSat-2A",
         "instrument": "AWiFS",
@@ -776,7 +776,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "ResourceSat-2A AWiFS - Level-2 Bhoonidhi collection 'ResourceSat-2A_AWIFS_L2'. ResourceSat-2A, Advanced Wide Field Sensor (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "ResourceSat-2A AWiFS - Level-2 Bhoonidhi collection 'ResourceSat-2A_AWIFS_L2'. ResourceSat-2A, Advanced Wide Field Sensor (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. ResourceSat-2A ResourceSat-2A AWiFS Level-2 optical ResourceSat-2A_AWIFS_L2 AWiFS Bhoonidhi ISRO India Level-2 NRSC ResourceSat-2A earth observation optical"
       },
       "links": [
         {
@@ -857,8 +857,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "ResourceSat-2A",
         "platform_id": "ResourceSat-2A",
         "instrument": "AWiFS",
@@ -910,7 +910,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "ResourceSat-2A AWiFS - Bottom-of-Atmosphere reflectance Bhoonidhi collection 'ResourceSat-2A_AWIFS_BOA'. ResourceSat-2A, Advanced Wide Field Sensor (optical instrument). Product: Bottom-of-Atmosphere reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "ResourceSat-2A AWiFS - Bottom-of-Atmosphere reflectance Bhoonidhi collection 'ResourceSat-2A_AWIFS_BOA'. ResourceSat-2A, Advanced Wide Field Sensor (optical instrument). Product: Bottom-of-Atmosphere reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. ResourceSat-2A ResourceSat-2A AWiFS Bottom-of-Atmosphere reflectance optical ResourceSat-2A_AWIFS_BOA AWiFS Bhoonidhi Bottom-of-Atmosphere reflectance ISRO India NRSC ResourceSat-2A earth observation optical"
       },
       "links": [
         {
@@ -991,8 +991,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "ResourceSat-2A",
         "platform_id": "ResourceSat-2A",
         "instrument": "LISS-III",
@@ -1044,7 +1044,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "ResourceSat-2A LISS-III - Level-2 Bhoonidhi collection 'ResourceSat-2A_LISS3_L2'. ResourceSat-2A, Linear Imaging Self Scanner III (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "ResourceSat-2A LISS-III - Level-2 Bhoonidhi collection 'ResourceSat-2A_LISS3_L2'. ResourceSat-2A, Linear Imaging Self Scanner III (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. ResourceSat-2A ResourceSat-2A LISS-III Level-2 optical ResourceSat-2A_LISS3_L2 Bhoonidhi ISRO India LISS-III Level-2 NRSC ResourceSat-2A earth observation optical"
       },
       "links": [
         {
@@ -1125,8 +1125,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "ResourceSat-2A",
         "platform_id": "ResourceSat-2A",
         "instrument": "LISS-III",
@@ -1178,7 +1178,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "ResourceSat-2A LISS-III - Bottom-of-Atmosphere reflectance Bhoonidhi collection 'ResourceSat-2A_LISS3_BOA'. ResourceSat-2A, Linear Imaging Self Scanner III (optical instrument). Product: Bottom-of-Atmosphere reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "ResourceSat-2A LISS-III - Bottom-of-Atmosphere reflectance Bhoonidhi collection 'ResourceSat-2A_LISS3_BOA'. ResourceSat-2A, Linear Imaging Self Scanner III (optical instrument). Product: Bottom-of-Atmosphere reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. ResourceSat-2A ResourceSat-2A LISS-III Bottom-of-Atmosphere reflectance optical ResourceSat-2A_LISS3_BOA Bhoonidhi Bottom-of-Atmosphere reflectance ISRO India LISS-III NRSC ResourceSat-2A earth observation optical"
       },
       "links": [
         {
@@ -1259,8 +1259,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "ResourceSat-2A",
         "platform_id": "ResourceSat-2A",
         "instrument": "LISS-IV MX",
@@ -1312,7 +1312,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "ResourceSat-2A LISS-IV MX - Level-2 Bhoonidhi collection 'ResourceSat-2A_LISS4-MX70_L2'. ResourceSat-2A, Linear Imaging Self Scanner IV, multispectral mode (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "ResourceSat-2A LISS-IV MX - Level-2 Bhoonidhi collection 'ResourceSat-2A_LISS4-MX70_L2'. ResourceSat-2A, Linear Imaging Self Scanner IV, multispectral mode (optical instrument). Product: Level-2. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. ResourceSat-2A ResourceSat-2A LISS-IV MX Level-2 optical ResourceSat-2A_LISS4-MX70_L2 Bhoonidhi ISRO India LISS-IV MX Level-2 NRSC ResourceSat-2A earth observation optical"
       },
       "links": [
         {
@@ -1393,8 +1393,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-04 (RISAT-1A)",
         "platform_id": "EOS-04",
         "instrument": "SAR (MRS)",
@@ -1446,7 +1446,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (MRS) - Level-2A Bhoonidhi collection 'EOS-04_SAR-MRS_L2A'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Medium Resolution Stripmap (radar instrument). Product: Level-2A. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (MRS) - Level-2A Bhoonidhi collection 'EOS-04_SAR-MRS_L2A'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Medium Resolution Stripmap (radar instrument). Product: Level-2A. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-04 (RISAT-1A) EOS-04 SAR (MRS) Level-2A radar EOS-04_SAR-MRS_L2A Bhoonidhi EOS-04 (RISAT-1A) ISRO India Level-2A NRSC SAR (MRS) earth observation radar"
       },
       "links": [
         {
@@ -1527,8 +1527,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-04 (RISAT-1A)",
         "platform_id": "EOS-04",
         "instrument": "SAR (MRS)",
@@ -1580,7 +1580,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (MRS) - Level-2B Bhoonidhi collection 'EOS-04_SAR-MRS_L2B'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Medium Resolution Stripmap (radar instrument). Product: Level-2B. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (MRS) - Level-2B Bhoonidhi collection 'EOS-04_SAR-MRS_L2B'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Medium Resolution Stripmap (radar instrument). Product: Level-2B. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-04 (RISAT-1A) EOS-04 SAR (MRS) Level-2B radar EOS-04_SAR-MRS_L2B Bhoonidhi EOS-04 (RISAT-1A) ISRO India Level-2B NRSC SAR (MRS) earth observation radar"
       },
       "links": [
         {
@@ -1661,8 +1661,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-04 (RISAT-1A)",
         "platform_id": "EOS-04",
         "instrument": "SAR (MRS)",
@@ -1714,7 +1714,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (MRS) - Soil Moisture Bhoonidhi collection 'EOS-04_SAR-MRS_SM'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Medium Resolution Stripmap (radar instrument). Product: Soil Moisture. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (MRS) - Soil Moisture Bhoonidhi collection 'EOS-04_SAR-MRS_SM'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Medium Resolution Stripmap (radar instrument). Product: Soil Moisture. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-04 (RISAT-1A) EOS-04 SAR (MRS) Soil Moisture radar EOS-04_SAR-MRS_SM Bhoonidhi EOS-04 (RISAT-1A) ISRO India NRSC SAR (MRS) Soil Moisture earth observation radar"
       },
       "links": [
         {
@@ -1795,8 +1795,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-04 (RISAT-1A)",
         "platform_id": "EOS-04",
         "instrument": "SAR (CRS)",
@@ -1848,7 +1848,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (CRS) - Level-2A Bhoonidhi collection 'EOS-04_SAR-CRS_L2A'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Coarse Resolution Stripmap (radar instrument). Product: Level-2A. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (CRS) - Level-2A Bhoonidhi collection 'EOS-04_SAR-CRS_L2A'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Coarse Resolution Stripmap (radar instrument). Product: Level-2A. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-04 (RISAT-1A) EOS-04 SAR (CRS) Level-2A radar EOS-04_SAR-CRS_L2A Bhoonidhi EOS-04 (RISAT-1A) ISRO India Level-2A NRSC SAR (CRS) earth observation radar"
       },
       "links": [
         {
@@ -1929,8 +1929,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-04 (RISAT-1A)",
         "platform_id": "EOS-04",
         "instrument": "SAR (CRS)",
@@ -1982,7 +1982,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (CRS) - Level-2B Bhoonidhi collection 'EOS-04_SAR-CRS_L2B'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Coarse Resolution Stripmap (radar instrument). Product: Level-2B. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (CRS) - Level-2B Bhoonidhi collection 'EOS-04_SAR-CRS_L2B'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Coarse Resolution Stripmap (radar instrument). Product: Level-2B. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-04 (RISAT-1A) EOS-04 SAR (CRS) Level-2B radar EOS-04_SAR-CRS_L2B Bhoonidhi EOS-04 (RISAT-1A) ISRO India Level-2B NRSC SAR (CRS) earth observation radar"
       },
       "links": [
         {
@@ -2063,8 +2063,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-04 (RISAT-1A)",
         "platform_id": "EOS-04",
         "instrument": "SAR (FRS-1)",
@@ -2116,7 +2116,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (FRS-1) - Level-2A Bhoonidhi collection 'EOS-04_SAR-FRS1_L2A'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Fine Resolution Stripmap 1 (radar instrument). Product: Level-2A. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (FRS-1) - Level-2A Bhoonidhi collection 'EOS-04_SAR-FRS1_L2A'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Fine Resolution Stripmap 1 (radar instrument). Product: Level-2A. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-04 (RISAT-1A) EOS-04 SAR (FRS-1) Level-2A radar EOS-04_SAR-FRS1_L2A Bhoonidhi EOS-04 (RISAT-1A) ISRO India Level-2A NRSC SAR (FRS-1) earth observation radar"
       },
       "links": [
         {
@@ -2197,8 +2197,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-04 (RISAT-1A)",
         "platform_id": "EOS-04",
         "instrument": "SAR (FRS-2)",
@@ -2250,7 +2250,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (FRS-2) - Level-2A Bhoonidhi collection 'EOS-04_SAR-FRS2_L2A'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Fine Resolution Stripmap 2 (radar instrument). Product: Level-2A. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (FRS-2) - Level-2A Bhoonidhi collection 'EOS-04_SAR-FRS2_L2A'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Fine Resolution Stripmap 2 (radar instrument). Product: Level-2A. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-04 (RISAT-1A) EOS-04 SAR (FRS-2) Level-2A radar EOS-04_SAR-FRS2_L2A Bhoonidhi EOS-04 (RISAT-1A) ISRO India Level-2A NRSC SAR (FRS-2) earth observation radar"
       },
       "links": [
         {
@@ -2331,8 +2331,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-04 (RISAT-1A)",
         "platform_id": "EOS-04",
         "instrument": "SAR (MRS)",
@@ -2384,7 +2384,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (MRS) - Mosaic Bhoonidhi collection 'EOS-04_SAR-MRS_1deg-mosaic'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Medium Resolution Stripmap (radar instrument). Product: Mosaic. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (MRS) - Mosaic Bhoonidhi collection 'EOS-04_SAR-MRS_1deg-mosaic'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Medium Resolution Stripmap (radar instrument). Product: Mosaic. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-04 (RISAT-1A) EOS-04 SAR (MRS) Mosaic radar EOS-04_SAR-MRS_1deg-mosaic Bhoonidhi EOS-04 (RISAT-1A) ISRO India Mosaic NRSC SAR (MRS) earth observation radar"
       },
       "links": [
         {
@@ -2465,8 +2465,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-04 (RISAT-1A)",
         "platform_id": "EOS-04",
         "instrument": "SAR (MRS)",
@@ -2518,7 +2518,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (MRS) - Mosaic Bhoonidhi collection 'EOS-04_SAR-MRS_WS-1deg-mosaic'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Medium Resolution Stripmap (radar instrument). Product: Mosaic. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-04 (RISAT-1A) SAR (MRS) - Mosaic Bhoonidhi collection 'EOS-04_SAR-MRS_WS-1deg-mosaic'. EOS-04 (RISAT-1A), Synthetic Aperture Radar, Medium Resolution Stripmap (radar instrument). Product: Mosaic. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-04 (RISAT-1A) EOS-04 SAR (MRS) Mosaic radar EOS-04_SAR-MRS_WS-1deg-mosaic Bhoonidhi EOS-04 (RISAT-1A) ISRO India Mosaic NRSC SAR (MRS) earth observation radar"
       },
       "links": [
         {
@@ -2599,8 +2599,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (LAC)",
@@ -2652,7 +2652,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-1C Bhoonidhi collection 'EOS-06_OCM-LAC_L1C'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-1C. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-1C Bhoonidhi collection 'EOS-06_OCM-LAC_L1C'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-1C. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (LAC) Level-1C optical EOS-06_OCM-LAC_L1C Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-1C NRSC OCM (LAC) earth observation optical"
       },
       "links": [
         {
@@ -2734,8 +2734,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (LAC)",
@@ -2787,7 +2787,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Aerosol Optical Depth Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-AOD'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Aerosol Optical Depth. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Aerosol Optical Depth Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-AOD'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Aerosol Optical Depth. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (LAC) Level-2C, Aerosol Optical Depth optical EOS-06_OCM-LAC_L2C-AOD Aerosol Optical Depth Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-2C NRSC OCM (LAC) earth observation optical"
       },
       "links": [
         {
@@ -2869,8 +2869,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (LAC)",
@@ -2922,7 +2922,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Chlorophyll concentration Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-CHL'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Chlorophyll concentration. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Chlorophyll concentration Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-CHL'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Chlorophyll concentration. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (LAC) Level-2C, Chlorophyll concentration optical EOS-06_OCM-LAC_L2C-CHL Bhoonidhi Chlorophyll concentration EOS-06 (Oceansat-3) ISRO India Level-2C NRSC OCM (LAC) earth observation optical"
       },
       "links": [
         {
@@ -3004,8 +3004,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (LAC)",
@@ -3057,7 +3057,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Diffuse Attenuation Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-DA'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Diffuse Attenuation. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Diffuse Attenuation Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-DA'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Diffuse Attenuation. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (LAC) Level-2C, Diffuse Attenuation optical EOS-06_OCM-LAC_L2C-DA Bhoonidhi Diffuse Attenuation EOS-06 (Oceansat-3) ISRO India Level-2C NRSC OCM (LAC) earth observation optical"
       },
       "links": [
         {
@@ -3139,8 +3139,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (LAC)",
@@ -3192,7 +3192,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Normalised Difference Vegetation Index Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-NDVI'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Normalised Difference Vegetation Index. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Normalised Difference Vegetation Index Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-NDVI'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Normalised Difference Vegetation Index. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (LAC) Level-2C, Normalised Difference Vegetation Index optical EOS-06_OCM-LAC_L2C-NDVI Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-2C NRSC Normalised Difference Vegetation Index OCM (LAC) earth observation optical"
       },
       "links": [
         {
@@ -3274,8 +3274,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (LAC)",
@@ -3327,7 +3327,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Remote Sensing Reflectance Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-RRS'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Remote Sensing Reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Remote Sensing Reflectance Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-RRS'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Remote Sensing Reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (LAC) Level-2C, Remote Sensing Reflectance optical EOS-06_OCM-LAC_L2C-RRS Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-2C NRSC OCM (LAC) Remote Sensing Reflectance earth observation optical"
       },
       "links": [
         {
@@ -3409,8 +3409,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (LAC)",
@@ -3462,7 +3462,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Total Suspended Matter Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-TSM'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Total Suspended Matter. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Level-2C, Total Suspended Matter Bhoonidhi collection 'EOS-06_OCM-LAC_L2C-TSM'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Level-2C, Total Suspended Matter. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (LAC) Level-2C, Total Suspended Matter optical EOS-06_OCM-LAC_L2C-TSM Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-2C NRSC OCM (LAC) Total Suspended Matter earth observation optical"
       },
       "links": [
         {
@@ -3544,8 +3544,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (LAC)",
@@ -3597,7 +3597,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Normalised Difference Vegetation Index (8day 360m) Bhoonidhi collection 'EOS-06_OCM-LAC_NDVI_8day_360m'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Normalised Difference Vegetation Index. Nominal resolution 360 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Normalised Difference Vegetation Index (8day 360m) Bhoonidhi collection 'EOS-06_OCM-LAC_NDVI_8day_360m'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Normalised Difference Vegetation Index. Nominal resolution 360 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (LAC) Normalised Difference Vegetation Index optical EOS-06_OCM-LAC_NDVI_8day_360m 360m Bhoonidhi EOS-06 (Oceansat-3) ISRO India NRSC Normalised Difference Vegetation Index OCM (LAC) earth observation optical"
       },
       "links": [
         {
@@ -3679,8 +3679,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (LAC)",
@@ -3732,7 +3732,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Aerosol Optical Depth (8day 500m) Bhoonidhi collection 'EOS-06_OCM-LAC_AOD_8day_500m'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Aerosol Optical Depth. Nominal resolution 500 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Aerosol Optical Depth (8day 500m) Bhoonidhi collection 'EOS-06_OCM-LAC_AOD_8day_500m'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Aerosol Optical Depth. Nominal resolution 500 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (LAC) Aerosol Optical Depth optical EOS-06_OCM-LAC_AOD_8day_500m 500m Aerosol Optical Depth Bhoonidhi EOS-06 (Oceansat-3) ISRO India NRSC OCM (LAC) earth observation optical"
       },
       "links": [
         {
@@ -3814,8 +3814,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (LAC)",
@@ -3867,7 +3867,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Total Suspended Matter (8day 500m) Bhoonidhi collection 'EOS-06_OCM-LAC_TSM_8day_500m'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Total Suspended Matter. Nominal resolution 500 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (LAC) - Total Suspended Matter (8day 500m) Bhoonidhi collection 'EOS-06_OCM-LAC_TSM_8day_500m'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Local Area Coverage (optical instrument). Product: Total Suspended Matter. Nominal resolution 500 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (LAC) Total Suspended Matter optical EOS-06_OCM-LAC_TSM_8day_500m 500m Bhoonidhi EOS-06 (Oceansat-3) ISRO India NRSC OCM (LAC) Total Suspended Matter earth observation optical"
       },
       "links": [
         {
@@ -3948,8 +3948,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -4001,7 +4001,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-1C Bhoonidhi collection 'EOS-06_OCM-GAC_L1C'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-1C. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-1C Bhoonidhi collection 'EOS-06_OCM-GAC_L1C'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-1C. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Level-1C optical EOS-06_OCM-GAC_L1C Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-1C NRSC OCM (GAC) earth observation optical"
       },
       "links": [
         {
@@ -4083,8 +4083,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -4136,7 +4136,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Aerosol Optical Depth Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-AOD'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Aerosol Optical Depth. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Aerosol Optical Depth Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-AOD'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Aerosol Optical Depth. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Level-2C, Aerosol Optical Depth optical EOS-06_OCM-GAC_L2C-AOD Aerosol Optical Depth Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-2C NRSC OCM (GAC) earth observation optical"
       },
       "links": [
         {
@@ -4218,8 +4218,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -4271,7 +4271,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Chlorophyll concentration Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-CHL'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Chlorophyll concentration. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Chlorophyll concentration Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-CHL'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Chlorophyll concentration. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Level-2C, Chlorophyll concentration optical EOS-06_OCM-GAC_L2C-CHL Bhoonidhi Chlorophyll concentration EOS-06 (Oceansat-3) ISRO India Level-2C NRSC OCM (GAC) earth observation optical"
       },
       "links": [
         {
@@ -4353,8 +4353,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -4406,7 +4406,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Diffuse Attenuation Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-DA'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Diffuse Attenuation. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Diffuse Attenuation Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-DA'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Diffuse Attenuation. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Level-2C, Diffuse Attenuation optical EOS-06_OCM-GAC_L2C-DA Bhoonidhi Diffuse Attenuation EOS-06 (Oceansat-3) ISRO India Level-2C NRSC OCM (GAC) earth observation optical"
       },
       "links": [
         {
@@ -4488,8 +4488,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -4541,7 +4541,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Normalised Difference Vegetation Index Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-NDVI'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Normalised Difference Vegetation Index. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Normalised Difference Vegetation Index Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-NDVI'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Normalised Difference Vegetation Index. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Level-2C, Normalised Difference Vegetation Index optical EOS-06_OCM-GAC_L2C-NDVI Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-2C NRSC Normalised Difference Vegetation Index OCM (GAC) earth observation optical"
       },
       "links": [
         {
@@ -4623,8 +4623,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -4676,7 +4676,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Remote Sensing Reflectance Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-RRS'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Remote Sensing Reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Remote Sensing Reflectance Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-RRS'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Remote Sensing Reflectance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Level-2C, Remote Sensing Reflectance optical EOS-06_OCM-GAC_L2C-RRS Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-2C NRSC OCM (GAC) Remote Sensing Reflectance earth observation optical"
       },
       "links": [
         {
@@ -4758,8 +4758,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -4811,7 +4811,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Total Suspended Matter Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-TSM'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Total Suspended Matter. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Total Suspended Matter Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-TSM'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Total Suspended Matter. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Level-2C, Total Suspended Matter optical EOS-06_OCM-GAC_L2C-TSM Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-2C NRSC OCM (GAC) Total Suspended Matter earth observation optical"
       },
       "links": [
         {
@@ -4893,8 +4893,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -4946,7 +4946,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Vegetation Fraction Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-VF'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Vegetation Fraction. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Level-2C, Vegetation Fraction Bhoonidhi collection 'EOS-06_OCM-GAC_L2C-VF'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Level-2C, Vegetation Fraction. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Level-2C, Vegetation Fraction optical EOS-06_OCM-GAC_L2C-VF Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-2C NRSC OCM (GAC) Vegetation Fraction earth observation optical"
       },
       "links": [
         {
@@ -5028,8 +5028,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -5081,7 +5081,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Normalised Difference Vegetation Index (8day 1km) Bhoonidhi collection 'EOS-06_OCM-GAC_NDVI_8day_1km'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Normalised Difference Vegetation Index. Nominal resolution 1000 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Normalised Difference Vegetation Index (8day 1km) Bhoonidhi collection 'EOS-06_OCM-GAC_NDVI_8day_1km'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Normalised Difference Vegetation Index. Nominal resolution 1000 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Normalised Difference Vegetation Index optical EOS-06_OCM-GAC_NDVI_8day_1km 1000m Bhoonidhi EOS-06 (Oceansat-3) ISRO India NRSC Normalised Difference Vegetation Index OCM (GAC) earth observation optical"
       },
       "links": [
         {
@@ -5163,8 +5163,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -5216,7 +5216,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Aerosol Optical Depth (8day 4km) Bhoonidhi collection 'EOS-06_OCM-GAC_AOD_8day_4km'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Aerosol Optical Depth. Nominal resolution 4000 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Aerosol Optical Depth (8day 4km) Bhoonidhi collection 'EOS-06_OCM-GAC_AOD_8day_4km'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Aerosol Optical Depth. Nominal resolution 4000 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Aerosol Optical Depth optical EOS-06_OCM-GAC_AOD_8day_4km 4000m Aerosol Optical Depth Bhoonidhi EOS-06 (Oceansat-3) ISRO India NRSC OCM (GAC) earth observation optical"
       },
       "links": [
         {
@@ -5297,8 +5297,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -5350,7 +5350,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - product (Chlorophyll 8day 4km) Bhoonidhi collection 'EOS-06_OCM-GAC_Chlorophyll_8day_4km'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: product. Nominal resolution 4000 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - product (Chlorophyll 8day 4km) Bhoonidhi collection 'EOS-06_OCM-GAC_Chlorophyll_8day_4km'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: product. Nominal resolution 4000 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) product optical EOS-06_OCM-GAC_Chlorophyll_8day_4km 4000m Bhoonidhi EOS-06 (Oceansat-3) ISRO India NRSC OCM (GAC) earth observation optical"
       },
       "links": [
         {
@@ -5432,8 +5432,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -5485,7 +5485,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Diffuse Attenuation (8day 4km) Bhoonidhi collection 'EOS-06_OCM-GAC_DA_8day_4km'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Diffuse Attenuation. Nominal resolution 4000 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Diffuse Attenuation (8day 4km) Bhoonidhi collection 'EOS-06_OCM-GAC_DA_8day_4km'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Diffuse Attenuation. Nominal resolution 4000 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Diffuse Attenuation optical EOS-06_OCM-GAC_DA_8day_4km 4000m Bhoonidhi Diffuse Attenuation EOS-06 (Oceansat-3) ISRO India NRSC OCM (GAC) earth observation optical"
       },
       "links": [
         {
@@ -5567,8 +5567,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "OCM (GAC)",
@@ -5620,7 +5620,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Total Suspended Matter (8day 4km) Bhoonidhi collection 'EOS-06_OCM-GAC_TSM_8day_4km'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Total Suspended Matter. Nominal resolution 4000 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) OCM (GAC) - Total Suspended Matter (8day 4km) Bhoonidhi collection 'EOS-06_OCM-GAC_TSM_8day_4km'. EOS-06 (Oceansat-3), Ocean Colour Monitor, Global Area Coverage (optical instrument). Product: Total Suspended Matter. Nominal resolution 4000 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 OCM (GAC) Total Suspended Matter optical EOS-06_OCM-GAC_TSM_8day_4km 4000m Bhoonidhi EOS-06 (Oceansat-3) ISRO India NRSC OCM (GAC) Total Suspended Matter earth observation optical"
       },
       "links": [
         {
@@ -5701,8 +5701,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "SCAT",
@@ -5754,7 +5754,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) SCAT - Level-1B Bhoonidhi collection 'EOS-06_SCAT_1B'. EOS-06 (Oceansat-3), Ku-band scatterometer (radar instrument). Product: Level-1B. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) SCAT - Level-1B Bhoonidhi collection 'EOS-06_SCAT_1B'. EOS-06 (Oceansat-3), Ku-band scatterometer (radar instrument). Product: Level-1B. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 SCAT Level-1B radar EOS-06_SCAT_1B Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-1B NRSC SCAT earth observation radar"
       },
       "links": [
         {
@@ -5835,8 +5835,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "SCAT",
@@ -5888,7 +5888,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) SCAT - Level-2B Bhoonidhi collection 'EOS-06_SCAT_2B'. EOS-06 (Oceansat-3), Ku-band scatterometer (radar instrument). Product: Level-2B. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) SCAT - Level-2B Bhoonidhi collection 'EOS-06_SCAT_2B'. EOS-06 (Oceansat-3), Ku-band scatterometer (radar instrument). Product: Level-2B. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 SCAT Level-2B radar EOS-06_SCAT_2B Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-2B NRSC SCAT earth observation radar"
       },
       "links": [
         {
@@ -5969,8 +5969,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "SCAT",
@@ -6022,7 +6022,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) SCAT - Level-3 (SH) Bhoonidhi collection 'EOS-06_SCAT_3SH'. EOS-06 (Oceansat-3), Ku-band scatterometer (radar instrument). Product: Level-3 (SH). Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) SCAT - Level-3 (SH) Bhoonidhi collection 'EOS-06_SCAT_3SH'. EOS-06 (Oceansat-3), Ku-band scatterometer (radar instrument). Product: Level-3 (SH). Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 SCAT Level-3 (SH) radar EOS-06_SCAT_3SH Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-3 (SH) NRSC SCAT earth observation radar"
       },
       "links": [
         {
@@ -6103,8 +6103,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "SCAT",
@@ -6156,7 +6156,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) SCAT - Level-3 (SV) Bhoonidhi collection 'EOS-06_SCAT_3SV'. EOS-06 (Oceansat-3), Ku-band scatterometer (radar instrument). Product: Level-3 (SV). Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) SCAT - Level-3 (SV) Bhoonidhi collection 'EOS-06_SCAT_3SV'. EOS-06 (Oceansat-3), Ku-band scatterometer (radar instrument). Product: Level-3 (SV). Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 SCAT Level-3 (SV) radar EOS-06_SCAT_3SV Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-3 (SV) NRSC SCAT earth observation radar"
       },
       "links": [
         {
@@ -6237,8 +6237,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "EOS-06 (Oceansat-3)",
         "platform_id": "EOS-06",
         "instrument": "SCAT",
@@ -6290,7 +6290,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "EOS-06 (Oceansat-3) SCAT - Level-3 (WW) Bhoonidhi collection 'EOS-06_SCAT_3WW'. EOS-06 (Oceansat-3), Ku-band scatterometer (radar instrument). Product: Level-3 (WW). Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "EOS-06 (Oceansat-3) SCAT - Level-3 (WW) Bhoonidhi collection 'EOS-06_SCAT_3WW'. EOS-06 (Oceansat-3), Ku-band scatterometer (radar instrument). Product: Level-3 (WW). Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. EOS-06 (Oceansat-3) EOS-06 SCAT Level-3 (WW) radar EOS-06_SCAT_3WW Bhoonidhi EOS-06 (Oceansat-3) ISRO India Level-3 (WW) NRSC SCAT earth observation radar"
       },
       "links": [
         {
@@ -6371,8 +6371,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "Sentinel-1A",
         "platform_id": "Sentinel-1A",
         "instrument": "SAR (IW)",
@@ -6424,7 +6424,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "Sentinel-1A SAR (IW) - Single Look Complex Bhoonidhi collection 'Sentinel-1A_SAR-IW_SLC'. Sentinel-1A, Synthetic Aperture Radar, Interferometric Wide swath (radar instrument). Product: Single Look Complex. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "Sentinel-1A SAR (IW) - Single Look Complex Bhoonidhi collection 'Sentinel-1A_SAR-IW_SLC'. Sentinel-1A, Synthetic Aperture Radar, Interferometric Wide swath (radar instrument). Product: Single Look Complex. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. Sentinel-1A Sentinel-1A SAR (IW) Single Look Complex radar Sentinel-1A_SAR-IW_SLC Bhoonidhi ISRO India NRSC SAR (IW) Sentinel-1A Single Look Complex earth observation radar"
       },
       "links": [
         {
@@ -6505,8 +6505,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "Sentinel-1A",
         "platform_id": "Sentinel-1A",
         "instrument": "SAR (IW)",
@@ -6558,7 +6558,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "Sentinel-1A SAR (IW) - Ground Range Detected Bhoonidhi collection 'Sentinel-1A_SAR-IW_GRD'. Sentinel-1A, Synthetic Aperture Radar, Interferometric Wide swath (radar instrument). Product: Ground Range Detected. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "Sentinel-1A SAR (IW) - Ground Range Detected Bhoonidhi collection 'Sentinel-1A_SAR-IW_GRD'. Sentinel-1A, Synthetic Aperture Radar, Interferometric Wide swath (radar instrument). Product: Ground Range Detected. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. Sentinel-1A Sentinel-1A SAR (IW) Ground Range Detected radar Sentinel-1A_SAR-IW_GRD Bhoonidhi Ground Range Detected ISRO India NRSC SAR (IW) Sentinel-1A earth observation radar"
       },
       "links": [
         {
@@ -6638,8 +6638,8 @@
           "other"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "NovaSAR-1",
         "platform_id": "Novasar-1",
         "instrument": "AIS",
@@ -6691,7 +6691,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "NovaSAR-1 AIS - product Bhoonidhi collection 'Novasar-1_AIS'. NovaSAR-1, Automatic Identification System receiver (other instrument). Product: product. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "NovaSAR-1 AIS - product Bhoonidhi collection 'Novasar-1_AIS'. NovaSAR-1, Automatic Identification System receiver (other instrument). Product: product. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. NovaSAR-1 Novasar-1 AIS product other Novasar-1_AIS AIS Bhoonidhi ISRO India NRSC NovaSAR-1 earth observation other"
       },
       "links": [
         {
@@ -6773,8 +6773,8 @@
           "optical"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "Cartosat-1 (IRS-P5)",
         "platform_id": "CartoSat-1",
         "instrument": "PAN",
@@ -6826,7 +6826,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "Cartosat-1 (IRS-P5) PAN - Digital Elevation Model (30m) Bhoonidhi collection 'CartoSat-1_PAN_CartoDEM_30m'. Cartosat-1 (IRS-P5), Panchromatic camera (optical instrument). Product: Digital Elevation Model. Nominal resolution 30 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "Cartosat-1 (IRS-P5) PAN - Digital Elevation Model (30m) Bhoonidhi collection 'CartoSat-1_PAN_CartoDEM_30m'. Cartosat-1 (IRS-P5), Panchromatic camera (optical instrument). Product: Digital Elevation Model. Nominal resolution 30 m, as stated in the collection identifier. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. Cartosat-1 (IRS-P5) CartoSat-1 PAN Digital Elevation Model optical CartoSat-1_PAN_CartoDEM_30m 30m Bhoonidhi Cartosat-1 (IRS-P5) Digital Elevation Model ISRO India NRSC PAN earth observation optical"
       },
       "links": [
         {
@@ -6907,8 +6907,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "NISAR",
         "platform_id": "NISAR",
         "instrument": "S-SAR",
@@ -6960,7 +6960,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "NISAR S-SAR - Range-Doppler Single Look Complex Bhoonidhi collection 'NISAR_SSAR_RSLC'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Range-Doppler Single Look Complex. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "NISAR S-SAR - Range-Doppler Single Look Complex Bhoonidhi collection 'NISAR_SSAR_RSLC'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Range-Doppler Single Look Complex. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. NISAR NISAR S-SAR Range-Doppler Single Look Complex radar NISAR_SSAR_RSLC Bhoonidhi ISRO India NISAR NRSC Range-Doppler Single Look Complex S-SAR earth observation radar"
       },
       "links": [
         {
@@ -7041,8 +7041,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "NISAR",
         "platform_id": "NISAR",
         "instrument": "S-SAR",
@@ -7094,7 +7094,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "NISAR S-SAR - Geocoded Single Look Complex Bhoonidhi collection 'NISAR_SSAR_GSLC'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Geocoded Single Look Complex. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "NISAR S-SAR - Geocoded Single Look Complex Bhoonidhi collection 'NISAR_SSAR_GSLC'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Geocoded Single Look Complex. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. NISAR NISAR S-SAR Geocoded Single Look Complex radar NISAR_SSAR_GSLC Bhoonidhi Geocoded Single Look Complex ISRO India NISAR NRSC S-SAR earth observation radar"
       },
       "links": [
         {
@@ -7175,8 +7175,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "NISAR",
         "platform_id": "NISAR",
         "instrument": "S-SAR",
@@ -7228,7 +7228,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "NISAR S-SAR - Geocoded Covariance Bhoonidhi collection 'NISAR_SSAR_GCOV'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Geocoded Covariance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "NISAR S-SAR - Geocoded Covariance Bhoonidhi collection 'NISAR_SSAR_GCOV'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Geocoded Covariance. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. NISAR NISAR S-SAR Geocoded Covariance radar NISAR_SSAR_GCOV Bhoonidhi Geocoded Covariance ISRO India NISAR NRSC S-SAR earth observation radar"
       },
       "links": [
         {
@@ -7309,8 +7309,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "NISAR",
         "platform_id": "NISAR",
         "instrument": "S-SAR",
@@ -7362,7 +7362,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "NISAR S-SAR - Range-Doppler Unwrapped Interferogram Bhoonidhi collection 'NISAR_SSAR_RUNW'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Range-Doppler Unwrapped Interferogram. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "NISAR S-SAR - Range-Doppler Unwrapped Interferogram Bhoonidhi collection 'NISAR_SSAR_RUNW'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Range-Doppler Unwrapped Interferogram. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. NISAR NISAR S-SAR Range-Doppler Unwrapped Interferogram radar NISAR_SSAR_RUNW Bhoonidhi ISRO India NISAR NRSC Range-Doppler Unwrapped Interferogram S-SAR earth observation radar"
       },
       "links": [
         {
@@ -7443,8 +7443,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "NISAR",
         "platform_id": "NISAR",
         "instrument": "S-SAR",
@@ -7496,7 +7496,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "NISAR S-SAR - Geocoded Unwrapped Interferogram Bhoonidhi collection 'NISAR_SSAR_GUNW'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Geocoded Unwrapped Interferogram. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "NISAR S-SAR - Geocoded Unwrapped Interferogram Bhoonidhi collection 'NISAR_SSAR_GUNW'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Geocoded Unwrapped Interferogram. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. NISAR NISAR S-SAR Geocoded Unwrapped Interferogram radar NISAR_SSAR_GUNW Bhoonidhi Geocoded Unwrapped Interferogram ISRO India NISAR NRSC S-SAR earth observation radar"
       },
       "links": [
         {
@@ -7577,8 +7577,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "NISAR",
         "platform_id": "NISAR",
         "instrument": "S-SAR",
@@ -7630,7 +7630,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "NISAR S-SAR - Range-Doppler Interferogram Bhoonidhi collection 'NISAR_SSAR_RIFG'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Range-Doppler Interferogram. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "NISAR S-SAR - Range-Doppler Interferogram Bhoonidhi collection 'NISAR_SSAR_RIFG'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Range-Doppler Interferogram. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. NISAR NISAR S-SAR Range-Doppler Interferogram radar NISAR_SSAR_RIFG Bhoonidhi ISRO India NISAR NRSC Range-Doppler Interferogram S-SAR earth observation radar"
       },
       "links": [
         {
@@ -7711,8 +7711,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "NISAR",
         "platform_id": "NISAR",
         "instrument": "S-SAR",
@@ -7764,7 +7764,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "NISAR S-SAR - Range-Doppler Offsets Bhoonidhi collection 'NISAR_SSAR_ROFF'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Range-Doppler Offsets. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "NISAR S-SAR - Range-Doppler Offsets Bhoonidhi collection 'NISAR_SSAR_ROFF'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Range-Doppler Offsets. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. NISAR NISAR S-SAR Range-Doppler Offsets radar NISAR_SSAR_ROFF Bhoonidhi ISRO India NISAR NRSC Range-Doppler Offsets S-SAR earth observation radar"
       },
       "links": [
         {
@@ -7845,8 +7845,8 @@
           "radar"
         ],
         "language": "en",
-        "created": "2026-10-06T14:18:18Z",
-        "updated": "2026-10-06T14:18:18Z",
+        "created": "2026-10-12T21:21:59Z",
+        "updated": "2026-10-12T21:21:59Z",
         "platform": "NISAR",
         "platform_id": "NISAR",
         "instrument": "S-SAR",
@@ -7898,7 +7898,7 @@
             "name": "as distributed by Bhoonidhi /download"
           }
         ],
-        "_metadata-anytext": "NISAR S-SAR - Geocoded Offsets Bhoonidhi collection 'NISAR_SSAR_GOFF'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Geocoded Offsets. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself."
+        "_metadata-anytext": "NISAR S-SAR - Geocoded Offsets Bhoonidhi collection 'NISAR_SSAR_GOFF'. NISAR, S-band Synthetic Aperture Radar (radar instrument). Product: Geocoded Offsets. Discoverable and downloadable from Bhoonidhi only with an authenticated token, via POST https://bhoonidhi-api.nrsc.gov.in/data/search and GET https://bhoonidhi-api.nrsc.gov.in/download. This catalogue record is derived from Bhoonidhi's published collection list; it is metadata about the collection, not the data itself. NISAR NISAR S-SAR Geocoded Offsets radar NISAR_SSAR_GOFF Bhoonidhi Geocoded Offsets ISRO India NISAR NRSC S-SAR earth observation radar"
       },
       "links": [
         {

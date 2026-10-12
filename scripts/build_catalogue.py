@@ -280,11 +280,27 @@ def main() -> int:
             continue
         records.append(build_record(cid, p, now))
 
-    # pygeoapi's TinyDB catalogue builds its free-text index from
-    # title + description.
+    # pygeoapi's TinyDB catalogue serves `q=` out of _metadata-anytext, so
+    # whatever is NOT in this string is invisible to full-text search.
+    #
+    # This used to be title + description only, which made the catalogue lie
+    # by omission: every record carries "India", "ISRO" and "NRSC" in its
+    # keywords, yet q=India and q=ISRO both returned zero results while
+    # q=ResourceSat worked - because the former appear only in `keywords` and
+    # the latter also appears in the title. A user cannot tell that apart from
+    # "this catalogue has nothing about India".
+    #
+    # The index therefore covers every field a person would plausibly type:
+    # the free text, the controlled vocabulary, and the parsed facets.
+    ANYTEXT_FIELDS = ("title", "description", "platform", "platform_id",
+                      "instrument", "product", "domain", "collection_id")
     for r in records:
-        r["properties"]["_metadata-anytext"] = (
-            r["properties"]["title"] + " " + r["properties"]["description"])
+        p = r["properties"]
+        parts = [str(p.get(f, "")) for f in ANYTEXT_FIELDS]
+        parts += [str(k) for k in (p.get("keywords") or [])]
+        parts += [str(t.get("id", "")) for t in (p.get("themes") or [])
+                  if isinstance(t, dict)]
+        p["_metadata-anytext"] = " ".join(x for x in parts if x)
 
     OUT_DB.unlink(missing_ok=True)
     db = TinyDB(OUT_DB)
