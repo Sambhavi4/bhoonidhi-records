@@ -22,10 +22,18 @@ server:
     max_items: 100
   # Jobs are persisted so async execution survives a restart and /jobs/{id}
   # keeps working, which OGC API - Processes expects.
+  #
+  # JOBS_DIR must exist before the first execution: pygeoapi's TinyDB manager
+  # writes each job's result into output_dir and does NOT create it, so a
+  # missing directory turns every POST /execution into an opaque HTTP 400
+  # ("No such file or directory"). It used to default under /tmp, which the OS
+  # clears on reboot and which therefore broke the whole Processes tier between
+  # sessions. serve_local.sh now creates it under ../runtime/jobs and exports
+  # JOBS_DIR; the default below only applies if pygeoapi is started by hand.
   manager:
     name: TinyDB
-    connection: /tmp/bhoonidhi-records-jobs.db
-    output_dir: /tmp/bhoonidhi-records-output
+    connection: ${JOBS_DIR:-/tmp/bhoonidhi-records-jobs}/jobs.db
+    output_dir: ${JOBS_DIR:-/tmp/bhoonidhi-records-jobs}/outputs
 
 logging:
   level: INFO

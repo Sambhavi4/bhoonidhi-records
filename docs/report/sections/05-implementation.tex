@@ -1,0 +1,186 @@
+\section{Implementation}
+\label{sec:implementation}
+
+\subsection{Stack and layout}
+
+\begin{center}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+pygeoapi 0.24.0 & OGC API framework: routing, job management, OpenAPI \\
+shapely 2.1     & geometry: union, difference, intersection, area \\
+pyproj 3.8      & per-request equal-area projection \\
+rasterio        & raster windowed reads and masking \\
+TinyDB          & record store and persisted job store \\
+gunicorn        & WSGI server, 3 workers, 300\,s timeout \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{lstlisting}
+bhoonidhi-records/
+|- pygeoapi/config.yml                 server, Records resource, 6 processes
+|- pygeoapi/processes/
+|  |- catalogue_spatial.py             4 footprint processes
+|  `- raster_zonal.py                  2 raster processes
+|- scripts/
+|  |- build_catalogue.py               59 collection records, provenance-tagged
+|  |- fetch_footprints.py              STAC client (bhoonidhi | open)
+|  |- probe_gap.sh                     Method 1: specification audit
+|  |- probe_baseline.sh                Method 2: ISRO + peer baseline
+|  |- measure_redundancy.py            Method 3: the 92% figure
+|  |- serve_local.sh                   start | stop | status  (tested path)
+|  |- run_tests.sh                     the 100-test compliance suite
+|  `- demo.sh                          the live walkthrough
+|- tests/                              records | processes | raster
+|- data/                               records.tinydb, footprints.geojson, dem.tif
+`- docs/
+   |- GAP_ANALYSIS.md                  the long-form gap argument
+   |- evidence/                        saved probe responses + measurements
+   `- report/                          this document
+\end{lstlisting}
+
+\subsection{Process structure}
+
+Each process is a pygeoapi \code{BaseProcessor} subclass declaring its
+metadata --- identifier, title, description, input and output schemas,
+keywords and a worked example --- and implementing \code{execute()}. pygeoapi
+derives the \ep{/processes} listing, the per-process description, the JSON
+Schema validation of inputs and the OpenAPI document from that declaration,
+which is why conformance comes from the framework rather than from
+hand-written routing.
+
+A representative shape, from \code{minimal-scene-set}:
+
+\begin{lstlisting}
+def execute(self, data, outputs=None):
+    aoi      = _aoi(data.get("aoi"))            # bbox | Polygon | Feature
+    target   = float(data.get("target_fraction") or 0.99)
+    fps      = _load(coll, start, end, aoi)     # footprints intersecting AOI
+    to_m, from_m = _equal_area(aoi)             # per-request LAEA
+    aoi_m    = shp_transform(to_m, aoi)
+
+    # greedy set cover, in metres
+    while remaining and len(chosen) < cap:
+        if covered is not None and covered.area / aoi_m.area >= target:
+            break
+        best, best_gain = None, 0.0
+        for c in remaining:                     # largest new area wins
+            gain = c["g"].area if covered is None \
+                   else c["g"].difference(covered).area
+            if gain > best_gain:
+                best, best_gain = c, gain
+        if best is None or best_gain < 1_000:   # under 1000 m2 is noise
+            break
+        covered = unary_union([covered, best["g"]]) if covered else best["g"]
+        chosen.append({... "new_area_km2": ..., "cumulative_coverage_fraction": ...})
+
+    return "application/json", { ..., "algorithm": "greedy set cover; ...",
+                                 "provenance": _provenance(...) }
+\end{lstlisting}
+
+Three details worth drawing out. Input coercion (\code{\_aoi}) accepts a bare
+bbox array, a GeoJSON \code{Polygon} or a GeoJSON \code{Feature}, because
+clients reasonably send all three, and tests cover each. Invalid geometry from
+upstream is repaired with \code{buffer(0)} rather than crashing the request.
+And the whole optimisation runs in projected metres, never in degrees.
+
+\subsection{Job management and asynchronous execution}
+
+OGC API --- Processes requires more than a synchronous endpoint. The service
+declares \code{jobControlOptions: [sync-execute, async-execute]} on every
+process and implements the full lifecycle:
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Request} & \textbf{Behaviour} \\
+\midrule
+\code{POST .../execution}
+  & synchronous: HTTP 200 with the result document. \\
+\code{POST .../execution}\newline with \code{Prefer: respond-async}
+  & HTTP \textbf{201 Created}, a \code{Location} header pointing at the job,
+    \code{Preference-Applied: respond-async}, and a body carrying
+    \code{jobID} and \code{status: accepted}. \\
+\code{GET /jobs/\{id\}}
+  & job status document: \code{status}, \code{progress}, \code{created},
+    \code{started}, \code{finished}, and links. \\
+\code{GET /jobs/\{id\}/results}
+  & the result document once \code{status: successful}. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Jobs are persisted through pygeoapi's TinyDB manager, so asynchronous
+execution survives a restart and \ep{/jobs/\{id\}} keeps answering. A
+compliance test walks the entire lifecycle --- submit async, poll to
+\code{successful}, fetch \ep{/results} --- rather than merely checking that a
+201 came back.
+
+\subsection{Defects found during development, and fixed}
+\label{sec:defects}
+
+Three real defects were found and each is now guarded by a test. They are
+recorded because they are the part of the work that was actually difficult, and
+because a compliance suite that never caught anything is not evidence of much.
+
+\paragraph{1. Every process execution returned HTTP 400 after a reboot.}
+The most serious of the three, and invisible in development. pygeoapi's TinyDB
+job manager writes each job's result into \code{output\_dir} and \textbf{does
+not create that directory}. The configured path was under \code{/tmp}, which
+the operating system clears on reboot. The directory existed during the
+session it was first created in, so everything passed; after a reboot every
+single \code{POST .../execution} --- synchronous and asynchronous alike ---
+failed with an opaque message:
+
+\begin{lstlisting}
+HTTP 400 {"code":"InvalidParameterValue","description":"Error executing
+process: [Errno 2] No such file or directory:
+'/tmp/bhoonidhi-records-output/zonal-statistics-0ee588ce-...'"}
+\end{lstlisting}
+
+This took 39 of the 100 tests down at once. The fix moves the job store under
+\code{runtime/jobs} via a \code{\$\{JOBS\_DIR\}} substitution in
+\code{config.yml}, and \code{serve\_local.sh} now creates it before starting
+gunicorn --- so the directory is a startup precondition rather than an
+accident of history, and job records survive a reboot as a side benefit.
+
+\paragraph{2. A hairline sliver was reported as a gap while also reporting
+\code{fully\_covered: true}.} Differencing two near-identical polygons leaves
+slivers with effectively zero area. \code{aoi-coverage} would return
+\code{fully\_covered: true} and simultaneously hand back a gap geometry ---
+self-contradictory output that any client would mishandle. Anything under
+0.01\,km\textsuperscript{2} (one hectare) is now collapsed to no gap at all,
+the threshold is published in the response as \code{gap\_threshold\_km2} so
+the behaviour is inspectable rather than magic, and a test asserts that
+\code{fully\_covered} never coexists with a gap geometry.
+
+\paragraph{3. The zero-footprint branch returned a different JSON shape.}
+When no footprints matched the filters, \code{aoi-coverage} returned an object
+with different keys from the populated case --- which would break any client
+the first time a search came back empty. Both branches now return the same
+schema, with the empty case carrying \code{scene\_count: 0},
+\code{gap\_fraction: 1.0}, the AOI itself as the gap, and an explanatory
+\code{message}. A test asserts shape equality across both branches.
+
+\subsection{Deployment}
+
+\begin{lstlisting}
+make install      # Python venv
+make data         # build the 59 catalogue records
+make footprints   # harvest real acquisition footprints
+make up           # start the service on :5003
+make test         # 100 compliance tests
+make demo         # the whole walkthrough
+\end{lstlisting}
+
+\code{scripts/serve\_local.sh} is the tested path. It regenerates the OpenAPI
+document from \code{config.yml} on every start, so the published API
+description cannot drift from the configuration, and it detaches gunicorn with
+\code{setsid} and a closed stdin so that \code{serve\_local.sh start | tail}
+does not hang on a pipe the server keeps alive.
+
+For a publicly reachable URL, \code{scripts/expose\_public.sh} opens a
+Cloudflare quick tunnel. The resulting hostname is ephemeral --- a fresh one
+per run --- which is noted in Section~\ref{sec:limitations}.

@@ -1,0 +1,100 @@
+\section{Introduction}
+
+\subsection{The portal}
+
+Bhoonidhi (\url{https://bhoonidhi.nrsc.gov.in/}) is the National Remote
+Sensing Centre's public repository for Indian Earth observation data. It
+holds satellite imagery, thematic maps and derived products across
+approximately 59 published collections spanning the ResourceSat, Cartosat,
+Oceansat, EOS and RISAT missions, together with mirrored international
+holdings such as Sentinel-1 and Sentinel-2.
+
+Alongside the browser portal, NRSC publishes an \emph{Open Data Access
+API}~\cite{bhoonidhiapi}. It is worth stating plainly at the outset what that
+API does well, because an argument that misrepresents its target is worthless:
+
+\begin{itemize}
+  \item it is built on \textbf{STAC 1.0.0}~\cite{stac}, a current community
+        standard for Earth observation metadata;
+  \item it has proper token authentication (\ep{/auth/token},
+        \ep{/auth/logout});
+  \item \ep{/data/collections} enumerates the published collections;
+  \item \ep{/data/search} accepts a GeoJSON \code{intersects} geometry, a
+        \code{bbox}, RFC 3339 \code{datetime} ranges and CQL2-JSON filters;
+  \item \ep{/download} delivers a product by item identifier.
+\end{itemize}
+
+That is a competent discovery API. A developer can authenticate, search by
+space and time, and fetch. \textbf{Discovery is solved, and this project
+claims no credit for noticing otherwise.}
+
+\subsection{The task}
+
+The practical brief asks for one thing: identify a dataset or data product on
+Bhoonidhi that would genuinely benefit from an OGC service interface which
+does not currently exist, verify that the gap is real, then build and deploy
+a conformant service that fills it. Gap identification carries 5 of the 20
+marks and is assessed on whether the justification is \emph{convincing}; OGC
+compliance carries 10; a working deployment carries 5.
+
+\subsection{What this project identifies, and what it builds}
+
+The gap identified here is not in discovery and not in access control. It is
+in \textbf{computation}.
+
+Bhoonidhi stores the footprint polygon of every scene it holds. Its whole
+spatial surface, audited against its own published specification, is
+\code{bbox} and \code{intersects} --- which are one predicate expressed two
+ways: \emph{does this item intersect my area of interest?} There is no union,
+no difference, no area, no aggregation, no statistics, and no processing
+endpoint anywhere in ISRO's public stack.
+
+The practical consequence is that a user cannot learn \emph{which} of the
+scenes a search returns they actually need. Lacking that, the rational
+behaviour --- and the observed behaviour --- is to order everything the search
+returned. Section~\ref{sec:cost} measures what that costs: across eight
+queries the catalogue returns 208 scenes where 16 cover the same ground to
+the same percentage.
+
+This report documents a conformant \textbf{OGC API --- Processes}
+service~\cite{ogcprocesses} that closes the gap, exposing six operations:
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Process} & \textbf{The question it answers} \\
+\midrule
+\code{aoi-coverage}         & How much of my AOI do these scenes cover, and where are the holes? \\
+\code{minimal-scene-set}    & Which few of the scenes returned do I actually need? \\
+\code{multi-sensor-overlap} & Where do optical and radar co-cover, for fusion? \\
+\code{revisit-density}      & How uneven is acquisition density across my AOI? \\
+\code{zonal-statistics}     & What are the raster values inside this polygon? \\
+\code{scene-raster-profile} & What terrain is actually underneath each candidate scene? \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The first four read only footprint geometry --- deciding which scenes are
+worth fetching. The last two read pixels --- establishing what is actually
+inside them. \code{scene-raster-profile} joins the two tiers. This is
+deliberately \emph{not} spectral index computation: there is no band maths and
+no derived imagery product, because the gap being filled is spatial algebra
+over the catalogue's own geometry.
+
+A supporting \textbf{OGC API --- Records}~\cite{ogcrecords} catalogue of
+Bhoonidhi's collections ships alongside the Processes tier. It is
+infrastructure rather than the gap being filled: the spatial processes need
+discoverable collection identifiers to point at. The substance of the
+submission rests on the Processes tier.
+
+\subsection{How to read this report}
+
+Section~\ref{sec:methodology} states how the gap was established and what
+counts as evidence. Section~\ref{sec:gap} is the gap analysis and is the core
+of the argument. Sections~\ref{sec:design} and~\ref{sec:implementation} cover
+service design and implementation; Section~\ref{sec:compliance} the OGC
+compliance evidence; Section~\ref{sec:results} the live demonstration;
+Section~\ref{sec:limitations} the limitations, stated plainly. Every number in
+this report is produced by a script in the repository and saved under
+\code{docs/evidence/}; Appendix~\ref{app:reproducing} lists the commands.

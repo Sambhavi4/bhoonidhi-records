@@ -1,0 +1,61 @@
+\section{Conclusion}
+
+Bhoonidhi solves discovery. Its STAC-based Open Data Access API is real,
+modern engineering, and a developer can authenticate, search by space and
+time, and download products by identifier. This report makes no complaint
+about that, and none about the requirement to hold a token.
+
+What Bhoonidhi does not do is \emph{compute}. It stores the footprint polygon
+of every scene it holds and permits exactly one question of that geometry:
+does it intersect mine? The audit in Section~\ref{sec:gap} establishes this
+from NRSC's own published specification --- two spatial parameters expressing
+one predicate, attribute equality in CQL2, and no analysis vocabulary
+anywhere. The probe in Section~\ref{sec:gap} establishes that no processing
+endpoint exists anywhere in ISRO's public stack: Bhuvan's WPS returns 404, as
+does every modern equivalent.
+
+Three things make that a large gap rather than a missing convenience.
+
+\textbf{It is an absent tier.} Server-side geospatial processing has been an
+OGC standard since 2007 and has a modern REST/JSON successor from 2021.
+Bhoonidhi implements none of it.
+
+\textbf{Peers implement it.} The Copernicus Data Space publishes 146
+server-side processes at a public, unauthenticated endpoint that this project
+enumerates live. Bhoonidhi publishes zero. That is not a scoping decision
+everyone else also made.
+
+\textbf{The cost is measurable.} Across eight queries the catalogue hands
+back 208 scenes where 16 cover the same ground to the same percentage ---
+\textbf{92\,\% of everything returned is redundant}, 206\,GB ordered where
+16\,GB was required. The user cannot discover this, because discovering it
+requires seven manual steps including an NP-hard optimisation and a
+reprojection that is easy to get silently wrong. So they order everything.
+And because redundancy rises with archive depth while the footprint store
+behind this measurement spans only three months, 92\,\% is a floor.
+
+The service built to close that gap implements \textbf{OGC API --- Processes,
+Part 1: Core} over the footprint geometry the catalogue already stores, with
+six operations spanning both footprint geometry and the raster values beneath
+it, synchronous and asynchronous execution, a conformant job API, and all
+areas measured in a per-request equal-area projection so that
+km\textsuperscript{2} means km\textsuperscript{2}. All 100 compliance tests
+pass, and the suite verifies the mathematics --- that covered plus gap
+reconstructs the AOI, that an intersection never exceeds its operands, that
+greedy coverage is monotonic --- rather than only the protocol shape. Three
+real defects were found during development, two of them by those invariant
+tests, and each is now guarded.
+
+The single sharpest result is the smallest one. Thirty scenes match a
+district-sized area of interest. \textbf{Two cover it.} Finding that out takes
+this service nine milliseconds, and takes Bhoonidhi's users an afternoon they
+do not spend --- so instead they download the other twenty-eight.
+
+The gap is a \textbf{capability and architecture} gap, not a failing of the
+data or of the people who publish it. NRSC makes a remarkable volume of
+Indian Earth observation genuinely available. The argument here is narrow
+and, I think, fair: a catalogue that knows every footprint's geometry but will
+not compute with it leaves its hardest work to every user, one at a time ---
+and that last step, from \emph{which scenes touch my area} to \emph{which
+scenes I actually need}, is the one that turns a catalogue into
+infrastructure.

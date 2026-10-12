@@ -1,0 +1,124 @@
+\section{Reproducing everything in this report}
+\label{app:reproducing}
+
+\subsection{Bringing the service up}
+
+\begin{lstlisting}
+git clone <repo> && cd bhoonidhi-records
+
+make install       # Python venv
+make data          # build the 59 catalogue records
+make footprints    # harvest real acquisition footprints
+make up            # start the service on :5003
+make test          # 100 compliance tests
+make demo          # the live walkthrough
+\end{lstlisting}
+
+Prerequisites: \code{python3} $\ge$ 3.10 and \code{curl}. No database
+server, no Java, no Docker are needed. The tested path is
+\code{scripts/serve\_local.sh}.
+
+\subsection{Reproducing the gap evidence}
+
+Each command writes its raw responses under \code{docs/evidence/} so a
+reviewer can diff a re-run against what is committed.
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X l@{}}
+\toprule
+\textbf{Command} & \textbf{Produces} & \textbf{Network} \\
+\midrule
+\code{make gap}
+  & Table~\ref{tab:audit}: the capability audit of Bhoonidhi's published
+    specification $\rightarrow$ \code{evidence/capability-audit.json}
+  & \textbf{not needed} \\
+\code{make gap -- --refresh}
+  & the same, re-fetching the specification from NRSC first
+  & required \\
+\code{make baseline}
+  & Tables~\ref{tab:standards} and~\ref{tab:peers}: ISRO's stack and the peer
+    portals $\rightarrow$ \code{evidence/baseline-*}
+  & required \\
+\code{make redundancy}
+  & Table~\ref{tab:redundancy}: the 92\,\% figure
+    $\rightarrow$ \code{evidence/redundancy-measurement.json}
+  & service up \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\code{make gap} deliberately needs no network: it audits a saved copy of
+NRSC's specification. This mattered in practice, because both NRSC hosts
+stopped answering from the build host partway through development.
+
+\subsection{Building this report}
+
+\begin{lstlisting}
+make report          # from the repository root
+# or
+cd docs/report && make        # latexmk -pdf, runs bibtex
+cd docs/report && make quick  # one pdflatex pass, no bibliography
+\end{lstlisting}
+
+Output: \code{docs/report/bhoonidhi-processes.pdf}. The document is
+\code{pdflatex}-only and uses no packages outside the base TeX Live
+collections, so it builds on a minimal install (it was written against
+TinyTeX).
+
+\subsection{Exposing a public URL}
+
+\begin{lstlisting}
+./scripts/expose_public.sh
+\end{lstlisting}
+
+Opens a Cloudflare quick tunnel and prints a complete set of working public
+URLs, including the \code{minimal-scene-set} call and the asynchronous job
+exchange. The hostname is ephemeral --- fresh on every run --- and the tunnel
+lives only while the script runs. The script also verifies the service is up
+and that six processes are advertised before opening anything, and warns that
+the processes will be unauthenticated and unthrottled once exposed.
+
+To run the compliance suite against the public URL rather than localhost:
+
+\begin{lstlisting}
+RECORDS_BASE=https://<name>.trycloudflare.com ./scripts/run_tests.sh
+\end{lstlisting}
+
+\subsection{Serving real Bhoonidhi footprints}
+
+\begin{lstlisting}
+cp .env.example .env            # add BHOONIDHI_USER / BHOONIDHI_PASS
+set -a; . ./.env; set +a
+./scripts/fetch_footprints.py --source bhoonidhi \
+    --collection <a Bhoonidhi collection id> --limit 60
+./scripts/serve_local.sh start
+\end{lstlisting}
+
+Nothing else changes: same endpoints, same processes, same tests. In every
+response the flag \code{is\_substitute\_for\_bhoonidhi} becomes
+\code{false}. That is the single visible difference, and the reason the flag
+exists.
+
+\subsection{File map for a reviewer in a hurry}
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Path} & \textbf{What to look at} \\
+\midrule
+\code{README.md} & the claim, the gap summary, how to run it \\
+\code{docs/GAP\_ANALYSIS.md} & the long-form gap argument with every number sourced \\
+\code{docs/report/} & this document \\
+\code{docs/evidence/} & saved upstream responses and measurements \\
+\code{scripts/probe\_gap.sh} & Method 1 --- the specification audit \\
+\code{scripts/probe\_baseline.sh} & Method 2 --- ISRO stack + peer baseline \\
+\code{scripts/measure\_redundancy.py} & Method 3 --- the 92\,\% measurement \\
+\code{pygeoapi/processes/catalogue\_spatial.py} & the four footprint processes \\
+\code{pygeoapi/processes/raster\_zonal.py} & the two raster processes \\
+\code{pygeoapi/config.yml} & server, Records resource, six process declarations \\
+\code{tests/} & the 100-test compliance suite \\
+\bottomrule
+\end{tabularx}
+\end{center}

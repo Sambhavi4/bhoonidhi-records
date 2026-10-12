@@ -9,7 +9,8 @@ export COLLECTION_ID="${COLLECTION_ID:-bhoonidhi}"
 [ -x "$PY" ] || { echo "venv not found at $RUNTIME/venv"; exit 1; }
 cat <<HDR
 ===========================================================================
- Bhoonidhi Records - OGC API - Records compliance suite
+ Bhoonidhi Spatial Catalogue Analysis - OGC compliance suite
+ OGC API - Processes (18-062r2) + OGC API - Records (20-004)
  service    : $RECORDS_BASE
  collection : $COLLECTION_ID
 ===========================================================================

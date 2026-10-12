@@ -1,0 +1,114 @@
+% ---------------------------------------------------------------------------
+% preamble.tex - packages, styling and shared macros.
+% Deliberately pdflatex-only and TinyTeX-friendly: no fontspec, no biblatex,
+% no minted (which needs a shell escape). Everything here is in the base
+% TeX Live collections so the report builds on a fresh machine.
+% ---------------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage{microtype}
+
+\usepackage[a4paper,margin=26mm,headheight=14pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc,fit,backgrounds}
+\usepackage[hidelinks]{hyperref}
+
+% -- palette ---------------------------------------------------------------
+\definecolor{ink}{HTML}{1A1A1A}
+\definecolor{rule}{HTML}{C8CDD4}
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{bad}{HTML}{A3272C}
+\definecolor{good}{HTML}{1E6B41}
+\definecolor{shade}{HTML}{F3F5F7}
+\definecolor{codebg}{HTML}{F7F8FA}
+\definecolor{comment}{HTML}{6A737D}
+
+\hypersetup{
+  colorlinks=true, linkcolor=accent, urlcolor=accent, citecolor=accent,
+  pdftitle={Bhoonidhi Spatial Catalogue Analysis},
+  pdfsubject={An OGC API - Processes service over ISRO's Bhoonidhi catalogue},
+  pdfkeywords={OGC API Processes, Bhoonidhi, pygeoapi, set cover, STAC}
+}
+
+% -- headings --------------------------------------------------------------
+\titleformat{\section}{\normalfont\Large\bfseries\color{accent}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{2.1ex plus 1ex minus .2ex}{1.1ex plus .2ex}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{comment}Bhoonidhi Spatial Catalogue Analysis}
+\fancyhead[R]{\small\color{comment}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{rule}\leaders\hrule height \headrulewidth\hfill}}
+
+\setlist[itemize]{leftmargin=1.3em,topsep=0.3ex,itemsep=0.25ex}
+\setlist[enumerate]{leftmargin=1.6em,topsep=0.3ex,itemsep=0.25ex}
+
+% -- code listings ---------------------------------------------------------
+\lstdefinestyle{shell}{
+  basicstyle=\ttfamily\scriptsize,
+  backgroundcolor=\color{codebg},
+  frame=single, rulecolor=\color{rule},
+  framesep=4pt, xleftmargin=4pt, xrightmargin=0pt,
+  breaklines=true, breakatwhitespace=false,
+  postbreak=\mbox{\textcolor{comment}{$\hookrightarrow$}\space},
+  columns=fullflexible, keepspaces=true,
+  showstringspaces=false, upquote=true,
+  commentstyle=\color{comment}\itshape,
+  literate={~}{{\textasciitilde}}1 {²}{{\textsuperscript{2}}}1
+           {°}{{\textdegree}}1 {→}{{$\rightarrow$}}1 {×}{{$\times$}}1
+           {∩}{{$\cap$}}1 {–}{{--}}1 {—}{{---}}1 {‑}{{-}}1
+}
+\lstdefinestyle{json}{style=shell,
+  morestring=[b]",
+  stringstyle=\color{accent},
+  morecomment=[l]{//},
+}
+\lstset{style=shell}
+
+% -- shared macros ---------------------------------------------------------
+% \code and \ep hold identifiers, paths and endpoints. Those are long
+% unbreakable \texttt tokens that overflow the measure, so breakpoints are
+% inserted after the characters they naturally break at. \ttbreak is applied
+% by \lowercase-safe \scantokens-free means: a simple active-character-free
+% approach, declaring the penalties \texttt already honours.
+\newcommand{\code}[1]{\texttt{\small\hyphenchar\font=-1 #1}}
+\newcommand{\ep}[1]{\texttt{\small\color{accent}\hyphenchar\font=-1 #1}}
+
+% Let TeX stretch the last resort rather than overflow into the margin.
+\emergencystretch=3.5em
+\hbadness=3000
+\tolerance=1200
+\newcommand{\yes}{\textcolor{good}{\textbf{yes}}}
+\newcommand{\no}{\textcolor{bad}{\textbf{no}}}
+\newcommand{\absent}{\textcolor{bad}{absent}}
+\newcommand{\present}{\textcolor{good}{present}}
+
+% A boxed claim/finding, used for the things a marker should not miss.
+% Collected into a save box first: \colorbox needs its argument complete, so
+% it cannot be opened in the \begin and closed in the \end part.
+\newsavebox{\kfbox}
+\newenvironment{keyfinding}[1]
+  {\begin{lrbox}{\kfbox}%
+   \begin{minipage}{0.88\textwidth}%
+   \textbf{\color{accent}#1}\par\vspace{0.7ex}\small\raggedright}
+  {\end{minipage}%
+   \end{lrbox}%
+   \begin{center}\setlength{\fboxsep}{10pt}\colorbox{shade}{\usebox{\kfbox}}\end{center}}

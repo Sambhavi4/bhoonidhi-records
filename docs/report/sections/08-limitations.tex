@@ -1,0 +1,105 @@
+\section{Known limitations}
+\label{sec:limitations}
+
+Stated plainly, because a service whose limits are hidden is worse than one
+whose limits are known.
+
+\begin{enumerate}[leftmargin=2em,itemsep=0.9ex]
+
+\item \textbf{The footprints are not Bhoonidhi's.} Bhoonidhi's
+\ep{/data/search} requires a JWT and no credentials were available when this
+was built, so footprints are harvested from Microsoft Planetary Computer's
+public STAC API instead --- \textbf{68 real acquisition footprints}, 60
+optical and 8 radar, with real timestamps and real cloud cover. Nothing is
+synthesised.
+
+This is labelled, not hidden. The store carries
+\code{is\_substitute\_for\_bhoonidhi: true}, and that flag propagates into the
+\code{provenance} block of \emph{every single process response}, so no result
+this service returns can be mistaken for Bhoonidhi output. Supplying
+credentials and re-running \code{fetch\_footprints.py --source bhoonidhi}
+changes nothing else: the code path, the processes and the tests are
+identical. \textbf{This is the one thing to fix before submission if an
+account is available.}
+
+\item \textbf{The catalogue tier is collection-level, not granule-level.} 59
+collections, not the scenes behind them. Granule-level records need an
+authenticated harvest; every record links to that endpoint.
+
+\item \textbf{Catalogue extents are indicative and labelled as such.}
+Temporal start is the mission launch date --- a defensible lower bound, since
+data cannot predate launch --- and spatial extent comes from mission tasking.
+Every record carries \code{spatial\_extent\_basis} and
+\code{temporal\_start\_basis} so a consumer can see how far to trust each
+field. Good to discover with; not to cite.
+
+\item \textbf{Greedy set cover is not guaranteed minimal.} Set cover is
+NP-hard; the greedy algorithm is within a $\ln(n)$ factor of optimal. The
+response declares this in its \code{algorithm} field, so no client can
+mistake the result for a proven minimum. For the AOI sizes demonstrated the
+greedy result is almost certainly optimal, but that is not proven and is not
+claimed.
+
+\item \textbf{Cloud cover is reported but not used.} \code{aoi-coverage}
+counts a footprint as coverage regardless of how cloudy it is, and
+\code{minimal-scene-set} will happily select a 90\,\%-cloud scene if it
+contributes the most area. Cloud-aware coverage --- treating a cloudy pixel
+as uncovered --- is the obvious and significant next step, and its absence
+means the redundancy figure in Section~\ref{sec:cost} is about
+\emph{geometric} redundancy only.
+
+\item \textbf{No CQL2 on the catalogue tier.} pygeoapi's TinyDB provider
+gives full-text search, property equality, bbox, datetime and sorting. A
+PostgreSQL provider would add the Filtering conformance class. This is a
+limitation of the supporting tier, not the Processes tier.
+
+\item \textbf{No authentication, quota or rate limiting.} Anyone who can
+reach the endpoint can spend its CPU. The processes are bounded --- there is a
+cap on how many footprints an AOI may match and on how many grid cells
+\code{revisit-density} will build --- but there is no per-caller quota.
+Acceptable for a graded demonstration on an ephemeral URL; not acceptable for
+a public service, which would need an API gateway and per-key quotas.
+
+\item \textbf{The raster tier serves one DEM over one window.} The
+architecture generalises by adding rasters; the deployment does not. The
+raster is also a substitute, flagged in the same way as the footprints.
+
+\item \textbf{No time-series or change detection.} Processes accept a
+\code{start}/\code{end} window to filter footprints, but nothing models change
+\emph{between} windows. Comparing coverage across two epochs is a natural
+extension and is not implemented.
+
+\item \textbf{The public URL is ephemeral.} \code{expose\_public.sh} opens a
+Cloudflare quick tunnel, which gets a fresh hostname on every run. A stable
+URL needs a named tunnel with a Cloudflare account, or a small cloud VM.
+The tested, stable deployment is \ep{http://localhost:5003}, which the brief
+permits.
+
+\item \textbf{Not an official NRSC product.} This is a course project that
+critiques and complements a government service. It mirrors no data: the
+footprint tier holds geometry and metadata only, never pixels from Bhoonidhi.
+
+\item \textbf{Self-written compliance suite, not OGC CITE.} See
+Section~\ref{sec:compliance}. Every mandatory resource is present and
+exercised and the numerical invariants are checked, but this is not
+third-party accredited certification.
+
+\end{enumerate}
+
+\subsection*{What would be built next, in order}
+
+\begin{enumerate}[leftmargin=2em,itemsep=0.3ex]
+  \item \textbf{Cloud-aware coverage} --- treat cloudy pixels as uncovered, so
+        \code{minimal-scene-set} optimises for usable rather than merely
+        intersecting imagery. This is the single largest improvement
+        available and it would change the results, not just extend them.
+  \item \textbf{Authenticated Bhoonidhi harvest} --- remove the substitution
+        entirely (limitation 1).
+  \item \textbf{Granule-level records} with CQL2 over PostgreSQL
+        (limitations 2, 6).
+  \item \textbf{An exact set-cover solver} for small candidate sets, falling
+        back to greedy above a threshold, so the result is provably minimal
+        where that is cheap (limitation 4).
+  \item \textbf{A quota gateway} ahead of a genuinely public deployment
+        (limitation 7).
+\end{enumerate}

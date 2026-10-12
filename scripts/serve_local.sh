@@ -16,6 +16,13 @@ export PYGEOAPI_SERVER_URL="${PYGEOAPI_SERVER_URL:-http://localhost:$PORT}"
 # the spatial processes live here
 export PYTHONPATH="$ROOT/pygeoapi/processes${PYTHONPATH:+:$PYTHONPATH}"
 
+# Job store and per-job result files. pygeoapi's TinyDB manager writes into
+# output_dir but will not create it, and a missing directory surfaces as an
+# opaque HTTP 400 on every execution rather than as a startup error. Create it
+# here, under runtime/ rather than /tmp so job history survives a reboot.
+export JOBS_DIR="${JOBS_DIR:-$RUNTIME/jobs}"
+mkdir -p "$JOBS_DIR/outputs"
+
 ok(){ printf '   \033[32mok\033[0m    %s\n' "$*"; }
 bad(){ printf '   \033[31mdown\033[0m  %s\n' "$*"; }
 

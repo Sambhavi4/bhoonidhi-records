@@ -14,3 +14,14 @@ venv/
 .DS_Store
 data/footprints.geojson
 data/dem.tif
+
+# LaTeX build artefacts (the PDF itself is committed)
+docs/report/*.aux
+docs/report/*.bbl
+docs/report/*.blg
+docs/report/*.fdb_latexmk
+docs/report/*.fls
+docs/report/*.out
+docs/report/*.toc
+docs/report/*.synctex.gz
+docs/report/sections/*.aux

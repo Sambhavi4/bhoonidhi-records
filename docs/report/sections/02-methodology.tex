@@ -1,0 +1,114 @@
+\section{Methodology: how the gap was established}
+\label{sec:methodology}
+
+A gap claim is only as good as the evidence behind it, and the easiest way to
+get this wrong is to assert an absence from a cursory look at a portal. Three
+independent methods were used, each implemented as a script that saves its
+raw responses so that a reviewer can re-run it and diff the result.
+
+\subsection{Method 1 --- specification audit (offline-reproducible)}
+
+\code{scripts/probe\_gap.sh} audits Bhoonidhi's \emph{own published API
+specification} rather than probing the live service. It parses the saved
+specification document and mechanically enumerates:
+
+\begin{itemize}
+  \item which spatial parameters \ep{/data/search} documents;
+  \item which spatial predicates are \emph{absent} --- \code{crosses},
+        \code{touches}, \code{overlaps}, \code{disjoint},
+        \code{s\_within} and \code{s\_contains};
+  \item which CQL2 operations appear in the documented examples;
+  \item whether any analysis or aggregation vocabulary appears anywhere;
+  \item which endpoints exist, and whether any of them computes.
+\end{itemize}
+
+Auditing the specification rather than the service was a deliberate choice
+with two benefits. First, it is the fairest possible reading: it tests what
+NRSC says the API does, not what a particular deployment happened to answer
+on a particular afternoon. Second, it is \textbf{reproducible offline} from
+\code{docs/evidence/bhoonidhi-api-spec.html} and does not depend on NRSC being
+reachable --- which mattered in practice, because both NRSC hosts stopped
+answering from the build host partway through development (DNS resolved,
+connections timed out, the rest of the internet was fine). The
+\code{--refresh} flag re-fetches the specification when the hosts are back and
+says so plainly when it cannot.
+
+The script also deliberately searches for words that \emph{look} like
+operators but are not. \code{contains}, \code{within} and \code{area} do
+appear in the specification --- as English prose, never as parameters. Testing
+for this explicitly turns a potential counter-example into part of the
+argument instead of a hole in it.
+
+\subsection{Method 2 --- comparative baseline (live)}
+
+An audit alone establishes that the gap exists but not that it is
+\emph{large}. On its own it invites the reply: \emph{server-side geospatial
+computation is exotic, nobody deploys it, this is an unreasonable thing to
+expect of a national portal.}
+
+\code{scripts/probe\_baseline.sh} tests that reply against the field. It
+probes ISRO's public stack for any processing endpoint, records how long the
+relevant standards have existed, and then probes comparable Earth observation
+portals live to see whether they actually expose the capability today. All
+probes are single, unauthenticated, polite \code{GET}s against published
+public endpoints. Portals that require registration are documented but
+deliberately \emph{not} probed, on the grounds that hammering them from a
+course project would be impolite rather than informative.
+
+\subsection{Method 3 --- measuring the cost (live, against this service)}
+
+The decisive method, because it converts an architectural complaint into a
+number.
+
+\code{scripts/measure\_redundancy.py} asks this project's own
+\code{minimal-scene-set} process the question the catalogue cannot answer,
+over an area-of-interest ladder from a taluk-sized window to a regional
+transect, for both an optical and a radar collection. For each it records how
+many scenes a search would return against how many are genuinely required to
+cover the same ground to the same percentage.
+
+\paragraph{What is measured and what is modelled.} This distinction is kept
+explicit throughout, including in the script's own console output, because
+conflating the two would be the easiest way to inflate the result:
+
+\begin{itemize}
+  \item the \textbf{scene counts are measured} live against the running
+        service over real STAC footprint geometry. This is the part that
+        carries the argument and it is not modelled;
+  \item the \textbf{byte figures are modelled}: published nominal per-scene
+        product sizes multiplied by those counts. The script never downloads
+        imagery. A real order varies with processing level, tiling and
+        compression;
+  \item the ResourceSat figures are a \textbf{projection} onto Bhoonidhi's own
+        holdings --- the measured footprint geometry is Sentinel-2 and
+        Sentinel-1, so the per-scene volume is swapped for the NRSC product's
+        while the geometry stays what was actually measured. Output labels it
+        as such.
+\end{itemize}
+
+\paragraph{The measurement is a lower bound.} The footprint store holds 68
+scenes over a three-month window, because that is what was harvested. Several
+rows in the result are therefore capped by the store rather than by the area
+of interest. A real Bhoonidhi search spans a multi-decade archive with many
+revisits per year: it returns far more intersecting scenes for the same AOI
+while the number genuinely needed to cover it stays roughly constant.
+Redundancy therefore \emph{rises} with archive depth, and the figure reported
+in Section~\ref{sec:cost} is the conservative end.
+
+\subsection{What would falsify the claim}
+
+Stated in advance, because a claim that cannot be falsified is not a finding:
+
+\begin{itemize}
+  \item if \ep{/data/search} documented any spatial operator beyond
+        intersection, Method 1 reports \code{NOT MATCHED};
+  \item if any ISRO endpoint answered a processing request, Method 2 reports
+        \code{NOT MATCHED};
+  \item if the minimal covering set were close in size to the candidate set,
+        Method 3 would return a redundancy near zero and the cost argument
+        would collapse.
+\end{itemize}
+
+Each script prints its own failure loudly rather than quietly passing. If
+NRSC enables a processing endpoint, the honest response is to say the gap has
+closed, and the scripts are written so that this is what happens.

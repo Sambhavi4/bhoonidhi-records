@@ -1,0 +1,98 @@
+% ===========================================================================
+% Bhoonidhi Spatial Catalogue Analysis
+% CyberGIS mid-semester practical - technical report
+%
+% Build:  make          (latexmk -pdf, runs bibtex)
+%         make quick    (single pdflatex pass, no bibliography)
+% ===========================================================================
+\documentclass[11pt,a4paper]{article}
+\input{preamble}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+\begin{titlepage}
+\centering
+\vspace*{1.2cm}
+
+{\color{comment}\small\sffamily CYBERGIS --- MID-SEMESTER PRACTICAL\\[2pt]
+BUILD A MISSING OGC WEB SERVICE OVER BHOONIDHI\par}
+
+\vspace{1.6cm}
+{\color{rule}\rule{\textwidth}{0.8pt}}
+\vspace{0.7cm}
+
+{\Huge\bfseries Bhoonidhi Spatial\\[4pt] Catalogue Analysis\par}
+\vspace{0.7cm}
+{\large An OGC API --- Processes service for spatial analysis\\
+over ISRO's national remote sensing catalogue\par}
+
+\vspace{0.6cm}
+{\color{rule}\rule{\textwidth}{0.8pt}}
+
+\vspace{1.4cm}
+\begin{minipage}{0.86\textwidth}\small
+\textbf{Abstract.} Bhoonidhi, ISRO's national remote sensing data
+repository, publishes a competent STAC-based discovery API: a client can
+authenticate, search by space and time, and download products by identifier.
+It stores the footprint polygon of every scene it holds. This report shows
+that the \emph{only} question a user may ask of that geometry is whether it
+intersects theirs --- the portal's entire spatial surface is \code{bbox} and
+\code{intersects}, one predicate expressed two ways, with no analysis
+vocabulary anywhere in the specification and no processing endpoint anywhere
+in ISRO's public stack. The consequence is measured rather than asserted:
+across eight queries the catalogue returns \textbf{208 scenes where 16 cover
+the same ground to the same percentage}, so \textbf{92\,\% of what a user is
+told to download is redundant}, and nothing in the API lets them discover
+that. Server-side geospatial computation has been an OGC standard since 2007;
+the Copernicus Data Space publishes 146 such processes at a public endpoint
+while Bhoonidhi publishes none. The gap is therefore an absent \emph{tier},
+not a missing parameter. This report documents the design, implementation and
+compliance testing of a conformant \textbf{OGC API --- Processes} service
+(pygeoapi, shapely) exposing six spatial operations over acquisition
+footprints and the raster values beneath them, with synchronous and
+asynchronous execution, a job API, and all areas measured in an equal-area
+projection. \textbf{All 100 compliance tests pass}, and the suite verifies the
+mathematics --- that covered plus gap reconstructs the area of interest, that
+an intersection never exceeds its operands, that greedy coverage is monotonic
+--- not merely the protocol shape.
+\end{minipage}
+
+\vfill
+\begin{minipage}{0.86\textwidth}\small\color{comment}
+\textbf{Standard implemented:} OGC API --- Processes, Part 1: Core (OGC
+18-062r2)\\
+\textbf{Supporting:} OGC API --- Records (OGC 20-004), for collection
+discovery\\
+\textbf{Framework:} pygeoapi 0.24.0, shapely 2.1, pyproj 3.8, rasterio\\
+\textbf{Deployment:} \ep{http://localhost:5003} (native; public URL via
+Cloudflare quick tunnel)\\
+\textbf{Compliance:} 100/100 tests passing
+\end{minipage}
+
+\vspace{0.8cm}
+{\small\today}
+\end{titlepage}
+
+% ---------------------------------------------------------------------------
+\tableofcontents
+\clearpage
+
+\input{sections/01-introduction}
+\input{sections/02-methodology}
+\input{sections/03-gap}
+\input{sections/04-design}
+\input{sections/05-implementation}
+\input{sections/06-compliance}
+\input{sections/07-results}
+\input{sections/08-limitations}
+\input{sections/09-conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{refs}
+
+\appendix
+\input{sections/A-transcripts}
+\input{sections/B-reproducing}
+
+\end{document}

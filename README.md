@@ -14,14 +14,45 @@ CyberGIS mid-semester practical: *build a missing OGC web service over Bhoonidhi
 | Compliance | **100/100 tests pass** |
 | Vector ops | coverage/gap · set cover · co-coverage · density grid |
 | Raster ops | zonal statistics · scene raster profile |
+| **Measured gap** | **92% of every scene the catalogue returns is redundant** — 208 scenes found, 16 needed, across 8 queries |
+| **Peer baseline** | Copernicus publishes **146** server-side processes; Bhoonidhi publishes **0**, Bhuvan's WPS is **404** |
 
 ---
 
 ## The claim
 
-**Identified Gap :** Bhoonidhi's catalogue performs **exactly one spatial
-operation**. Audited against its own published specification
-(`./scripts/probe_gap.sh`):
+> **Topic claim:** OGC API – Processes for spatial analysis over Bhoonidhi's
+> acquisition catalogue.
+>
+> **Identified Gap:** Bhoonidhi stores the footprint polygon of every scene it
+> holds, and the only question you may ask of that geometry is *"does it touch
+> mine?"* Its whole spatial surface is `bbox` and `intersects` — one predicate
+> expressed two ways — with `eq`/`and` attribute equality and **no analysis
+> vocabulary anywhere** in the API. So a user cannot learn which of the scenes
+> a search returned they actually need, and the rational move is to order all
+> of them. Measured against this service: **208 scenes returned where 16
+> cover the same ground to the same percentage — 92% redundant**, 206 GB
+> ordered where 16 GB was required. Meanwhile server-side processing has been
+> an OGC standard since **2007** and **Copernicus publishes 146 processes at a
+> public endpoint**; ISRO's entire public stack publishes none and its only
+> WPS endpoint returns **404**. This is a missing *tier*, not a missing
+> parameter — and it is a **capability** gap, not an access-control one: every
+> limitation here applies to a fully authenticated user.
+>
+> **Suggested Fix:** an OGC API – Processes service (pygeoapi, shapely)
+> implementing the missing operations as conformant processes over footprints
+> fetched from Bhoonidhi's own STAC search — coverage and explicit gap
+> polygons, greedy set cover, multi-sensor co-coverage, revisit density, and
+> raster overlay — with synchronous and asynchronous execution and a job API,
+> all areas measured in an equal-area projection.
+
+**The full justification, with every number reproducible, is in
+[`docs/GAP_ANALYSIS.md`](docs/GAP_ANALYSIS.md).** What follows is the summary.
+
+### The audit
+
+Bhoonidhi's catalogue performs **exactly one spatial operation**. Audited
+against its own published specification (`./scripts/probe_gap.sh`):
 
 | | |
 |---|---|
@@ -54,7 +85,54 @@ project makes no complaint about it. The gap stands for an authenticated user
 holding the complete API: you can learn *which* scenes touch your area, and
 nothing further.
 
-**Proposed Fix :** An **OGC API – Processes** service implementing the four
+### What it costs: 92% of what you download is redundant
+
+Because the catalogue will not compute with footprint geometry, a user has no
+way to learn which of the returned scenes they actually need — so the rational
+move, and what people in fact do, is order everything the search returned.
+
+`./scripts/measure_redundancy.py` asks this service's own `minimal-scene-set`
+the question the catalogue cannot answer, over four AOIs and two collections:
+
+| AOI | collection | km² | found | needed | redundant |
+|---|---|---|---|---|---|
+| taluk | sentinel-2-l2a | 479 | 30 | 1 | 97% |
+| district | sentinel-2-l2a | 4,191 | 30 | 2 | 93% |
+| two districts | sentinel-2-l2a | 11,855 | 60 | 2 | 97% |
+| regional transect | sentinel-2-l2a | 59,816 | 60 | 4 | 93% |
+| *(+ 4 sentinel-1-grd rows)* | | | | | 75% |
+| **TOTAL** | | | **208** | **16** | **92%** |
+
+> **208 scenes returned. 16 cover the same ground to the same percentage.**
+> At published product sizes, **206 GB ordered where 16 GB was required.**
+
+The scene counts are measured live; the byte figures are published nominal
+product sizes multiplied by those counts, and the script says so in its own
+output. **And it is a floor, not a ceiling** — the footprint store spans 3
+months, so several rows are capped by the store rather than the AOI. A
+multi-decade archive returns far more intersecting scenes for the same AOI
+while the number needed to cover it stays roughly constant, so redundancy
+*rises* with archive depth.
+
+### Why it is a missing tier, not a missing parameter
+
+`./scripts/probe_baseline.sh` probes ISRO's stack and the field, live:
+
+| Portal | Endpoint | Result |
+|---|---|---|
+| **Copernicus Data Space** (openEO) | `/openeo/1.2/processes` | **HTTP 200 — 146 processes** |
+| MS Planetary Computer | STAC `/v1/` | HTTP 200 — 15 conformance classes |
+| **Bhoonidhi** | `/processes` | **HTTP 404** |
+| **Bhuvan** | `/bhuvan/wps` | **HTTP 404** |
+
+Server-side geospatial processing has been an OGC standard since **2007**
+(WPS 1.0.0, 05-007r7), with a modern REST/JSON successor in **2021**
+(OGC API – Processes, 18-062r2). ISRO's public stack implements none of it.
+That is not a scoping decision everyone else also made — it is the single
+capability separating Bhoonidhi from every portal it would be compared
+against.
+
+**Proposed Fix :** An **OGC API – Processes** service implementing the
 missing operations as conformant processes, over acquisition footprints fetched
 from Bhoonidhi's own STAC search. All areas measured in an equal-area
 projection, synchronous and asynchronous execution, and a job API.
@@ -134,7 +212,7 @@ Lays a metric grid over the AOI and counts intersecting acquisitions per cell,
 returning GeoJSON ready to render as a heatmap.
 
 ```
-grid 6x8 @ 10 km → 48 cells · per cell: min 15, mean 18.75, max 30
+grid 6x8 @ 10 km → 48 cells · 30 acquisitions · per cell: min 15, mean 18.75, max 30
 ```
 
 Revisit is twice as dense in some cells as others. A flat list has no spatial
@@ -154,7 +232,7 @@ make install       # Python venv
 make data          # build the 59 catalogue records
 make footprints    # harvest real acquisition footprints
 make up            # start the service on :5003
-make test          # 78 compliance tests
+make test          # 100 compliance tests
 make demo          # the whole walkthrough
 ```
 
@@ -212,7 +290,7 @@ credentials.
 
 ```
 $ ./scripts/run_tests.sh
-============================== 78 passed in 1.76s ==============================
+============================= 100 passed in 5.64s ==============================
 ```
 
 | Group | Tests | Covers |
@@ -221,12 +299,15 @@ $ ./scripts/run_tests.sh
 | Records catalogue | 5 | collection listed, `itemType: record`, extents, **queryables**, 404 |
 | Records items | 7 | all 59 catalogued, record shape, **provenance fields declared**, retrieval by id, parsed metadata consistent with the id |
 | Records querying | 17 | full-text narrows **and is relevant**, 3 queryable filters with no leakage, limit, **paging without repeats**, sortby, bbox, datetime, 400s |
-| Processes core | 11 | Processes Core class, process list, per-process input/output schemas, `jobControlOptions`, **201 + Location**, full job lifecycle to `/results`, 404s |
+| Processes core | 18 | Processes Core class, process list, per-process input/output schemas, `jobControlOptions`, **201 + Location**, full job lifecycle to `/results`, 404s |
 | `aoi-coverage` | 7 | **covered + gap reconstructs the AOI**, fully-covered never contradicts a gap geometry, **areas are metric not degrees**, empty result keeps the same shape, per-scene overlap never exceeds the AOI, provenance declared |
 | `minimal-scene-set` | 8 | selects fewer than it considers, **cumulative coverage monotonic**, greedy takes the largest gain first, order sequential, target respected, lower target needs no more scenes, cap honoured, algorithm declared |
 | `multi-sensor-overlap` | 4 | optical∩radar, **intersection never exceeds either operand**, identical collections rejected, missing collection rejected |
 | `revisit-density` | 5 | returns a grid, **summary matches the cells**, **cell areas sum to the AOI**, finer cells give more cells, oversized grid rejected |
 | Input validation | 6 | missing/malformed/inverted bbox, wrong geometry type, GeoJSON Polygon and Feature both accepted |
+| `zonal-statistics` | 12 | statistics internally consistent, **areas metric not degrees**, plausible elevations, **masking genuinely restricts what is read**, histogram accounts for every pixel and spans the value range, `bins=0` omits it, GeoJSON Polygon accepted, substitution declared |
+| `scene-raster-profile` | 6 | profiles scenes, every scene has geometry **and** pixels, **ranked by overlap**, across-scene summary consistent with the per-scene rows, limit honoured |
+| **Total** | **100** | |
 
 The suite tests the mathematics, not just the protocol: that covered + gap
 reconstructs the AOI, that an intersection is never larger than its operands,
@@ -262,9 +343,15 @@ search came back empty.
 ## Reproducing the gap evidence
 
 ```bash
-./scripts/probe_gap.sh            # audit the saved specification
+./scripts/probe_gap.sh            # audit the saved specification   (offline-capable)
 ./scripts/probe_gap.sh --refresh  # re-fetch it from NRSC first
+./scripts/probe_baseline.sh       # ISRO stack + peer portals, live
+./scripts/measure_redundancy.py   # the 92% figure, against the running service
 ```
+
+Or `make gap baseline redundancy`. Each writes to `docs/evidence/` so a
+reviewer can diff a re-run against what is committed. The full argument these
+build up to is [`docs/GAP_ANALYSIS.md`](docs/GAP_ANALYSIS.md).
 
 This is a **capability audit** of Bhoonidhi's published API specification: it
 enumerates the spatial parameters the API documents, shows that `contains`,
@@ -280,6 +367,21 @@ answering from the build host partway through development (DNS resolves,
 connections time out, the rest of the internet is fine). `--refresh` re-fetches
 when they are back, and says so plainly when it cannot.
 
+## Documentation
+
+| | |
+|---|---|
+| [`docs/GAP_ANALYSIS.md`](docs/GAP_ANALYSIS.md) | the long-form gap argument — the audit, the peer baseline, the 92% measurement, and the counter-arguments answered |
+| [`docs/report/`](docs/report/) | the full technical report (LaTeX → 28-page PDF). `make report` |
+| [`docs/evidence/`](docs/evidence/) | saved upstream responses and measurement outputs backing every number |
+
+```bash
+make report     # -> docs/report/bhoonidhi-processes.pdf
+```
+
+The report is `pdflatex`-only and uses no packages outside the base TeX Live
+collections, so it builds on a minimal install such as TinyTeX.
+
 ## Attribution
 
 - **Bhoonidhi**, ISRO / National Remote Sensing Centre — the collections this
@@ -289,7 +391,11 @@ when they are back, and says so plainly when it cannot.
   Bhoonidhi's footprints.
 - **pygeoapi**, **shapely**, **pyproj** — the OGC APIs and the geometry engine.
 
-Bhoonidhi's STAC API is real, modern engineering and this takes nothing from it.
-The argument is narrow: a catalogue you must log in to is a catalogue the world
-cannot see, and a catalogue that knows every footprint's geometry but will not
-compute with it leaves its hardest work to every user, one at a time.
+Bhoonidhi's STAC API is real, modern engineering and this takes nothing from
+it. Discovery is solved, and requiring a token is normal practice — the gap
+identified here is explicitly *not* about either. The argument is narrow: a
+catalogue that knows every footprint's geometry but will not compute with it
+leaves its hardest work to every user, one at a time. Thirty scenes match a
+district; two cover it; finding that out takes this service nine milliseconds
+and takes Bhoonidhi's users an afternoon they do not spend — so instead they
+download the other twenty-eight.
