@@ -232,6 +232,19 @@ rather than fractions.
 
 ## Run it
 
+### Check everything in one command
+
+```bash
+make verify
+```
+
+Runs the whole acceptance check and prints a pass/fail line per item: the
+service answering as **JSON and as HTML**, every mandatory OGC API – Processes
+operation including the full async job lifecycle, the 126-test suite, the gap
+evidence still holding (Bhoonidhi `/processes` and Bhuvan WPS still 404), and
+whether the repo is committed and pushed. Use `--offline` to skip the live
+upstream probes.
+
 ```bash
 make install       # Python venv
 make data          # build the 59 catalogue records

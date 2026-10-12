@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
-.PHONY: help install data footprints raster up down status test demo gap baseline redundancy report all clean
+.PHONY: help install data footprints raster up down status verify test demo gap baseline redundancy report all clean
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -30,6 +30,9 @@ down: ## Stop the service
 
 status: ## Is it responding?
 	./scripts/serve_local.sh status
+
+verify: ## ONE COMMAND: check everything a marker will check
+	./scripts/verify.sh
 
 test: ## Run the OGC compliance suite (Processes + Records)
 	./scripts/run_tests.sh
