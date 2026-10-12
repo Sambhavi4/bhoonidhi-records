@@ -1,220 +1,155 @@
-\section{Service design}
+\section{Design and implementation}
 \label{sec:design}
+\label{sec:implementation}
 
 \subsection{Architecture}
 
-The service is a single pygeoapi instance exposing two OGC API families over
-two data stores. Figure~\ref{fig:arch} shows the whole system, including where
-the data comes from and which part of it stands in for Bhoonidhi.
+A single pygeoapi instance exposing two OGC API families over two data stores.
 
 \begin{figure}[htbp]
 \centering
-% Scaled to the measure: the diagram's natural width depends on node
-% placement, so resizebox guarantees it never spills into the margin.
-\resizebox{\textwidth}{!}{%
+\resizebox{0.92\textwidth}{!}{%
 \begin{tikzpicture}[
-  font=\sffamily\scriptsize,
-  node distance=5mm,
+  font=\sffamily\scriptsize, node distance=5mm,
   box/.style={draw=rule,fill=white,rounded corners=2pt,align=center,
               inner sep=4pt,minimum height=8mm},
-  upstream/.style={box,fill=shade,draw=rule,text width=72mm},
+  upstream/.style={box,fill=shade,text width=72mm},
   stage/.style={box,text width=72mm},
   tier/.style={box,draw=accent,line width=0.7pt,text width=52mm},
-  proc/.style={box,draw=rule,text width=46mm,font=\sffamily\tiny},
-  lbl/.style={font=\sffamily\tiny\itshape,color=comment,align=left},
-  ar/.style={-{Stealth[length=2mm]},draw=comment}
-]
+  proc/.style={box,font=\sffamily\tiny},
+  ar/.style={-{Stealth[length=2mm]},draw=comment}]
 
-% upstream
 \node[upstream] (bh) {%
   \textbf{Bhoonidhi Open Data Access API} (ISRO/NRSC)\\
   STAC 1.0.0: \texttt{/auth/token} $\rightarrow$ \texttt{/data/search} $\rightarrow$ \texttt{/download}\\
   \textcolor{bad}{spatial surface = \texttt{bbox} + \texttt{intersects}; computes nothing}};
 
-% harvest
 \node[stage,below=7mm of bh] (harv) {%
-  \texttt{scripts/fetch\_footprints.py} \quad\textbar\quad \texttt{build\_catalogue.py}\\
+  \texttt{fetch\_footprints.py} \quad\textbar\quad \texttt{build\_catalogue.py}\\
   STAC client: \texttt{--source bhoonidhi} (JWT) or \texttt{--source open}};
-
 \draw[ar] (bh) -- (harv);
 
-% stores
 \node[box,below left=7mm and -22mm of harv,text width=42mm] (fps) {%
-  \textbf{footprints.geojson}\\
-  68 real acquisition footprints\\
-  \textcolor{comment}{60 optical + 8 radar}};
+  \textbf{footprints.geojson}\\ 68 real acquisition footprints};
 \node[box,below right=7mm and -22mm of harv,text width=42mm] (cat) {%
-  \textbf{records.tinydb}\\
-  59 collection records\\
-  \textcolor{comment}{provenance-tagged}};
-
+  \textbf{records.tinydb}\\ 59 collection records};
 \draw[ar] (harv) -- (fps);
 \draw[ar] (harv) -- (cat);
 
-% dem
-\node[box,left=6mm of fps,text width=22mm] (dem) {%
-  \textbf{dem.tif}\\
-  \textcolor{comment}{raster}};
+\node[box,left=6mm of fps,text width=20mm] (dem) {\textbf{dem.tif}};
 
-% service
 \node[tier,below=9mm of fps] (proc) {%
-  \textbf{OGC API --- Processes}\\
-  \textcolor{comment}{18-062r2 Core}\\
+  \textbf{OGC API --- Processes}\\ \textcolor{comment}{18-062r2 Core}\\
   sync + async, job API};
 \node[tier,below=9mm of cat] (rec) {%
-  \textbf{OGC API --- Records}\\
-  \textcolor{comment}{20-004, supporting}\\
-  full-text, queryables, bbox};
-
+  \textbf{OGC API --- Records}\\ \textcolor{comment}{20-004, supporting}};
 \draw[ar] (fps) -- (proc);
 \draw[ar] (dem.south) |- ([yshift=4mm]proc.north west) -- (proc.north west);
 \draw[ar] (cat) -- (rec);
 
 \begin{scope}[on background layer]
-\node[draw=accent,dashed,rounded corners=3pt,inner sep=5mm,
-      fit=(proc)(rec),label={[font=\sffamily\tiny\bfseries,color=accent]below:%
-      pygeoapi 0.24.0 \textperiodcentered\ one instance \textperiodcentered\ port 5003}] (svc) {};
+\node[draw=accent,dashed,rounded corners=3pt,inner sep=5mm,fit=(proc)(rec),
+  label={[font=\sffamily\tiny\bfseries,color=accent]below:%
+  pygeoapi 0.24.0 \textperiodcentered\ one instance \textperiodcentered\ port 5003}] (svc) {};
 \end{scope}
 
-% processes
 \node[proc,below=13mm of svc.south,text width=92mm] (plist) {%
   \textbf{footprint geometry} \quad \texttt{aoi-coverage} \textperiodcentered\
   \texttt{minimal-scene-set} \textperiodcentered\ \texttt{multi-sensor-overlap}
   \textperiodcentered\ \texttt{revisit-density}\\[2pt]
   \textbf{raster values} \quad \texttt{zonal-statistics} \textperiodcentered\
   \texttt{scene-raster-profile} \textcolor{comment}{(the join)}};
-
 \draw[ar] (svc.south) -- (plist.north);
-
 \end{tikzpicture}}
-\caption{Service architecture. Footprints are harvested from a STAC API ---
-Bhoonidhi's own with credentials, or an open substitute without --- and the
-Processes tier computes over that geometry and the raster beneath it. The
-Records tier is supporting infrastructure, giving the processes discoverable
-collection identifiers to point at.}
+\caption{Footprints are harvested from a STAC API --- Bhoonidhi's own with
+credentials, or an open substitute without --- and the Processes tier computes
+over that geometry and the raster beneath it.}
 \label{fig:arch}
 \end{figure}
 
-\subsection{The two layers, deliberately}
+\subsection{Key decisions}
 
-The six processes divide cleanly, and the division is the design:
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.26\textwidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Decision} & \textbf{Reasoning} \\
+\midrule
+\textbf{OGC API --- Processes}, not WPS
+  & The modern successor: JSON over REST, a real job model, an OpenAPI
+    description. The standard a new service in 2026 should implement. \\
+\textbf{pygeoapi}
+  & Reference implementation of the OGC API family, so conformance comes from
+    the framework rather than hand-rolled routing. Compliance carries the most
+    marks; hand-rolling a job API to spec is the wrong risk. \\
+\textbf{Greedy set cover}
+  & Set cover is NP-hard~\cite{setcover}; greedy is within a $\ln(n)$ factor of
+    optimal, fast enough for a synchronous request, and yields a
+    \emph{cumulative coverage curve} --- more useful than a bare optimal set,
+    because it shows what each extra scene buys. The response declares the
+    algorithm and its bound, so no client mistakes it for a proven minimum. \\
+\textbf{TinyDB job manager}
+  & Jobs persist, so async execution survives a restart and \ep{/jobs/\{id\}}
+    keeps working. PostgreSQL in production. \\
+\textbf{Native deployment}
+  & The build host's user was not in the \code{docker} group and no sudo
+    password was available, so the native path is the tested one and is
+    labelled as such. \\
+\bottomrule
+\end{tabularx}
+\end{center}
 
-\begin{itemize}
-  \item the \textbf{footprint processes} read only geometry. They answer
-        \emph{which scenes are worth fetching} --- and they answer it
-        \emph{before} anything is downloaded, which is the entire point;
-  \item the \textbf{raster processes} read pixels. They answer \emph{what is
-        actually inside} a polygon;
-  \item \code{scene-raster-profile} joins the two: for every scene footprint
-        intersecting the AOI it clips the raster to that footprint and reports
-        what lies underneath, ranked by overlap. Choosing between candidate
-        scenes on what they actually contain is impossible from a catalogue
-        that only answers \emph{does this intersect your box}.
-\end{itemize}
-
-This is deliberately \emph{not} spectral index computation. There is no band
-maths and no derived imagery product, because the gap identified in
-Section~\ref{sec:gap} is spatial algebra over the catalogue's own geometry,
-and a service should fill the gap it claims to fill.
-
-\subsection{Why these six operations}
-
-Each maps directly onto a row of Table~\ref{tab:questions} --- an ordinary
-question that Bhoonidhi's single predicate cannot answer. The mapping is
-one-to-one by construction; the processes were chosen from the audit, not the
-other way round.
-
-\code{minimal-scene-set} is the sharpest of them and deserves its own note.
-It solves a \textbf{set cover} problem: given every footprint touching the
-AOI, find the fewest whose union covers it. The implementation is greedy ---
-at each step it takes the footprint adding the largest previously-uncovered
-area, stopping when the target fraction is reached or no candidate adds more
-than 1000\,m\textsuperscript{2} (which is noise, not coverage).
-
-Greedy set cover is a deliberate choice over an exact solver. Set cover is
-NP-hard~\cite{setcover}; the greedy algorithm is within a $\ln(n)$ factor of
-optimal, runs in time acceptable for a synchronous HTTP request, and produces
-a \emph{cumulative coverage curve} that is more useful to a user than a bare
-optimal set --- it shows what each additional scene buys. The response states
-the algorithm and its approximation bound in a field named \code{algorithm},
-so no client can mistake the result for a proven minimum.
-
-\subsection{Measurement: areas in an equal-area projection}
+\subsection{Areas are measured in an equal-area projection}
 
 Every area in every response is computed in a \textbf{Lambert Azimuthal
-Equal-Area} projection centred on \emph{that request's own} area of interest:
+Equal-Area} projection centred on \emph{that request's own} AOI:
 
 \begin{lstlisting}
 +proj=laea +lat_0=<aoi centroid lat> +lon_0=<aoi centroid lon>
 +datum=WGS84 +units=m +no_defs
 \end{lstlisting}
 
-This matters more than it may appear. The whole service exists to answer
-area-based questions --- \emph{how much is covered}, \emph{what is the gap},
-\emph{which scene adds the most}. Computing those in degrees would make every
-number meaningless, and silently so: a square degree is neither a constant
-area nor an area at all. Centring the projection per request rather than using
-one national CRS keeps distortion negligible across an AOI of any size
-anywhere in India, at the cost of one \code{pyproj} transformer construction
-per call.
+This matters more than it appears. The whole service answers area-based
+questions --- how much is covered, what is the gap, which scene adds most.
+Computing those in degrees would make every number meaningless, and
+\emph{silently} so. Centring per request keeps distortion negligible for an AOI
+of any size anywhere in India. A test asserts that a
+$0.5^\circ\times0.7^\circ$ AOI reports thousands of km\textsuperscript{2}
+rather than a fraction, so this cannot regress unnoticed.
 
-A compliance test asserts that a $0.5^\circ \times 0.7^\circ$ AOI reports an
-area in the thousands of km\textsuperscript{2} rather than a fraction, so this
-cannot silently regress.
+\subsection{Provenance is declared in-band}
 
-\subsection{Honesty about provenance, in the response}
+Every response carries a \code{provenance} block stating how many footprints
+were considered, the filters applied, the area CRS, and --- critically ---
+whether the footprint store is Bhoonidhi's or a substitute
+(\code{is\_substitute\_for\_bhoonidhi}). This is a design decision, not a
+disclaimer bolted on: a spatial analysis service whose inputs are unclear is
+worse than none, because its outputs look authoritative.
 
-Every process response carries a \code{provenance} block stating how many
-footprints were considered, which collection and window, and --- critically
---- whether the footprint store is Bhoonidhi's or a substitute. The store
-metadata carries \code{is\_substitute\_for\_bhoonidhi: true} and this
-propagates into every single response.
+\subsection{Defects found during development}
+\label{sec:defects}
 
-This is a design decision, not a disclaimer bolted on. A spatial analysis
-service whose inputs are unclear is worse than none, because its outputs look
-authoritative. No result this service returns can be mistaken for Bhoonidhi
-output.
+Recorded because they are the part of the work that was actually difficult, and
+because a compliance suite that never caught anything is not evidence of much.
+Each is now guarded by a test.
 
-\subsection{Implementation choices, and why}
+\paragraph{1. Every execution returned HTTP 400 after a reboot.} pygeoapi's
+TinyDB job manager writes results into \code{output\_dir} and \textbf{does not
+create it}. The path was under \code{/tmp}, which the OS clears. It existed
+during the session it was created in, so everything passed; after a reboot every
+\code{POST .../execution} failed with an opaque \emph{``No such file or
+directory''}. This took \textbf{39 of the 100 tests} down at once. The job store
+now lives under \code{runtime/jobs} via a \code{\$\{JOBS\_DIR\}} substitution
+that \code{serve\_local.sh} creates before starting gunicorn.
 
-\begin{center}
-\small
-\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}X@{}}
-\toprule
-\textbf{Decision} & \textbf{Reasoning} \\
-\midrule
-\textbf{OGC API --- Processes}, not WPS 1.0.0/2.0
-  & The modern successor: JSON over REST, a crisp mandatory operation set, a
-    real job model, and an OpenAPI description. It demonstrates far better
-    than XML, and it is the standard a new service in 2026 should implement. \\
-\textbf{pygeoapi}
-  & Reference implementation of the OGC API family, so conformance comes from
-    the framework rather than from hand-rolled routing. Compliance is the
-    largest block of marks and hand-rolling a job API to spec is the wrong
-    risk to take. \\
-\textbf{shapely + pyproj}
-  & The geometry and projection engines the rest of the Python geospatial
-    stack is built on. The processes are thin: the hard parts are delegated
-    to libraries that are correct. \\
-\textbf{Greedy set cover}
-  & See above: NP-hard exactly, within $\ln(n)$ greedily, and the coverage
-    curve is more informative than a bare optimum. Declared in the response. \\
-\textbf{Per-request LAEA}
-  & Area-based questions need real areas; one national CRS would distort at
-    the extremes. \\
-\textbf{TinyDB job manager}
-  & Jobs are persisted, so asynchronous execution survives a restart and
-    \ep{/jobs/\{id\}} keeps working --- which OGC API --- Processes expects.
-    A production deployment would use PostgreSQL. \\
-\textbf{Jobs under \code{runtime/}}
-  & Originally \code{/tmp}, which the OS clears on reboot; a missing output
-    directory surfaces as an opaque HTTP 400 on \emph{every} execution.
-    See Section~\ref{sec:defects}. \\
-\textbf{Native deployment as the tested path}
-  & The build host's user was not in the \code{docker} group and no sudo
-    password was available. The native path is the verified one and is
-    labelled as such rather than presenting an unexercised container path as
-    primary. \\
-\bottomrule
-\end{tabularx}
-\end{center}
+\paragraph{2. A hairline sliver reported as a gap alongside
+\code{fully\_covered: true}.} Differencing near-identical polygons leaves
+slivers of effectively zero area, producing self-contradictory output. Anything
+under 0.01\,km\textsuperscript{2} now collapses to no gap, the threshold is
+published as \code{gap\_threshold\_km2} so it is inspectable rather than magic,
+and a test asserts the two can never coexist.
+
+\paragraph{3. The zero-footprint branch returned a different JSON shape.} When
+nothing matched, \code{aoi-coverage} returned different keys from the populated
+case --- breaking any client the first time a search came back empty. Both
+branches now share one schema; a test asserts it.

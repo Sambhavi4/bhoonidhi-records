@@ -1,4 +1,4 @@
-\section{Gap analysis}
+\section{The gap}
 \label{sec:gap}
 
 \begin{keyfinding}{The gap, in one sentence}
@@ -7,27 +7,49 @@ question you are permitted to ask of that geometry is \emph{``does it touch
 mine?''}
 \end{keyfinding}
 
-\noindent Everything in this section is either evidence for that sentence or
-an argument about why it matters more than it sounds like it does.
+\subsection{How it was established}
+\label{sec:methodology}
 
-\subsection{What is missing --- the capability audit}
+Three methods, each a script that saves its raw responses under
+\code{docs/evidence/} so a reviewer can re-run it and diff the result.
 
-Method 1 (Section~\ref{sec:methodology}) produces
-Table~\ref{tab:audit}, written to \code{docs/evidence/capability-audit.json}.
+\begin{enumerate}[leftmargin=1.8em]
+  \item \textbf{Specification audit} (\code{probe\_gap.sh}) --- parses
+    Bhoonidhi's \emph{own published API specification} and mechanically
+    enumerates the spatial parameters, the absent predicates, the CQL2
+    operations and any analysis vocabulary. Auditing the specification rather
+    than the live service is the fairest reading --- it tests what NRSC says
+    the API does --- and it is \textbf{reproducible offline}, which mattered
+    because both NRSC hosts stopped answering from the build host partway
+    through development.
+  \item \textbf{Comparative baseline} (\code{probe\_baseline.sh}) --- probes
+    ISRO's stack for any processing endpoint, then probes comparable EO
+    portals live to test the obvious objection that nobody deploys this.
+  \item \textbf{Cost measurement} (\code{measure\_redundancy.py}) --- asks this
+    service's own \code{minimal-scene-set} the question the catalogue cannot
+    answer, over four areas of interest and two collections.
+\end{enumerate}
+
+\textbf{What would falsify the claim}, stated in advance: any documented
+spatial operator beyond intersection, any ISRO endpoint answering a processing
+request, or a minimal covering set close in size to the candidate set. Each
+script prints its own failure loudly rather than quietly passing.
+
+\subsection{What is missing}
 
 \begin{table}[htbp]
 \centering\small
 \caption{Bhoonidhi's spatial and analytical surface, audited against its own
 published specification.}
 \label{tab:audit}
-\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.44\textwidth}>{\raggedright\arraybackslash}X@{}}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.42\textwidth}>{\raggedright\arraybackslash}X@{}}
 \toprule
 \textbf{Question} & \textbf{Answer} \\
 \midrule
 Spatial parameters on \ep{/data/search}
   & \code{bbox} and \code{intersects} --- and nothing else \\
 What they compute
-  & the same single predicate: \emph{does this item intersect my AOI?} \\
+  & one predicate: \emph{does this item intersect my AOI?} \\
 Other spatial operators documented
   & \absent\ --- no \code{crosses}, \code{touches}, \code{overlaps},
     \code{disjoint}, \code{s\_within}, \code{s\_contains} \\
@@ -35,86 +57,31 @@ CQL2 operations in the documented examples
   & \code{eq}, \code{and} --- attribute equality only \\
 Analysis vocabulary anywhere in the API
   & \absent\ --- no union, aggregation, statistics, coverage, density \\
-Endpoints documented
-  & 5: authenticate, logout, list, search, download \\
 Endpoints that compute anything
-  & \textcolor{bad}{\textbf{0}} \\
+  & \textcolor{bad}{\textbf{0}} of 5 \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-So the catalogue holds the geometry and will not compute with it. The
-questions that actually decide an acquisition order are all exactly one step
-beyond what it offers (Table~\ref{tab:questions}).
+\code{contains}, \code{within} and \code{area} \emph{do} appear in the
+specification --- as English prose, never as operators. The audit checks this
+specifically, so the counter-example becomes part of the argument rather than a
+hole in it.
 
-\begin{table}[htbp]
-\centering\small
-\caption{Ordinary spatial questions, the operations they require, and their
-availability on Bhoonidhi today. Every input these need is geometry the
-catalogue already stores.}
-\label{tab:questions}
-\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X l c@{}}
-\toprule
-\textbf{Question an analyst asks} & \textbf{Operations required} & \textbf{Today} \\
-\midrule
-How much of my AOI do these scenes really cover, and where are the holes?
-  & union, difference, area & \no \\
-Which few of the 30 scenes returned do I actually need?
-  & set cover over geometry & \no \\
-Where do optical and radar co-cover, for fusion?
-  & intersection of two unions & \no \\
-How uneven is revisit across my AOI?
-  & gridding, per-cell counts & \no \\
-What terrain is under each candidate scene?
-  & raster--vector overlay & \no \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\paragraph{This is not about authentication.} Requiring a token is normal
+practice; Copernicus, USGS and NASA all gate downloads, and this project makes
+no complaint about it. \textbf{Hand someone a valid JWT and every limitation in
+Table~\ref{tab:audit} is still in force.} It is a \emph{capability} gap, not an
+\emph{access} gap.
 
-\subsection{This gap is not about authentication}
-\label{sec:notauth}
+\subsection{Why it is a large gap}
 
-Stated explicitly and early, because it is the most tempting \emph{wrong}
-version of this argument.
+\subsubsection{An entire standardised tier is absent}
 
-Requiring a token is normal, sensible practice. Copernicus, USGS
-EarthExplorer and NASA Earthdata all gate downloads. This project makes no
-complaint about it whatsoever.
-
-\begin{keyfinding}{The gap stands for a fully authenticated user}
-Hand someone a valid JWT and the complete API documentation, and every
-limitation in Table~\ref{tab:audit} is still in force. They can learn
-\emph{which} scenes touch their area, and nothing further. This is a
-\textbf{capability} gap, not an \textbf{access} gap.
-\end{keyfinding}
-
-\subsection{Why this is a large gap, not a small one}
-
-Four independent arguments. Each is measured rather than asserted.
-
-\subsubsection{Argument 1 --- an entire standardised tier is absent}
-
-Server-side geospatial computation is neither exotic nor speculative. It has
-been an OGC standard since 2007 (Table~\ref{tab:standards}).
-
-\begin{table}[htbp]
-\centering\small
-\caption{Standards for server-side geospatial processing, and Bhoonidhi's
-implementation status.}
-\label{tab:standards}
-\begin{tabular}{@{}llll@{}}
-\toprule
-\textbf{Standard} & \textbf{Document} & \textbf{Year} & \textbf{Bhoonidhi} \\
-\midrule
-OGC Web Processing Service 1.0.0 & 05-007r7 & 2007 & \no \\
-OGC WPS 2.0.0 & 14-065 & 2015 & \no \\
-\textbf{OGC API --- Processes, Part 1: Core} & \textbf{18-062r2} & \textbf{2021} & \no \\
-openEO API (EO process graphs) & community & 2020 & \no \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Method 2 probes ISRO's public stack for any of it:
+Server-side geospatial computation is not exotic. It has been an OGC standard
+since \textbf{2007} (WPS 1.0.0, 05-007r7), with WPS 2.0 in 2015 and the modern
+REST/JSON successor \textbf{OGC API --- Processes (18-062r2) in 2021}.
+Bhoonidhi implements none of them. Probing ISRO's public stack:
 
 \begin{lstlisting}
 Bhuvan WPS 1.0.0 GetCapabilities       HTTP 404   absent
@@ -123,77 +90,59 @@ Bhoonidhi /processes                   HTTP 404   absent
   MATCHED  no server-side computation anywhere in the public stack
 \end{lstlisting}
 
-The missing thing is therefore not a query parameter someone forgot. It is
-the whole processing tier of the OGC stack --- the tier that turns a catalogue
-into something you can compute with --- absent from India's national remote
-sensing portal nearly two decades after it was standardised.
+So the missing thing is not a query parameter someone forgot. It is the whole
+processing tier of the OGC stack, absent from India's national remote sensing
+portal nearly two decades after it was standardised.
 
-\subsubsection{Argument 2 --- every comparable portal has it}
+\subsubsection{Every comparable portal has it}
 
-The strongest objection to Argument 1 is that the standard is a paper
-standard nobody deploys. Method 2 tests this against the field, live
-(Table~\ref{tab:peers}).
+The strongest objection is that this is a paper standard nobody deploys.
+Probed live and unauthenticated:
 
 \begin{table}[htbp]
 \centering\small
-\caption{Processing capability at comparable Earth observation portals,
-probed live and unauthenticated. The lower two rows are ISRO's.}
+\caption{Processing capability at comparable EO portals. The lower two rows are
+ISRO's.}
 \label{tab:peers}
-\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.33\textwidth}>{\raggedright\arraybackslash}X r@{}}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.32\textwidth}>{\raggedright\arraybackslash}X r@{}}
 \toprule
 \textbf{Portal} & \textbf{Endpoint probed} & \textbf{Result} \\
 \midrule
-\textbf{Copernicus Data Space} (openEO)
-  & \ep{/openeo/1.2/processes}
+\textbf{Copernicus Data Space} (openEO) & \ep{/openeo/1.2/processes}
   & \textcolor{good}{\textbf{200 --- 146 processes}} \\
-MS Planetary Computer
-  & STAC \ep{/api/stac/v1/}
+MS Planetary Computer & STAC \ep{/api/stac/v1/}
   & \textcolor{good}{200 --- 15 classes} \\
 \midrule
-\textbf{Bhoonidhi}
-  & \ep{/processes}
-  & \textcolor{bad}{\textbf{404}} \\
-\textbf{Bhuvan}
-  & \ep{/bhuvan/wps}
-  & \textcolor{bad}{\textbf{404}} \\
+\textbf{Bhoonidhi} & \ep{/processes} & \textcolor{bad}{\textbf{404}} \\
+\textbf{Bhuvan} & \ep{/bhuvan/wps} & \textcolor{bad}{\textbf{404}} \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Documented but deliberately not probed, each requiring registration:
-\textbf{NASA Earthdata Harmony}~\cite{harmony} (server-side subsetting,
-reprojection, regridding and aggregation as a service), \textbf{USGS ESPA /
-M2M} (on-demand higher-level Landsat products), \textbf{Google Earth
-Engine}~\cite{gee} (computation \emph{is} the access model), and
-\textbf{Digital Earth Africa} (Open Data Cube with OGC API --- Processes).
+Documented but deliberately not probed, each requiring registration: NASA
+Earthdata Harmony~\cite{harmony}, USGS ESPA/M2M, Google Earth
+Engine~\cite{gee}, Digital Earth Africa.
 
 \begin{keyfinding}{The contrast}
-The Copernicus Data Space publishes \textbf{146} server-side processes at a
-public, unauthenticated endpoint that anyone can enumerate right now.
-Bhoonidhi publishes \textbf{0}. Bhuvan's WPS endpoint returns \textbf{404}.
-
-\medskip
-That is not a scoping decision that everyone else also made. It is the single
-capability that separates Bhoonidhi from every portal it would be compared
+Copernicus publishes \textbf{146} server-side processes at a public,
+unauthenticated endpoint anyone can enumerate right now. Bhoonidhi publishes
+\textbf{0}. That is not a scoping decision everyone else also made --- it is the
+single capability separating Bhoonidhi from every portal it would be compared
 against.
 \end{keyfinding}
 
-\subsubsection{Argument 3 --- the cost is measurable, and it is 92\,\%}
+\subsubsection{The cost is measurable, and it is 92\,\%}
 \label{sec:cost}
 
-This is the decisive argument.
-
 Because the catalogue will not compute with footprint geometry, a user has no
-way to learn which of the returned scenes they actually need. So the rational
-move --- and the observed one --- is to order everything the search returned.
-Method 3 measures how much of that is waste (Table~\ref{tab:redundancy}).
+way to learn which returned scenes they need --- so they order all of them.
 
 \begin{table}[htbp]
 \centering\small
 \caption{Measured redundancy. \emph{found} is what a search hands back;
-\emph{needed} is what covers the same ground to the same percentage, computed
-by this service's \code{minimal-scene-set}. Scene counts are measured; GB
-figures are published nominal product sizes multiplied by those counts.}
+\emph{needed} is what covers the same ground to the same percentage. Scene
+counts are measured live; GB figures are published nominal product sizes
+multiplied by those counts.}
 \label{tab:redundancy}
 \footnotesize
 \begin{tabular}{@{}llrrrrrr@{}}
@@ -218,93 +167,46 @@ regional transect & sentinel-1-grd & 59\,816 &  8 & 2 & 75\,\% &  7.4 & 1.9 \\
 \end{table}
 
 \begin{keyfinding}{The measured cost of the missing tier}
-Across 8 queries over 4 areas of interest the catalogue hands back
-\textbf{208 scenes}. \textbf{16} of them cover the same ground to the same
-percentage. \textbf{192 are redundant --- 92\,\% of everything returned.}
-
-\medskip
-At published product sizes that is \textbf{206\,GB ordered where 16\,GB was
-required}: 190\,GB of avoidable transfer, for four areas of interest.
-Projected onto Bhoonidhi's own ResourceSat-2 LISS-III volumes (250\,MB per
-scene), 47\,GB.
-
-\medskip
-\textbf{And nothing in Bhoonidhi's API lets a user discover the 92\,\%
-figure.}
+Across 8 queries the catalogue hands back \textbf{208 scenes}. \textbf{16} cover
+the same ground to the same percentage. \textbf{192 are redundant --- 92\,\% of
+everything returned}, or 206\,GB ordered where 16\,GB was required.
+\textbf{And nothing in Bhoonidhi's API lets a user discover that.}
 \end{keyfinding}
 
-As set out in Section~\ref{sec:methodology}, this is a \textbf{floor}: several
-rows are capped by the depth of the footprint store rather than by the area of
-interest, and redundancy rises with archive depth. A multi-decade archive
-returns far more intersecting scenes for the same AOI while the number needed
-to cover it stays roughly constant.
+\textbf{Measured versus modelled:} the scene counts are measured live against
+the running service over real STAC footprints --- that is the part carrying the
+argument. The byte figures are published nominal product sizes multiplied by
+those counts; the script never downloads imagery and says so in its own output.
 
-\subsubsection{Argument 4 --- the workaround is expert-only, so nobody does it}
+\textbf{This is a floor, not a ceiling.} The footprint store holds 68 scenes
+over a three-month window, so several rows are capped by the store rather than
+by the AOI. A real archive spans decades with many revisits per year: it returns
+far more intersecting scenes for the same AOI while the number needed to cover
+it stays roughly constant. \textbf{Redundancy rises with archive depth.}
 
-The honest counter-argument is \emph{``you can just do this yourself.''} True
---- and that is precisely the gap. The complete procedure a user must follow
-today to learn the 92\,\% figure for their own AOI:
+\subsubsection{The workaround is expert-only, so nobody does it}
 
-\begin{enumerate}
-  \item authenticate, \code{POST /data/search}, page through every result;
-  \item extract each item's footprint geometry from the STAC response;
-  \item load 30+ polygons into a desktop GIS or a \code{shapely} script;
-  \item union them, then difference the union against the AOI to find holes;
-  \item reproject to an equal-area CRS --- or every area number is wrong;
-  \item implement a \textbf{set-cover} optimisation over the footprints;
-  \item map the chosen geometries back to orderable item identifiers.
-\end{enumerate}
+The honest objection is \emph{``you can just do this yourself''}. True --- and
+that is the gap. To learn the 92\,\% figure for their own AOI a user must:
+search and page through every result; extract each footprint; load 30+ polygons
+into a GIS or a \code{shapely} script; union them and difference against the
+AOI; \textbf{reproject to an equal-area CRS or every area is wrong}; implement a
+\textbf{set-cover optimisation} (NP-hard~\cite{setcover}); and map the result
+back to orderable item ids.
 
-Step 6 is an NP-hard combinatorial problem~\cite{setcover}. Steps 4--5 are
-where most people silently get it wrong, because areas computed in degrees are
-meaningless. This is a GIS-literate programmer's afternoon, repeated for every
-area of interest, by every user, indefinitely --- and it is the \emph{same
-seven steps every time}, over geometry the server already holds in memory at
-the moment it answers the search.
-
-So in practice nobody does it. They download all 30 scenes. This service
-performs all seven steps in one HTTP request (Section~\ref{sec:results}).
-
-\subsection{Counter-arguments, answered}
-
-Taken seriously rather than ignored, because a gap claim that cannot survive
-its own objections is not convincing.
-
-\begin{description}[leftmargin=0pt,style=unboxed,itemsep=0.6ex]
-  \item[``Requiring a token is the real barrier.''] No ---
-    Section~\ref{sec:notauth}. Every limitation here applies to a fully
-    authenticated user, and gating downloads is normal practice.
-  \item[``The data isn't secret, so there's no gap.''] Agreed, and the gap is
-    not about secrecy. It is that there is no way to \emph{compute} with the
-    geometry. Section~\ref{sec:cost} measures what that costs.
-  \item[``Server-side processing is a paper standard.''] Measured against the
-    field in Table~\ref{tab:peers}: Copernicus publishes 146 processes
-    publicly, today, at an endpoint this project enumerates live.
-  \item[``Users can script it themselves.''] They can, in seven steps
-    including an NP-hard optimisation and a reprojection that is easy to get
-    silently wrong. The purpose of a service interface is that the server does
-    once, correctly, what every client would otherwise do repeatedly and
-    inconsistently.
-  \item[``STAC search \emph{is} the spatial API.''] STAC search is a
-    \emph{filter}: it selects items. It does not perform geometry operations
-    and the specification does not claim to. That is exactly the division of
-    labour OGC API --- Processes exists to fill.
-  \item[``This is a niche optimisation.''] 92\,\% of returned scenes are
-    redundant, and the figure rises with archive depth. Order-of-magnitude
-    reductions in transfer volume are not niche, particularly for users on
-    Indian academic and state-government bandwidth, who are the portal's
-    primary audience.
-\end{description}
+That is a GIS-literate programmer's afternoon, repeated for every AOI, by every
+user --- and it is the same seven steps every time, over geometry the server
+already holds in memory when it answers the search. So in practice nobody does
+it. They download all 30 scenes. \textbf{This service does all seven steps in
+one HTTP request} (Section~\ref{sec:results}).
 
 \subsection{Scope of the claim}
 
 \textbf{Claimed:} Bhoonidhi has no server-side spatial computation; that
-capability is standardised, deployed by peers, and its absence has a
-measurable cost; and a conformant OGC API --- Processes service over footprint
-geometry closes it.
+capability is standardised, deployed by peers, and its absence has a measurable
+cost; a conformant OGC API --- Processes service closes it.
 
-\textbf{Not claimed:} that Bhoonidhi is badly built (Section~\ref{sec:gap} is
-explicit that discovery is solved), that authentication is wrong, that this
-project's footprints \emph{are} Bhoonidhi's (they are substituted and
-flagged --- Section~\ref{sec:limitations}), or that this is an official NRSC
-product.
+\textbf{Not claimed:} that Bhoonidhi is badly built (discovery is solved), that
+authentication is wrong, that this project's footprints \emph{are} Bhoonidhi's
+(they are substituted and flagged --- Section~\ref{sec:limitations}), or that
+this is an official NRSC product.

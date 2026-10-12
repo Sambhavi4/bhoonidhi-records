@@ -1,41 +1,7 @@
-\section{OGC compliance evidence}
+\section{OGC compliance}
 \label{sec:compliance}
 
-\subsection{Conformance classes declared}
-
-The service advertises the following at \ep{/conformance}. The Processes
-classes are the ones the submission rests on; the Records and Common classes
-belong to the supporting tier.
-
-\begin{center}
-\small
-\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X l@{}}
-\toprule
-\textbf{Conformance class URI} & \textbf{Family} \\
-\midrule
-\code{.../ogcapi-processes-1/1.0/conf/core}                    & \textbf{Processes} \\
-\code{.../ogcapi-processes-1/1.0/conf/ogc-process-description} & \textbf{Processes} \\
-\code{.../ogcapi-processes-1/1.0/conf/json}                    & \textbf{Processes} \\
-\code{.../ogcapi-processes-1/1.0/conf/oas30}                   & \textbf{Processes} \\
-\code{.../ogcapi-processes-1/1.0/conf/callback}                & \textbf{Processes} \\
-\midrule
-\code{.../ogcapi-records-1/1.0/conf/core}                      & Records \\
-\code{.../ogcapi-records-1/1.0/conf/json}                      & Records \\
-\code{.../ogcapi-records-1/1.0/conf/html}                      & Records \\
-\code{.../ogcapi-records-1/1.0/conf/sorting}                   & Records \\
-\code{.../ogcapi-records-1/1.0/conf/opensearch}                & Records \\
-\midrule
-\code{.../ogcapi-common-1/1.0/conf/core}, \code{/json}, \code{/html},
-\code{/landing-page}, \code{/oas30}                            & Common \\
-\code{.../ogcapi-common-2/1.0/conf/collections}                & Common \\
-\bottomrule
-\end{tabularx}
-\end{center}
-
-\subsection{The mandatory operations}
-
-OGC API --- Processes Part 1: Core defines a small mandatory surface. All of
-it is implemented and tested:
+\subsection{Mandatory operations, all implemented and tested}
 
 \begin{center}
 \small
@@ -43,113 +9,92 @@ it is implemented and tested:
 \toprule
 \textbf{Resource} & \textbf{Requirement} & \textbf{Status} \\
 \midrule
-\ep{/}                         & landing page with required link relations & \yes \\
-\ep{/conformance}              & declared conformance classes & \yes \\
-\ep{/openapi}                  & OpenAPI 3 description of the API & \yes \\
-\ep{/processes}                & the process list & \yes \\
-\ep{/processes/\{id\}}         & process description: inputs, outputs, \code{jobControlOptions} & \yes \\
-\ep{/processes/\{id\}/execution} & execute, synchronous & \yes \\
-\ep{/processes/\{id\}/execution} & execute, async: 201 + \code{Location} & \yes \\
-\ep{/jobs}                     & the job list & \yes \\
-\ep{/jobs/\{id\}}              & job status document & \yes \\
-\ep{/jobs/\{id\}/results}      & job results & \yes \\
-\multicolumn{2}{@{}l}{Exception handling: 400 on bad input, 404 on unknown process or job} & \yes \\
+\ep{/}                           & landing page, required link relations & \yes \\
+\ep{/conformance}                & declared conformance classes & \yes \\
+\ep{/openapi}                    & OpenAPI 3 description & \yes \\
+\ep{/processes}                  & process list & \yes \\
+\ep{/processes/\{id\}}           & inputs, outputs, \code{jobControlOptions} & \yes \\
+\ep{.../execution}               & execute synchronously & \yes \\
+\ep{.../execution}               & execute async: \textbf{201 + Location} & \yes \\
+\ep{/jobs}, \ep{/jobs/\{id\}}    & job list and status document & \yes \\
+\ep{/jobs/\{id\}/results}        & job results & \yes \\
+\multicolumn{2}{@{}l}{400 on bad input, 404 on unknown process or job} & \yes \\
 \bottomrule
 \end{tabularx}
 \end{center}
+
+Conformance classes declared at \ep{/conformance}: Processes Core,
+\code{ogc-process-description}, JSON, OAS30 and callback; plus Records
+(core, JSON, HTML, sorting, opensearch) and OGC API --- Common for the
+supporting tier.
 
 \subsection{Test results}
 
 \begin{lstlisting}
 $ ./scripts/run_tests.sh
-===========================================================================
- Bhoonidhi Spatial Catalogue Analysis - OGC compliance suite
- OGC API - Processes (18-062r2) + OGC API - Records (20-004)
- service    : http://localhost:5003
- collection : bhoonidhi
-===========================================================================
-============================= 100 passed in 5.64s ==============================
+============================= 100 passed in 5.02s ==============================
 \end{lstlisting}
 
-\begin{table}[htbp]
-\centering\small
-\caption{Compliance suite composition. 100 tests across three files.}
-\label{tab:tests}
-\begin{tabularx}{\textwidth}{@{}l r >{\raggedright\arraybackslash}X@{}}
+\begin{center}
+\small
+\begin{tabular}{@{}lr@{\qquad}lr@{}}
 \toprule
-\textbf{Group} & \textbf{Tests} & \textbf{Covers} \\
+\textbf{Group} & \textbf{Tests} & \textbf{Group} & \textbf{Tests} \\
 \midrule
-Records core        & 5  & landing page, link relations, Records Core/JSON/sorting classes, OpenAPI 3 \\
-Records catalogue   & 5  & collection listed, \code{itemType: record}, extents, queryables, 404 \\
-Records items       & 7  & all 59 catalogued, record shape, provenance fields declared, retrieval by id, parsed metadata consistent with the id \\
-Records querying    & 17 & full-text narrows \emph{and is relevant}, queryable filters with no leakage, limit, paging without repeats, sortby, bbox, datetime, 400s \\
+Processes core          & 18 & Records querying        & 17 \\
+\code{zonal-statistics} & 12 & \code{minimal-scene-set} &  8 \\
+\code{aoi-coverage}     &  7 & Records items           &  7 \\
+Input validation        &  6 & \code{scene-raster-profile} & 6 \\
+\code{revisit-density}  &  5 & Records core            &  5 \\
+Records catalogue       &  5 & \code{multi-sensor-overlap} & 4 \\
 \midrule
-Processes core      & 18 & Processes Core class, process list, per-process input/output schemas, \code{jobControlOptions}, \textbf{201 + Location}, \textbf{full job lifecycle to /results}, 404s \\
-\code{aoi-coverage} & 7  & \textbf{covered + gap reconstructs the AOI}, fully-covered never contradicts a gap geometry, \textbf{areas metric not degrees}, empty result keeps the same shape, per-scene overlap never exceeds the AOI, provenance declared \\
-\code{minimal-scene-set} & 8 & selects fewer than it considers, \textbf{cumulative coverage monotonic}, greedy takes the largest gain first, order sequential, target respected, lower target needs no more scenes, cap honoured, algorithm declared \\
-\code{multi-sensor-overlap} & 4 & optical $\cap$ radar, \textbf{intersection never exceeds either operand}, identical collections rejected, missing collection rejected \\
-\code{revisit-density} & 5 & returns a grid, \textbf{summary matches the cells}, \textbf{cell areas sum to the AOI}, finer cells give more cells, oversized grid rejected \\
-Input validation    & 6  & missing/malformed/inverted bbox, wrong geometry type, GeoJSON Polygon and Feature both accepted \\
-\midrule
-\code{zonal-statistics} & 12 & statistics internally consistent, \textbf{areas metric}, plausible elevations, \textbf{masking genuinely restricts what is read}, histogram accounts for every pixel and spans the value range, \code{bins=0} omits it, GeoJSON Polygon accepted, substitution declared \\
-\code{scene-raster-profile} & 6 & profiles scenes, every scene has geometry \emph{and} pixels, \textbf{ranked by overlap}, across-scene summary consistent with the per-scene rows, limit honoured \\
-\midrule
-\textbf{Total} & \textbf{100} & \\
+\multicolumn{3}{@{}r}{\textbf{Total}} & \textbf{100} \\
 \bottomrule
-\end{tabularx}
-\end{table}
+\end{tabular}
+\end{center}
 
-\subsection{The suite tests the mathematics, not only the protocol}
+\subsection{The suite tests the mathematics, not just the protocol}
 
 This is the point worth a reviewer's attention. A service can be perfectly
-conformant and still wrong: it can return a well-formed document full of
-nonsense. The suite therefore asserts invariants that must hold if the
-geometry is being computed correctly.
+conformant and still wrong --- it can return a well-formed document full of
+nonsense. The suite therefore asserts invariants that must hold if the geometry
+is computed correctly:
 
 \begin{center}
 \small
 \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.38\textwidth}>{\raggedright\arraybackslash}X@{}}
 \toprule
-\textbf{Invariant asserted} & \textbf{Why it would otherwise slip through} \\
+\textbf{Invariant} & \textbf{What it would otherwise miss} \\
 \midrule
-covered area $+$ gap area $=$ AOI area
-  & the two are computed by different code paths (union vs.\ difference);
-    agreement is a genuine cross-check \\
-\code{fully\_covered} never coexists with a gap geometry
-  & caught defect 2 of Section~\ref{sec:defects} \\
-intersection area $\le$ \emph{both} operand areas
+covered $+$ gap $=$ AOI area
+  & the two come from different code paths (union vs.\ difference), so
+    agreement is a real cross-check \\
+intersection $\le$ \emph{both} operands
   & an intersection larger than an operand is impossible; a projection or
     winding-order bug produces exactly that \\
 $\sum$ cell areas $=$ AOI area
-  & the density grid is built in projected metres and clipped; a gridding
-    off-by-one would not sum \\
-cumulative coverage is monotonic non-decreasing
+  & a gridding off-by-one would not sum \\
+cumulative coverage is monotonic
   & greedy set cover cannot lose coverage by adding a scene \\
-greedy takes the largest gain first
-  & asserts the algorithm is actually greedy, not merely ordered \\
-AOI area lands in thousands of km\textsuperscript{2}, not fractions
-  & the single highest-value test in the suite: it fails loudly the moment
+AOI area in thousands of km\textsuperscript{2}, not fractions
+  & \textbf{the highest-value test in the suite}: it fails loudly the moment
     anything is computed in degrees \\
-empty and populated branches share one schema
-  & caught defect 3 of Section~\ref{sec:defects} \\
+empty and populated branches share a schema
+  & caught defect 3 (Section~\ref{sec:defects}) \\
+\code{fully\_covered} never coexists with a gap
+  & caught defect 2 (Section~\ref{sec:defects}) \\
 masking genuinely restricts what is read
-  & a raster mask that silently no-ops returns plausible-looking statistics
-    for the wrong extent \\
+  & a no-op raster mask returns plausible statistics for the wrong extent \\
 \bottomrule
 \end{tabularx}
 \end{center}
 
-Two of the three defects in Section~\ref{sec:defects} were found by exactly
-these invariant tests rather than by inspection, which is the argument for
-writing them.
+Two of the three defects in Section~\ref{sec:defects} were found by these
+invariant tests rather than by inspection, which is the argument for writing
+them.
 
-\subsection{What this evidence is not}
-
-Stated so the claim is not overread: this is a self-written suite, not the
-OGC CITE certification suite, and OGC API --- Processes is tested here against
-the specification's mandatory requirements as implemented by pygeoapi rather
-than by an accredited third party. What can fairly be claimed is that every
-mandatory resource is present and exercised, the full asynchronous job
-lifecycle is walked end to end, error handling is tested, and the numerical
-results are checked against invariants that would catch the realistic failure
-modes.
+\paragraph{What this evidence is not.} A self-written suite, not the OGC CITE
+certification suite. What can fairly be claimed: every mandatory resource is
+present and exercised, the full async job lifecycle is walked end to end, error
+handling is tested, and results are checked against invariants that catch the
+realistic failure modes.
