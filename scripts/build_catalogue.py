@@ -48,6 +48,10 @@ PORTAL = "https://bhoonidhi.nrsc.gov.in/"
 API_SPEC = "https://bhoonidhi.nrsc.gov.in/bhoonidhi-api/"
 API_BASE = "https://bhoonidhi-api.nrsc.gov.in"
 
+# When data/bhoonidhi_collections.txt was captured from Bhoonidhi. Used as
+# every record's created/updated so the build is reproducible across clones.
+CAPTURED_UTC = "2026-10-06T14:18:18Z"
+
 # Mission launch dates. Used ONLY as an indicative lower bound on data
 # availability, and labelled as such in every record.
 LAUNCH = {
@@ -272,22 +276,26 @@ def main() -> int:
 
     ids = [l.strip() for l in SRC.read_text().splitlines() if l.strip()]
 
-    # Record timestamps come from the SOURCE LIST's mtime, not from "now", so
-    # that building the catalogue twice from the same input produces byte
-    # identical output.
+    # Record timestamps are FIXED, not wall-clock, so that building the
+    # catalogue from the same collection list always produces byte identical
+    # output - on any machine, in any clone.
     #
     # data/bhoonidhi-records.geojson is committed (so the records are readable
-    # on GitHub without running anything), and with a wall-clock timestamp
-    # every `make data` rewrote all 59 records and left the working tree dirty
-    # - which `make verify` then correctly reported as an uncommitted change.
-    # A derived file that changes when its input did not is noise, and noise
-    # in a diff is how real changes get missed.
+    # on GitHub without running anything). With now() every `make data`
+    # rewrote all 59 records and left the working tree dirty, which
+    # `make verify` correctly flagged on a clone that had only run the
+    # documented commands. A derived file that changes when its input did not
+    # is noise, and noise in a diff is how real changes get missed.
     #
-    # SOURCE_DATE_EPOCH (the reproducible-builds convention) overrides it.
+    # Deriving it from the source file's mtime was the first attempt and is
+    # wrong: git does not preserve mtimes, so every clone produced a different
+    # timestamp. CAPTURED_UTC is the date Bhoonidhi's collection list was
+    # captured, which is also what `created` honestly means for these records.
+    # Bump it when data/bhoonidhi_collections.txt is re-captured.
+    # SOURCE_DATE_EPOCH overrides, per the reproducible-builds convention.
     epoch = os.environ.get("SOURCE_DATE_EPOCH")
-    ts = (datetime.fromtimestamp(int(epoch), timezone.utc) if epoch
-          else datetime.fromtimestamp(SRC.stat().st_mtime, timezone.utc))
-    now = ts.strftime("%Y-%m-%dT%H:%M:%SZ")
+    now = (datetime.fromtimestamp(int(epoch), timezone.utc)
+           .strftime("%Y-%m-%dT%H:%M:%SZ") if epoch else CAPTURED_UTC)
 
     records, skipped = [], []
     for cid in ids:
