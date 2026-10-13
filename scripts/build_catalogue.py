@@ -28,6 +28,7 @@ Usage:
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
@@ -270,7 +271,23 @@ def main() -> int:
                  "collection list; see README.")
 
     ids = [l.strip() for l in SRC.read_text().splitlines() if l.strip()]
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    # Record timestamps come from the SOURCE LIST's mtime, not from "now", so
+    # that building the catalogue twice from the same input produces byte
+    # identical output.
+    #
+    # data/bhoonidhi-records.geojson is committed (so the records are readable
+    # on GitHub without running anything), and with a wall-clock timestamp
+    # every `make data` rewrote all 59 records and left the working tree dirty
+    # - which `make verify` then correctly reported as an uncommitted change.
+    # A derived file that changes when its input did not is noise, and noise
+    # in a diff is how real changes get missed.
+    #
+    # SOURCE_DATE_EPOCH (the reproducible-builds convention) overrides it.
+    epoch = os.environ.get("SOURCE_DATE_EPOCH")
+    ts = (datetime.fromtimestamp(int(epoch), timezone.utc) if epoch
+          else datetime.fromtimestamp(SRC.stat().st_mtime, timezone.utc))
+    now = ts.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     records, skipped = [], []
     for cid in ids:
