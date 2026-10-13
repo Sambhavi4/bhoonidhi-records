@@ -18,7 +18,10 @@ DOC := bhoonidhi-processes
 #   1791849600 = 2026-10-13T00:00:00Z
 export SOURCE_DATE_EPOCH := 1791849600
 export FORCE_SOURCE_DATE := 1
-SRC := $(DOC).tex preamble.tex refs.bib $(wildcard sections/*.tex)
+# Makefile is a real dependency: it pins SOURCE_DATE_EPOCH, so changing it
+# changes the output. Omitting it meant a Makefile edit left a stale PDF in
+# git while `make` reported "Nothing to be done".
+SRC := $(DOC).tex preamble.tex refs.bib Makefile $(wildcard sections/*.tex)
 
 .PHONY: all quick clean distclean view
 
