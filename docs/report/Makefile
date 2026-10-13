@@ -9,6 +9,15 @@
 # builds on a minimal install (written against TinyTeX).
 
 DOC := bhoonidhi-processes
+
+# Reproducible build. pdfTeX stamps /CreationDate and \today from the clock,
+# so rebuilding produced a byte-different PDF every time - and because the PDF
+# is committed (a marker should not have to run LaTeX to read the report),
+# `make report` left the working tree dirty. SOURCE_DATE_EPOCH plus
+# FORCE_SOURCE_DATE pins both. Bump this when the report is revised.
+#   1791849600 = 2026-10-13T00:00:00Z
+export SOURCE_DATE_EPOCH := 1791849600
+export FORCE_SOURCE_DATE := 1
 SRC := $(DOC).tex preamble.tex refs.bib $(wildcard sections/*.tex)
 
 .PHONY: all quick clean distclean view
